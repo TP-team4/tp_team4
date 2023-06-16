@@ -23,6 +23,12 @@
 	
 	<context:component-scan base-package="com.lgy.ShoppingMall" />
 	
+	
+	<!-- =========================================================================================
+	server-context.xml 설정
+	  작성자   |    개발 및 수정 일자    |    수정 내용
+	  박동명          23-06-16            
+	=========================================================================================== -->
 	<!-- 	dataSource 객체는 데이터베이스 정보 포함 -->
 	<beans:bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<beans:property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></beans:property>
@@ -41,5 +47,6 @@
 	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<beans:constructor-arg index="0" ref="sqlSessionFactory"></beans:constructor-arg>
 	</beans:bean>
+<!-- ============================================================================================= -->
 	
 </beans:beans>
