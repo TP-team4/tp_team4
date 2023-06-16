@@ -8,10 +8,22 @@
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
-		<java-version>1.6</java-version>
-		<org.springframework-version>3.1.1.RELEASE</org.springframework-version>
-		<org.aspectj-version>1.6.10</org.aspectj-version>
-		<org.slf4j-version>1.6.6</org.slf4j-version>
+<!-- 		<java-version>1.6</java-version> -->
+<!-- 		<org.springframework-version>3.1.1.RELEASE</org.springframework-version> -->
+<!-- 		<org.aspectj-version>1.6.10</org.aspectj-version> -->
+<!-- 		<org.slf4j-version>1.6.6</org.slf4j-version> -->
+
+		<!-- ==========================================================================================
+		Rest API
+		  작성자   |    개발 및 수정 일자    |    수정 내용
+		  박동명          23-06-16            
+		=========================================================================================== -->
+		<java-version>1.8</java-version>
+		<org.springframework-version>5.0.7.RELEASE</org.springframework-version>
+		<org.aspectj-version>1.9.0</org.aspectj-version>
+		<org.slf4j-version>1.7.25</org.slf4j-version>
+		<!-- ============================================================================================= -->
+		
 	</properties>
 	<dependencies>
 		<!-- Spring -->
@@ -116,6 +128,59 @@
 			<version>4.7</version>
 			<scope>test</scope>
 		</dependency>        
+		
+		<!-- ==========================================================================================
+		dependency 추가
+		  작성자   |    개발 및 수정 일자    |    수정 내용
+		  박동명          23-06-16            파일 업로드 디펜던시 추가
+		=========================================================================================== -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.9.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+			<version>2.9.5</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>commons-fileupload</groupId>
+		    <artifactId>commons-fileupload</artifactId>
+		    <!-- <version>1.3.3</version> -->
+		    <version>1.4</version>
+		</dependency>
+		
+		<!-- JDBC Template -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>4.1.4.RELEASE</version>
+		</dependency>  
+		
+		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+		<dependency>
+		    <groupId>org.projectlombok</groupId>
+		    <artifactId>lombok</artifactId>
+		    <version>1.18.28</version>
+		    <scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.2.8</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>1.2.2</version>
+		</dependency>
+<!-- 	============================================================================================= -->
+		
 	</dependencies>
     <build>
         <plugins>
