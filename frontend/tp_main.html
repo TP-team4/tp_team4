@@ -5,62 +5,155 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Team4</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</style>
+<style>¬ø
+    .wrap{
+        margin: 10px;
+    }
+    #left_sidetbar{
+        border: 1px solid black;
+        
+        float: left;
+        margin: 10px;
+
+    }
+    #right_sidebar{
+        border: 1px solid black;
+        float: right;
+        padding: 30px;
+        margin: 10px;
+    }
+    #container{
+        border: 1px solid black;
+        float: left;
+        margin: 10px;
+
+    }
+    .footer{
+        border: 1px solid black ;
+        float: left;
+        width: 800px;
+        font-size: x-small;
+        margin: 10px;
+    }
+    .title{
+        border: 1px solid black;
+    }
+    .product{
+        border: 1px solid black;
+    }
+    #categoris{
+        border: 1px solid black;
+    }
+    #ctg{
+        border: 1px solid black;
+    }
+    #notice{
+        border: 1px solid black;
+    }
+    #info{
+        border: 1px solid black;
+    }
+    #rig_ctg{
+        border: 1px solid black;
+    }
+    #cart{
+        border: 1px solid black;
+    }
+    #serach{
+        border: 1px solid black;
+    }
+    #lioin{
+        border: 1px solid black;
+    }
+</style>
 </head>
 <body>
+    
+    <!-- 
+    ==================================================================
+    메인 상품 화면 출력부 / 화면 레이아웃 세팅
+    박정훈    |   23-06-16      |    전체 레이아웃 위치 조정  
+    ================================================================= 
+    -->
+
     <div class="wrap">
-        <!-- 조은유 -->
-        <!-- 좌측 사이드바 -->
-        <div class="leftbar">
-            <h1 class=""><a href="#">Team4</a></h1>
-                <div class="category">
-                    <ul>
-                        <li><a href="#">BEST</a></li>
-                        <li><a href="#">의자</a></li>
-                        <li><a href="#">침대</a></li>
-                        <li><a href="#">테이블/식탁/책상</a></li>
-                        <li><a href="#">소파</a></li>
-                        <li><a href="#">서랍/수납장</a></li>
-                        <li><a href="#">거실장/TV장</a></li>
-                        <li><a href="#">선반</a></li>
-                        <li><a href="#">진열장/책장</a></li>
-                        <li><a href="#">행거/옷장</a></li>
-                        <li><a href="#">화장대</a></li>
+ <!-- 좌측 사이드바 -->
+    <div id="left_sidetbar" class="flex-shrink-0 p-3 bg-white" style="width: 280px;">
+
+        <!-- 쇼핑몰 이름 -->
+        <!-- 위치 조정 필요 -->
+        <a href="/" class="title" style="text-decoration: none; color: black;" >
+        <svg class="bi pe-none me-2" width="10" height="100"><use xlink:href="#bootstrap"></use></svg>
+        <span class="fs-5 fw-semibold">Team4</span>
+        </a>
+
+        <!-- 카테고리 -->
+        <!-- 위치 조정 및 글자 간격 조절 필요 -->
+        <ul id="categoris" class="list-unstyled ps-0">
+            <li class="mb-1">
+                <div class="collapse show" id="home-collapse">
+                    <!-- 카테고리 메뉴 -->
+                    <ul id="ctg" class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">BEST</a></li>
+                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">의자</a></li>
+                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">침대</a></li>
+                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">테이블/식탁/책상</a></li>
+                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">소파</a></li>
+                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">서랍/수납장</a></li>
+                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">거실장/TV장</a></li>
+                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">선반</a></li>
+                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">진열장/책장</a></li>
+                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">행거/옷장</a></li>
+
+                        <li style="height: 150px;"><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">화장대</a></li>
+                    </ul>
+                
+                    <!-- 공지 문의 리뷰 -->
+                    <ul id="notice" class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">공지</a></li>
+                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">문의사항</a></li>
+                        <li style="height: 150px;"><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">리뷰</a></li>
+                    </ul>
+
+                    <!-- 영업정보 -->
+                    <ul id="info" class="btn-toggle-nav list-unstyled fw-normal pb-1 small">   
+                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">02-336-4363</a></li>
+                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Mon-Fri 10:00-19:00<br>Weekend,Holiday off</a></li>
                     </ul>
                 </div>
-                <div class="notice">
-                    <ul>
-                        <li><a href="#">공지</a></li>
-                        <li><a href="#">문의사항</a></li>
-                        <li><a href="#">리뷰</a></li>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 우측 사이드바 -->
+    <div id="right_sidebar" class="flex-shrink-0 p-3 bg-white" style="width: 280px;">
+
+        <!-- 장바구니 로그인 -->
+        <!-- 위치 조정 및 글자 간격 조절 필요 -->
+        <ul id="rig_ctg" class="list-unstyled ps-0">
+            <li class="mb-1">
+                <div class="collapse show" id="home-collapse">
+                    <!-- 장바구니 -->
+                    <ul id="cart" class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Cart</a></li>
                     </ul>
-                </div>
-                <div class="info">
-                    <ul>
-                        <li>02-336-4363</li>
-                        <li>
-                            Mon-Fri 10:00-19:00
-                            <br>
-                            Weekend,Holiday off
-                        </li>
+                    
+                    <!-- 로그인 회원가입 주문 마이페이지 -->
+                    <ul id="login" class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Log in</a></li>
+                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Register</a></li>
+                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Order</a></li>
+                        <li style="height: 560px;"><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">My page</a></li>
                     </ul>
+
+                    
                 </div>
-        </div>
-        <!-- 조은유 -->
-        <!-- 우측 사이드바 -->
-        <div class="rightbar">
-            <div class="cart">
-                <ul>
-                    <li></li><a href="#">Cart - 0</a></li>
-                </ul>
-            </div>
-            <div class="login">
-                <ul>
-                    <li><a href="#">Log in</a></li>
-                    <li><a href="#">Register</a></li>
-                    <li><a href="#">Order</a></li>
-                    <li><a href="#">My Page</a></li>
-                </ul>
-            </div>
+            </li>
+        </ul>
+        <ul id="serach" class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <!-- 검색기능 -->
             <form action="">
                 <div class="search">
                     <fieldset>
@@ -74,12 +167,18 @@
                     </fieldset>    
                 </div>
             </form>
-        </div>
+        </ul>
+    </div>
 
-    <!-- 박정훈 -->
-    <!-- 중앙 상품 표시 -->
+    <!-- 
+    ==================================================================
+    메인(중앙) 상품 화면 출력부 / 상품 가격및 이미지 출력되는 부분
+    박정훈    |   23-06-16       |            a태그를 사용하여 상품 이미지 또는 
+                                   상품 이름 클릭시 해당 상품 상세 페이지로 이동  
+    =================================================================
+    -->
+    <!-- 중앙 -->
     <div id="container">
-        <!-- 중앙 -->
         <div id="contents_main">
 
             <!-- 페이지 이동시 처리할 기능입니다!
@@ -93,27 +192,42 @@
             
             <!-- 상품 이미지 화면 수정 필요 -->
             <div class="product">
-                <ul class="prdList grid4">
+                <ul class="productList">
                     <li id="anchorBoxId_94" class="xans-record-">
+
                     <div class="thumbnail">
-                        <div class="prdImg">
-                            
-                            <a href="/product/하트-무광-귀걸이/94/category/42/display/1/" name="anchorBoxName_94"><img src="이미지 들어갈 공간입니다" id="eListPrdImage94_1" alt="하트 무광 귀걸이"/></a>
-                            <span class="chk"><input type="checkbox" class="ProductCompareClass xECPCNO_94 displaynone"/></span>
-                        <span class="wish"></span>
+                        <div class="prdImg"> 
+                            <a href="상품메인페이지 링크" name="anchorBoxName_94"><img src="이미지 들어갈 공간입니다" id="item_img_name" alt="상품입니다"/></a>
+                            <!-- 장바구니 찜 ref 메인페이지에서 사용 안함 -->
+                            <!-- <span class="chk"><input type="checkbox" class="ProductCompareClass xECPCNO_94 displaynone"/></span> -->
+                            <!-- <span class="wish"></span> -->
                         </div>
                     </div>
                     <div class="description">
                     <div class="promotion">      </div>
-                    <span class="name"><a href="/product/하트-무광-귀걸이/94/category/42/display/1/" class=""><span class="item_name"><span>상품명</span> :</span> <span>상품 이름</span></a></span>
-                    <ul class="xans-element- xans-product xans-product-listitem spec"><li class=" xans-record-">
-                    <strong class="title displaynone"><span>판매가</span> :</strong> <span">&#8361;6,000</span><span id="span_product_tax_type_text" style=""> </span></li>
+
+                    <span class="name">
+                        <a href="상품메인 페이지 링크" class="">
+                            <span class="item_name"><span>상품명</span> :</span> <span>상품 이름</span>
+                        </a>
+                    </span>
+                    <ul class="item_price">
+                        <li class=" xans-record-">
+                            <strong class="title displaynone"><span>판매가</span> :</strong> 
+                            <!-- &#8361 원화(₩) 표기 법 -->
+                            <span">&#8361;판매가격</span><span id="span_product_tax_type_text" style=""> </span>
+ 
+                            <!-- 장바구니 버튼(?) -->
+                            <!-- <div class="button">
+                                <div class="likeButton displaynone"><button type="button"> 
+                                    <strong></strong></button></div>
+                                <div class="option"></div> <img src="//img.echosting.cafe24.com/design/skin/admin/ko_KR/btn_list_cart.gif"  onClick="CAPP_SHOP_NEW_PRODUCT_OPTIONSELECT.selectOptionCommon(94,  42, 'basket', '')" alt="장바구니 담기" class="ec-admin-icon cart" /> <img src="//img.echosting.cafe24.com/design/skin/admin/ko_KR/btn_prd_zoom.gif"  onClick="zoom('94', '42', '1','', '');" style="cursor:pointer" alt="상품 큰 이미지 보기" /></div> -->
+                    </li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
-
 <!-- 페이지 버튼 들어갈 공간입니다 -->
 
 <!-- 조은유 -->
@@ -141,7 +255,8 @@
                 <span>Address : 서면 그린컴퓨터</span>
             </p>
         </div>
-    </div>
+    </div>      
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>
 </html>
 
