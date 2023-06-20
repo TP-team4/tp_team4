@@ -79,12 +79,17 @@
     a:hover{
       color: black;
     }
-
+    
+    
     .thumbnail{
       float: left;
     }
 
+    div{
+      /* border: 1px solid black; */
+    }
   </style>
+   
 </head>
 
 <body>
@@ -131,7 +136,7 @@
           <ul>
               <li><a href="tp_main_notice.html">Notice</a></li>
               <li><a href="tp_main_QnA.html">QnA</a></li>
-              <!-- <li><a href="tp_main_review.html">Review</a></li> -->
+              <li><a href="tp_main_review.html">Review</a></li>
           </ul>
       </div>
       <div class="info" style="position: absolute; top: 550px;">
@@ -158,11 +163,93 @@
         <article>
           <div id="article" style="height: auto;">
 
-          <!-- 상품 이미지 들어갈 공간 -->
-
-            <div>
-              
-            </div>
+           
+            <div class="typeWrite" style="margin-top: 70px;">
+              <table border="0" align="center" style="text-align: left;">
+                  <caption>글쓰기 폼</caption>
+                  <colgroup>
+                      <col style="width: 130px;">
+                      <col style="width: auto;">
+                  </colgroup>
+                  <tbody>
+                  <tr>
+                      <th>Subject</th>
+                      <td>
+                          <select name="subject" id="subject">
+                              <option value="상품문의">상품문의</option>
+                              <option value="교환 및 반품 문의">교환 및 반품 문의</option>
+                              <option value="문의">배송 문의</option>
+                              <option value="기타문의">기타문의</option>
+                          </select>
+                      </td>
+                      <td>
+                       Writer
+                       <input type="text" id="Writer" name="Writer" maxlength="50">
+                      </td>
+                  </tr>
+                  <tr>
+                  </tr>
+                  <tr class="displaynone">
+                      <th>E-mail</th>
+                      <td>
+                          <select name="domain" id="domain">
+                              <option value selected="selected">- 이메일 선택 -</option>
+                              <option value="naver.com">naver.com</option>
+                              <option value="daum.net">daum.net</option>
+                              <option value="nate.com">nate.com</option>
+                              <option value="hotmail.com">hotmail.com</option>
+                              <option value="empas.com">empas.com</option>
+                              <option value="gmail.com">gmail.com</option>
+                              <option value="dreamwiz.com">dreamwiz.com</option>
+                              <option value="etc">직접입력</option>
+                          </select>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td colspan="4">
+                          <textarea id="summernote" rows="10" cols="65"></textarea>
+                      </td>
+                  </tr>
+                  </tbody>
+                  <tbody>
+                      <tr>
+                          <th scope="row">Password</th>
+                          <td>
+                              <input type="password" name="password" id="password">
+                          </td>
+                      </tr>
+                      <tr>
+                          <th>비밀글설정</th>
+                          <td>
+                              <label>
+                                  <input type="radio" name="select" id="private" checked>
+                                  비밀글
+                              </label>
+                              <label>
+                                  <input type="radio" name="select" id="public">
+                                  공개글
+                              </label>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+              <div>
+                  <span class="left">
+                      <span class="displaynone">
+                          <a href="#" class="btn">관리자 답변보기</a>
+                      </span>
+                      <span>
+                          <!-- 글 목록으로 돌아감 -->
+                          <a href="#" class="btn">List</a>
+                      </span>
+                  </span>
+                  <span class="right">
+                      <!-- 글 등록 -->
+                      <a href="#" class="btn">Write</a>
+                  </span>
+              </div>
+          </div>
+           
 
           </div>
         </article>
