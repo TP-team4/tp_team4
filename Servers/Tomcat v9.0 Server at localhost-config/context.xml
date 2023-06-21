@@ -30,15 +30,23 @@
     <!-- ==========================================================================================
 		DB 연결정보
 		  작성자   |    개발 및 수정 일자    |    수정 내용
-		  박동명          23-06-16            
+		  박동명          23-06-21            scott -> team4, tiger ->1234
 	=========================================================================================== -->
+<!--     <Resource auth="Container"  -->
+<!--     		  driverClassName="oracle.jdbc.OracleDriver"  -->
+<!--     		  maxActive="100"  -->
+<!--     		  maxIdle="30" maxWait="10000"  -->
+<!--     		  name="jdbc/oracle" password="tiger"  -->
+<!--     		  type="javax.sql.DataSource"  -->
+<!--     		  url="jdbc:oracle:thin:@localhost:1521:xe"  -->
+<!--     		  username="scott"/> -->
     <Resource auth="Container" 
     		  driverClassName="oracle.jdbc.OracleDriver" 
     		  maxActive="100" 
     		  maxIdle="30" maxWait="10000" 
-    		  name="jdbc/oracle" password="tiger" 
+    		  name="jdbc/oracle" password="1234" 
     		  type="javax.sql.DataSource" 
     		  url="jdbc:oracle:thin:@localhost:1521:xe" 
-    		  username="scott"/>
+    		  username="team4"/>
 <!-- ============================================================================================= -->
 </Context>
