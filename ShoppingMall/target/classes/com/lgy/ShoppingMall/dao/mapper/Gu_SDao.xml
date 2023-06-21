@@ -1,0 +1,76 @@
+<!-- ======================================================== 
+Gu_SDao.xml
+각 로직이 사용할 sql
+  개발자   |   수정자   |    개발 및 수정 일자    |    수정 내용
+  구나현       	           	23-06-21           
+===========================================================-->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lgy.ShoppingMall.dao.Gu_SDao">
+	
+<!-- 	리뷰목록 -->
+    <select id="revList" resultType="com.lgy.ShoppingMall.dto.Gu_PRevDto">
+    	select revcode, revtitle, revauth, revdate, revhit from product_rev order by revcode desc
+    </select>
+<!--     리뷰작성[상품코드는 나중에 수정] -->
+    <insert id="revWrite" parameterType="hashmap">
+<!--     	INSERT INTO PRODUCT_REV(REVCODE, REVTITLE, REVCONT, REVAUTH, REVHIT)  -->
+<!-- 		VALUES (PRODUCT_REV_SEQ.NEXTVAL, #{REVTITLE}, #{REVCONT}, #{REVAUTH}, 0) -->
+		insert into product_rev(revcode, procode, revtitle, revcont, revauth, revdate, revhit) 
+		values (product_rev_seq.nextval, #{procode}, #{revtitle}, #{revcont}, #{revauth}, SYSDATE, 0)
+    </insert>
+<!--     리뷰 조회수 증가 임시 -->
+    <update id="revUpHit" parameterType="hashmap">
+    	<![CDATA[
+    		update product_rev set revhit = revhit+1 where revcode=#{revcode}
+    	]]>
+    </update>
+<!--     조회수 -1(댓작성 후 조회수 안올라가게 임시로 함) -->
+    <update id="revDownHit" parameterType="hashmap">
+    	<![CDATA[
+    		update product_rev set revhit = revhit-1 where revcode=#{revcode}
+    	]]>
+    </update>
+<!--     리뷰내용 조회 -->
+    <select id="revContentView" parameterType="hashmap" resultType="com.lgy.ShoppingMall.dto.Gu_PRevDto">
+    	select revcode, revtitle, revcont, revauth, revdate, revhit from product_rev where revcode=#{revcode}
+    </select>
+<!--     리뷰수정(원본조회) -->
+    <select id="revModifyView" parameterType="hashmap" resultType="com.lgy.ShoppingMall.dto.Gu_PRevDto">
+    	select revcode, revtitle, revcont from product_rev where revcode=#{revcode}
+    </select>
+<!--     리뷰수정 -->
+	<update id="revModify" parameterType="hashmap">
+		update product_rev set revtitle=#{revtitle} , revcont=#{revcont} where revcode=#{revcode}
+	</update>
+<!-- 	리뷰삭제 -->
+    <delete id="revDelete" parameterType="hashmap">
+    	delete from product_rev where revcode=#{revcode}
+    </delete>
+<!--     리뷰에 단 댓글 조회 -->
+    <select id="revCmtList" parameterType="hashmap" resultType="com.lgy.ShoppingMall.dto.Gu_PRevCmtDto">
+<!--     	SELECT CMTCODE, CMTNAME, CMTCONT, CMTPWD, CMTDATE FROM REV_COMMENTS WHERE REVCODE=#{REVCODE} order by CMTCODE -->
+    	select cmtcode, cmtcont, cmtdate from rev_comments where revcode=#{revcode} order by cmtcode
+    </select>
+<!--     리뷰댓글 작성 -->
+    <insert id="revCmtWrite" parameterType="hashmap">
+<!-- 	    INSERT INTO REV_COMMENTS(REVCODE, CMTCODE, CMTNAME, CMTPWD, CMTCONT) -->
+<!-- 		VALUES(#{REVCODE}, REV_COMMENTS_SEQ.NEXTVAL, #{CMTNAME}, #{CMTPWD}, #{CMTCONT}) -->
+	    insert into rev_comments(revcode, cmtcode, cmtcont)
+		values(#{revcode}, rev_comments_seq.nextval, #{cmtcont})
+    </insert>
+<!-- 	리뷰댓글 수정(원글보기) -> 댓글 수정 눌렀을때 원래 작성했던 내용 -->
+    <select id="revCmtModifyView" parameterType="hashmap" resultType="com.lgy.ShoppingMall.dto.Gu_PRevCmtDto">
+    	select revcode, cmtcode, cmtcont from rev_comments where cmtcode=#{cmtcode}
+    </select>
+<!-- 	리뷰 댓글 수정 -->
+	<update id="revCmtModify" parameterType="hashmap">
+		update rev_comments set cmtcont=#{cmtcont} where cmtcode=#{cmtcode}
+	</update>
+<!-- 	리뷰 댓글 삭제 -->
+	<delete id="revCmtDelete" parameterType="hashmap">
+    	delete from rev_comments where cmtcode=#{cmtcode}
+    </delete>
+</mapper>
