@@ -1,5 +1,0 @@
-INDEX VERSION 1.131
-D:\Dev\tp_team4\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2763847287.index
-\ShoppingMall\src\main\java
-D:\Dev\tp_team4\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1028918343.index
-\test_proj\src\main\java
