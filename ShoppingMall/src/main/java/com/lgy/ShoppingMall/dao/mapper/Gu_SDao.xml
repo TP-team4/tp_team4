@@ -1,8 +1,8 @@
 <!-- ======================================================== 
 Gu_SDao.xml
-각 로직이 사용할 sql
+리뷰 로직이 사용할 sql
   개발자   |   수정자   |    개발 및 수정 일자    |    수정 내용
-  구나현       	           	23-06-21           
+  구나현       구나현	       	23-06-22		  리뷰작성 insert에 회원아이디 추가           
 ===========================================================-->
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
@@ -18,8 +18,11 @@ Gu_SDao.xml
     <insert id="revWrite" parameterType="hashmap">
 <!--     	INSERT INTO PRODUCT_REV(REVCODE, REVTITLE, REVCONT, REVAUTH, REVHIT)  -->
 <!-- 		VALUES (PRODUCT_REV_SEQ.NEXTVAL, #{REVTITLE}, #{REVCONT}, #{REVAUTH}, 0) -->
-		insert into product_rev(revcode, procode, revtitle, revcont, revauth, revdate, revhit) 
-		values (product_rev_seq.nextval, #{procode}, #{revtitle}, #{revcont}, #{revauth}, SYSDATE, 0)
+<!-- 		insert into product_rev(revcode, procode, revtitle, revcont, revauth, revdate, revhit)  -->
+<!-- 		values (product_rev_seq.nextval, #{procode}, #{revtitle}, #{revcont}, #{revauth}, SYSDATE, 0) -->
+    	<!-- 		230621 회원 id 임시로 넣음 -->
+		insert into product_rev(revcode, procode, id, revtitle, revcont, revauth, revdate, revhit) 
+		values (product_rev_seq.nextval, #{procode}, #{id}, #{revtitle}, #{revcont}, #{revauth}, SYSDATE, 0)
     </insert>
 <!--     리뷰 조회수 증가 임시 -->
     <update id="revUpHit" parameterType="hashmap">
@@ -72,5 +75,57 @@ Gu_SDao.xml
 <!-- 	리뷰 댓글 삭제 -->
 	<delete id="revCmtDelete" parameterType="hashmap">
     	delete from rev_comments where cmtcode=#{cmtcode}
+    </delete>
+<!-- ======================================================== 
+Gu_SDao.xml
+문의 로직이 사용할 sql
+  개발자   |   수정자   |    개발 및 수정 일자    |    수정 내용
+  구나현       	           	23-06-22           
+===========================================================-->
+	<!-- 	문의목록 -->
+    <select id="PQnaList" resultType="com.lgy.ShoppingMall.dto.Gu_PQnaDto">
+    	select qnacode, procode, qnatitle, qnadate, qnaauth from product_qna order by qnacode desc
+    </select>
+<!--     문의작성[상품코드는 나중에 수정] -->
+    <insert id="PQnaWrite" parameterType="hashmap">
+		insert into product_qna(qnacode, procode, qnatitle, qnacont, qnadate, qnaauth) 
+		values (product_qna_seq.nextval, #{procode}, #{qnatitle}, #{qnacont}, SYSDATE, #{qnaauth})
+	</insert>
+<!--     문의내용 조회 -->
+    <select id="PQnaContentView" parameterType="hashmap" resultType="com.lgy.ShoppingMall.dto.Gu_PQnaDto">
+    	select qnacode, procode, qnatitle, qnacont, qnadate, qnaauth from product_qna where qnacode=#{qnacode}
+    </select>
+<!--     문의수정(원본조회) -->
+    <select id="PQnaModifyView" parameterType="hashmap" resultType="com.lgy.ShoppingMall.dto.Gu_PQnaDto">
+    	select qnacode, qnatitle, qnacont from product_qna where qnacode=#{qnacode}
+    </select>
+<!--     문의수정 -->
+	<update id="PQnaModify" parameterType="hashmap">
+		update product_qna set qnatitle=#{qnatitle} , qnacont=#{qnacont} where qnacode=#{qnacode}
+	</update>
+<!-- 	문의삭제 -->
+    <delete id="PQnaDelete" parameterType="hashmap">
+    	delete from product_qna where qnacode=#{qnacode}
+    </delete>
+<!--   	문의에 단 댓글 조회 -->
+    <select id="PQnaCmtList" parameterType="hashmap" resultType="com.lgy.ShoppingMall.dto.Gu_PQnaReDto">
+    	select recode, recont, redate from product_qna_re where qnacode=#{qnacode} order by recode
+    </select>
+<!--     문의댓글 작성 -->
+    <insert id="PQnaCmtWrite" parameterType="hashmap">
+	    insert into product_qna_re(recode, qnacode, recont, redate)
+		values(qna_re_seq.nextval, #{qnacode}, #{recont}, sysdate)
+    </insert>
+<!-- 	문의댓글 수정(원글보기) -> 댓글 수정 눌렀을때 원래 작성했던 내용 -->
+    <select id="PQnaCmtModifyView" parameterType="hashmap" resultType="com.lgy.ShoppingMall.dto.Gu_PQnaReDto">
+    	select recode, qnacode, recont from product_qna_re where recode=#{recode}
+    </select>
+<!-- 	문의 댓글 수정 -->
+	<update id="PQnaCmtModify" parameterType="hashmap">
+		update product_qna_re set recont=#{recont} where recode=#{recode}
+	</update>
+<!-- 	문의 댓글 삭제 -->
+	<delete id="PQnaCmtDelete" parameterType="hashmap">
+    	delete from product_qna_re where recode=#{recode}
     </delete>
 </mapper>

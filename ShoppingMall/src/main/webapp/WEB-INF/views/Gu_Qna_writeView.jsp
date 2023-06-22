@@ -8,34 +8,28 @@
 </head>
 <body>
 	<table width="500" border="1">
-		<form method="post" action="Gu_rev_write">
+		<form method="post" action="PQnaWrite">
 			<tr>
 				<td>상품번호</td>
 				<td><input type="text" name="procode" size="50"></td>
 			</tr>
-			<!-- 			추가 -->
 			<tr>
-				<td>아이디</td>
-				<td><input type="text" name="id" size="50"></td>
-			</tr>
-<!-- 		========== -->
-			<tr>
-				<td>리뷰제목</td>
-				<td><input type="text" name="revtitle" size="50"></td>
+				<td>문의제목</td>
+				<td><input type="text" name="qnatitle" size="50"></td>
 			</tr>
 			<tr>
-				<td>리뷰내용</td>
-				<td><textarea rows="10" name="revcont" size="500"></textarea></td>
+				<td>문의내용</td>
+				<td><textarea rows="10" name="qnacont" size="500"></textarea></td>
 			</tr>
 			<tr>
 				<td>작성자</td>
-				<td><input type="text" name="revauth" size="50"></td>
+				<td><input type="text" name="qnaauth" size="50"></td>
 			</tr>
 			<tr>
 				<td colspan="2">
 					<input type="submit" value="입력">
 					&nbsp;&nbsp;&nbsp;
-					<a href="Gu_rev_list">목록보기</a>
+					<a href="Gu_Qna_list">목록보기</a>
 				</td>
 			</tr>
 		</form>
