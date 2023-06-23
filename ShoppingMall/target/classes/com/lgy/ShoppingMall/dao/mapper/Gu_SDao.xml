@@ -2,7 +2,7 @@
 Gu_SDao.xml
 각 로직이 사용할 sql
   개발자   |   수정자   |    개발 및 수정 일자    |    수정 내용
-  구나현       	           	23-06-21           
+  구나현       박동명           23-06-21           id=revList, revWrite, revContentView 의 insert 쿼리 요소 revauth -> id
 ===========================================================-->
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
@@ -12,14 +12,16 @@ Gu_SDao.xml
 	
 <!-- 	리뷰목록 -->
     <select id="revList" resultType="com.lgy.ShoppingMall.dto.Gu_PRevDto">
-    	select revcode, revtitle, revauth, revdate, revhit from product_rev order by revcode desc
+    	select revcode, revtitle, id, revdate, revhit from product_rev order by revcode desc
     </select>
 <!--     리뷰작성[상품코드는 나중에 수정] -->
     <insert id="revWrite" parameterType="hashmap">
 <!--     	INSERT INTO PRODUCT_REV(REVCODE, REVTITLE, REVCONT, REVAUTH, REVHIT)  -->
 <!-- 		VALUES (PRODUCT_REV_SEQ.NEXTVAL, #{REVTITLE}, #{REVCONT}, #{REVAUTH}, 0) -->
-		insert into product_rev(revcode, procode, revtitle, revcont, revauth, revdate, revhit) 
-		values (product_rev_seq.nextval, #{procode}, #{revtitle}, #{revcont}, #{revauth}, SYSDATE, 0)
+<!-- 		insert into product_rev(revcode, procode, revtitle, revcont, revauth, revdate, revhit)  -->
+<!-- 		values (product_rev_seq.nextval, #{procode}, #{revtitle}, #{revcont}, #{revauth}, SYSDATE, 0) -->
+		insert into product_rev(revcode, procode, revtitle, revcont, id, revdate, revhit) 
+		values (product_rev_seq.nextval, #{procode}, #{revtitle}, #{revcont}, #{id}, SYSDATE, 0)
     </insert>
 <!--     리뷰 조회수 증가 임시 -->
     <update id="revUpHit" parameterType="hashmap">
@@ -35,7 +37,7 @@ Gu_SDao.xml
     </update>
 <!--     리뷰내용 조회 -->
     <select id="revContentView" parameterType="hashmap" resultType="com.lgy.ShoppingMall.dto.Gu_PRevDto">
-    	select revcode, revtitle, revcont, revauth, revdate, revhit from product_rev where revcode=#{revcode}
+    	select revcode, revtitle, revcont, id, revdate, revhit from product_rev where revcode=#{revcode}
     </select>
 <!--     리뷰수정(원본조회) -->
     <select id="revModifyView" parameterType="hashmap" resultType="com.lgy.ShoppingMall.dto.Gu_PRevDto">

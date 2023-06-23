@@ -103,7 +103,9 @@
     <!-- 
     =================================================================
     좌측 사이드바 레이아웃 세팅
-    조은유   |   23-06-16      |                      사이드바 레이아웃 조정 
+    작성자   |   수정자   |    작성 or 수정일    |     작업 내용
+    조은유   |   박동명   |     23-06-16      |    사이드바 레이아웃 조정
+    										 	카테고리 페이지 연결 
     ================================================================= 
     -->
       <!-- 좌측 사이드바 -->
@@ -117,16 +119,16 @@
         <div class="category" style="position: absolute; top: 70px;">
           <ul style="width: 200px;">
               <li><a href="#">BEST</a></li>
-              <li><a href="#">의자</a></li>
-              <li><a href="#">침대</a></li>
-              <li><a href="#">테이블/식탁/책상</a></li>
-              <li><a href="#">소파</a></li>
-              <li><a href="#">서랍/수납장</a></li>
-              <li><a href="#">거실장/TV장</a></li>
-              <li><a href="#">선반</a></li>
-              <li><a href="#">진열장/책장</a></li>
-              <li><a href="#">행거/옷장</a></li>
-              <li><a href="#">화장대</a></li>
+              <li><a href="ProductList?catecode=1">의자</a></li>
+              <li><a href="ProductList?catecode=2">침대</a></li>
+              <li><a href="ProductList?catecode=3">테이블/식탁/책상</a></li>
+              <li><a href="ProductList?catecode=4">소파</a></li>
+              <li><a href="ProductList?catecode=5">서랍/수납장</a></li>
+              <li><a href="ProductList?catecode=6">거실장/TV장</a></li>
+              <li><a href="ProductList?catecode=7">선반</a></li>
+              <li><a href="ProductList?catecode=8">진열장/책장</a></li>
+              <li><a href="ProductList?catecode=9">행거/옷장</a></li>
+              <li><a href="ProductList?catecode=0">화장대</a></li>
           </ul>
       </div>
       <div class="notice" style="position: absolute; top: 400px;">

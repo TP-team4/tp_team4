@@ -2,7 +2,6 @@ package com.lgy.ShoppingMall.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import com.lgy.ShoppingMall.dto.Gu_PRevCmtDto;
 import com.lgy.ShoppingMall.dto.Gu_PRevDto;

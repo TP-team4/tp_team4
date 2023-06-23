@@ -43,7 +43,8 @@ public class Gu_SServiceImpl implements Gu_SService{
 	@Override
 	public void revWrite(HashMap<String, String> param) {
 		log.info("@# SServiceImpl.revWrite() start");
-		
+
+		log.info("************** : " + param.get("id"));
 		Gu_SDao dao = sqlSession.getMapper(Gu_SDao.class);
 		dao.revWrite(param);
 		

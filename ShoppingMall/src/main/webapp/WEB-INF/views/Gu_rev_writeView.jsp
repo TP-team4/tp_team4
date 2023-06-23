@@ -6,6 +6,12 @@
 <meta charset="EUC-KR">
 <title>Insert title here</title>
 </head>
+<!-- ======================================================== 
+Gu_rev_writeView.jsp
+
+  개발자   |   수정자   |    개발 및 수정 일자    |    수정 내용
+  구나현       박동명           23-06-21           작성자의 input 태그 name 속성 revauth -> id
+===========================================================-->
 <body>
 	<table width="500" border="1">
 		<form method="post" action="Gu_rev_write">
@@ -23,7 +29,7 @@
 			</tr>
 			<tr>
 				<td>작성자</td>
-				<td><input type="text" name="revauth" size="50"></td>
+				<td><input type="text" name="id" size="50"></td>
 			</tr>
 			<tr>
 				<td colspan="2">

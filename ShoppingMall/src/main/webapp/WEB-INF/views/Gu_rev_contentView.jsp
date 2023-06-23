@@ -24,7 +24,7 @@
 			</tr>
 			<tr>
 				<td>리뷰작성자</td>
-				<td>${rev_contentView.revauth}</td>
+				<td>${rev_contentView.id}</td>
 			</tr>
 			<tr>
 				<td>작성일</td>

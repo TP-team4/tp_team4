@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +9,12 @@
 <title>Insert title here</title>
 </head>
 <body>
+<!-- ======================================================== 
+Gu_rev_list.jsp
+
+  개발자   |   수정자   |    개발 및 수정 일자    |    수정 내용
+  구나현       박동명           23-06-21          revauth -> id 를 jstl fn 태그를 이용해 간략한 익명처리
+===========================================================-->
 	 <table width="800" border="1">
 	    <tr>
 	        <td>리뷰번호</td>
@@ -26,7 +33,8 @@
 <%-- 	    		${dto.REVTITLE} --%>
 	    	</td>
 <%-- 	    	<td>${dto.REVCONT}</td> --%>
-	    	<td>${dto.revauth}</td>
+<%-- 	    	<td>${dto.id}</td> --%>
+	    	<td>${fn:substring(dto.id,0,3)}*****</td>
 	    	<td>${dto.revdate}</td>
 	    	<td>${dto.revhit}</td>
 	    </tr>

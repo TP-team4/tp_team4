@@ -31,44 +31,21 @@ public class ProductController {
 	public String main(Model model) {
 		log.info("@# BController.main");
 		
-		return "main";
+//		return "main";
+		return "mainPage";
 	}
 	
 	@RequestMapping("/ProductList")
-//	public String list(Model model) {
 	public String ProductList(@RequestParam HashMap<String, String> param, Model model) {
 		log.info("@# BController.ProductList");
 		
-//		ArrayList<ProductDto> list = service.list();
 		ArrayList<ProductDto> ProductList = service.ProductList(param);
 		model.addAttribute("ProductList", ProductList);
 		
 		return "ProductList";
 	}
 	
-//	@RequestMapping("/write")
-////	public String write(HttpServletRequest request, Model model) {
-//	public String write(@RequestParam HashMap<String, String> param) {
-//		log.info("@# BController.write");
-//		
-////		IBDao dao = sqlSession.getMapper(IBDao.class);
-////		dao.write(request.getParameter("bname")
-////				, request.getParameter("btitle")
-////				, request.getParameter("bcontent"));
-//		service.write(param);
-//		
-//		return "redirect:list";
-//	}
-//	
-//	@RequestMapping("/write_view")
-//	public String write_view() {
-//		log.info("@# BController.write_view");
-//		
-//		return "write_view";
-//	}
-//	
 	@RequestMapping("/ProductView")
-//	public String content_view(HttpServletRequest request, Model model) {
 	public String ProductView(@RequestParam HashMap<String, String> param, Model model) {
 		log.info("@# BController.ProductView");
 		
@@ -78,32 +55,6 @@ public class ProductController {
 		return "ProductView";
 	}
 	
-//	@RequestMapping("/modify")
-////	public String modify(HttpServletRequest request, Model model) {
-//	public String modify(@RequestParam HashMap<String, String> param) {
-//		log.info("@# BController.modify");
-//
-////		IBDao dao = sqlSession.getMapper(IBDao.class);
-////		dao.modify(request.getParameter("bid")
-////				, request.getParameter("bname")
-////				, request.getParameter("btitle")
-////				, request.getParameter("bcontent"));
-//		service.modify(param);
-//		
-//		return "redirect:list";
-//	}
-//	
-//	@RequestMapping("/delete")
-////	public String delete(HttpServletRequest request, Model model) {
-//	public String delete(@RequestParam HashMap<String, String> param) {
-//		log.info("@# BController.delete");
-//		
-////		IBDao dao = sqlSession.getMapper(IBDao.class);
-////		dao.delete(request.getParameter("bid"));
-//		service.delete(param);
-//		
-//		return "redirect:list";
-//	}
 }
 
 

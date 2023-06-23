@@ -51,7 +51,10 @@ public class Gu_SMController {
 	@RequestMapping("/Gu_rev_write")
 	public String rev_write(@RequestParam HashMap<String, String> param) {
 		log.info("@# rev_write start");
-		
+		log.info("************** : " + param.get("procode"));
+		log.info("************** : " + param.get("revtitle"));
+		log.info("************** : " + param.get("revcont"));
+		log.info("************** : " + param.get("id"));
 		service.revWrite(param);
 		
 		log.info("@# rev_write end");
