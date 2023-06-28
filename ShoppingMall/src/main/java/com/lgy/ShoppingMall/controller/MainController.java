@@ -22,14 +22,14 @@ ProudctController
 ====================================================== */ 
 @Controller
 @Slf4j
-public class ProductController {
+public class MainController {
 	
 	@Autowired
 	private ProductService service;
 	
 	@RequestMapping("/main")
 	public String main(Model model) {
-		log.info("@# BController.main");
+		log.info("@# Controller.main");
 		
 //		return "main";
 		return "mainPage";
@@ -37,7 +37,7 @@ public class ProductController {
 	
 	@RequestMapping("/ProductList")
 	public String ProductList(@RequestParam HashMap<String, String> param, Model model) {
-		log.info("@# BController.ProductList");
+		log.info("@# Controller.ProductList");
 		
 		ArrayList<ProductDto> ProductList = service.ProductList(param);
 		model.addAttribute("ProductList", ProductList);
@@ -47,12 +47,21 @@ public class ProductController {
 	
 	@RequestMapping("/ProductView")
 	public String ProductView(@RequestParam HashMap<String, String> param, Model model) {
-		log.info("@# BController.ProductView");
+		log.info("@# Controller.ProductView");
 		
 		ProductDto dto = service.ProductView(param);
 		model.addAttribute("ProductView", dto);
 		
 		return "ProductView";
+	}
+	
+	@RequestMapping("/search")
+	public String search(@RequestParam HashMap<String, String> param, Model model) {
+		log.info("@# CMainController.search");
+		
+		
+		
+		return "";
 	}
 	
 }

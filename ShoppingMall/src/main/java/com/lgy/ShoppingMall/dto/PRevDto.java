@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Gu_PRevDto {
+public class PRevDto {
 	private int revcode;
 	private String revtitle;
 	private String revcont;

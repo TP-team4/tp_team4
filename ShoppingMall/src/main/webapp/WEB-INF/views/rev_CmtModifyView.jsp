@@ -9,7 +9,7 @@
 <body>
 <h4>댓글작성</h4>
 	<table>
-		<form method="post" action="Gu_revCmtModify">
+		<form method="post" action="revCmtModify">
 			<input type="hidden" name="revcode" value="${revCmtModifyView.revcode}">
 			<input type="hidden" name="cmtcode" value="${revCmtModifyView.cmtcode}">
 			<tr>

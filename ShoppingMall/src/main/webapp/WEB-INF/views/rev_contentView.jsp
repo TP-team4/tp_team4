@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form method="post" action="Gu_rev_modifyView">
+	<form method="post" action="rev_modifyView">
 	<table width="500" border="1">
 			<input type="hidden" name="revcode" value="${rev_contentView.revcode}">
 			<tr>
@@ -38,8 +38,8 @@
 				<td colspan="2">
 <%-- 					<a href="rev_modify_view?revcode=${rev_contentView.revcode}">수정</a> --%>
 					<input type="submit" value="수정">
-					&nbsp;&nbsp;&nbsp;<a href="Gu_rev_list">목록보기</a>
-					&nbsp;&nbsp;<a href= "Gu_rev_delete?revcode=${rev_contentView.revcode}">삭제</a>
+					&nbsp;&nbsp;&nbsp;<a href="rev_list">목록보기</a>
+					&nbsp;&nbsp;<a href= "rev_delete?revcode=${rev_contentView.revcode}">삭제</a>
 				</td>
 			</tr>
 	</table>
@@ -66,8 +66,8 @@
 				<tr>
 					<td colspan="2">
 <!-- 					<input type="submit" value="수정"> -->
-					<a href= "Gu_revCmtModifyView?cmtcode=${cmt.cmtcode}">수정</a>&nbsp;&nbsp;
-					<a href= "Gu_revCmtDelete?cmtcode=${cmt.cmtcode}&amp;revcode=${rev_contentView.revcode}">삭제</a>
+					<a href= "revCmtModifyView?cmtcode=${cmt.cmtcode}">수정</a>&nbsp;&nbsp;
+					<a href= "revCmtDelete?cmtcode=${cmt.cmtcode}&amp;revcode=${rev_contentView.revcode}">삭제</a>
 					</td>
 				</tr>
 			</c:forEach>
@@ -75,7 +75,7 @@
 	</form>
 	<h4>댓글작성</h4>
 	<table border="3">
-		<form method="post" action="Gu_revCmtWrite">
+		<form method="post" action="revCmtWrite">
 			<input type="hidden" name="revcode" value="${rev_contentView.revcode}">
 			<tr>
 				<td colspan="2">관리자</td>				
@@ -85,7 +85,7 @@
 <!-- 				<td><input type="password" name="CMTPWD" size="30"></td>				 -->
 <!-- 			</tr> -->
 			<tr>
-				<td>리뷰내용</td>
+				<td>댓글내용</td>
 				<td><textarea rows="5" cols="50" name="cmtcont" size="300"></textarea></td>			
 			</tr>
 			<tr>

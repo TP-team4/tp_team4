@@ -8,7 +8,7 @@
 </head>
 <body>
 	<table width="500" border="1">
-		<form method="post" action="Gu_rev_modify">
+		<form method="post" action="rev_modify">
 			<input type="hidden" name="revcode" value="${rev_modifyView.revcode}">
 			<tr>
 				<td>리뷰제목</td>
@@ -23,7 +23,7 @@
 			<tr>
 				<td colspan="2">
 					<input type="submit" value="수정완료">
-					&nbsp;&nbsp;&nbsp;<a href="Gu_rev_list">목록보기</a>
+					&nbsp;&nbsp;&nbsp;<a href="rev_list">목록보기</a>
 				</td>
 			</tr>
 		</form>

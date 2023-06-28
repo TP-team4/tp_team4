@@ -196,7 +196,8 @@
           </div>
           <!-- 검색기능 -->
         <div class="search" style="position: absolute; top: 600px; right: 10px; width: 250px;">
-          <form method="post" action="#">
+<!--           <form method="post" action="#"> -->
+          <form method="post" action="search">
               <fieldset>
                   <input type="text">
                   <a href="#">

@@ -7,14 +7,14 @@
 <title>Insert title here</title>
 </head>
 <!-- ======================================================== 
-Gu_rev_writeView.jsp
+rev_writeView.jsp
 
   개발자   |   수정자   |    개발 및 수정 일자    |    수정 내용
   구나현       박동명           23-06-21           작성자의 input 태그 name 속성 revauth -> id
 ===========================================================-->
 <body>
 	<table width="500" border="1">
-		<form method="post" action="Gu_rev_write">
+		<form method="post" action="rev_write">
 			<tr>
 				<td>상품번호</td>
 				<td><input type="text" name="procode" size="50"></td>
@@ -35,7 +35,7 @@ Gu_rev_writeView.jsp
 				<td colspan="2">
 					<input type="submit" value="입력">
 					&nbsp;&nbsp;&nbsp;
-					<a href="Gu_rev_list">목록보기</a>
+					<a href="rev_list">목록보기</a>
 				</td>
 			</tr>
 		</form>

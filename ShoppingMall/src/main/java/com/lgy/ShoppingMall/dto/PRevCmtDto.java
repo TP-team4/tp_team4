@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Gu_PRevCmtDto {
+public class PRevCmtDto {
 	private int revcode;//리뷰글번호
 	private int cmtcode;//리뷰댓글번호
 //	private String cmtname;//댓작성자[아이디]

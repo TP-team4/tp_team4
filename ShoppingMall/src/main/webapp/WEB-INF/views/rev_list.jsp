@@ -10,7 +10,7 @@
 </head>
 <body>
 <!-- ======================================================== 
-Gu_rev_list.jsp
+rev_list.jsp
 
   개발자   |   수정자   |    개발 및 수정 일자    |    수정 내용
   구나현       박동명           23-06-21          revauth -> id 를 jstl fn 태그를 이용해 간략한 익명처리
@@ -29,7 +29,7 @@ Gu_rev_list.jsp
 	    	<td>${dto.revcode}</td>
 	    	<td>
 <!-- 	    	content_view : 컨트롤러단 호출 -->
-	    		<a href="Gu_rev_contentView?revcode=${dto.revcode}">${dto.revtitle}</a>
+	    		<a href="rev_contentView?revcode=${dto.revcode}">${dto.revtitle}</a>
 <%-- 	    		${dto.REVTITLE} --%>
 	    	</td>
 <%-- 	    	<td>${dto.REVCONT}</td> --%>
@@ -42,7 +42,7 @@ Gu_rev_list.jsp
 	    <tr>
 	    	<td colspan="5">
 <!-- 	    	wirte_view : 컨트롤러단 호출 -->
-	    		<a href="Gu_rev_writeView">글작성</a>
+	    		<a href="rev_writeView">글작성</a>
 	    	</td>
 	    </tr>
 	</table>
