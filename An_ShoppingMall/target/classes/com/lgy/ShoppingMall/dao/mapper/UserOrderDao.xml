@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.lgy.ShoppingMall.dao.UserOrderDao">
+
+	<select id="userOrderList" resultType="com.lgy.ShoppingMall.dto.ProductOrdDto">
+		<![CDATA[
+			SELECT ordercode, totalprice, count
+			FROM (
+			    SELECT ordercode, totalprice,
+			           (SELECT COUNT(*) FROM PRODUCT_ORD) AS count,
+			           ROWNUM rn
+			    FROM PRODUCT_ORD
+			    WHERE ROWNUM <= (#{pageNum} * #{amount})
+			)
+			WHERE rn > (#{pageNum}-1) * #{amount}
+	]]>
+	</select>
+	
+	<select id="userOrderListByProduct" resultType="com.lgy.ShoppingMall.dto.ProductOrdDto">
+		<![CDATA[
+			SELECT proThumb, proName, proPrice, count
+			FROM (
+			    SELECT proThumb, proName, proPrice,
+			           (SELECT COUNT(*) FROM PRODUCT) AS count,
+			           ROWNUM rn
+			    FROM PRODUCT
+			    WHERE ROWNUM <= (#{pageNum} * #{amount})
+			)
+			WHERE rn > (#{pageNum}-1) * #{amount}
+	]]>
+	</select>
+	
+	
+	
+	
+	
+	<delete id="userOrderDelete" parameterType="hashmap">
+		delete from PRODUCT_ORD where orderCode = #{orderCode}
+	</delete>
+	
+</mapper>

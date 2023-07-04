@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.lgy.ShoppingMall.dao.OrderDao">
+		
+	<select id="orderListPaging" resultType="com.lgy.ShoppingMall.dto.ProductOrdDto">
+		<![CDATA[
+			SELECT ordercode, userid, orderdate, status, totalprice, count
+			FROM (
+			    SELECT ordercode, userid, orderdate, status, totalprice,
+			           (SELECT COUNT(*) FROM PRODUCT_ORD) AS count,
+			           ROWNUM rn
+			    FROM PRODUCT_ORD
+			    WHERE ROWNUM <= (#{pageNum} * #{amount})
+			)
+			WHERE rn > (#{pageNum}-1) * #{amount}
+	]]>
+	</select>
+	
+	<select resultType="com.lgy.ShoppingMall.dto.ProductOrdDto" id="orderView" parameterType="hashmap">
+		 select ordercode, userid, cartcode, name, postcode, addr, etcaddr, hp, memo, orderdate, status, totalprice, changedate
+		 	from product_ord where ordercode = #{ordercode}
+	</select>	
+
+
+	<select id="ordSearchList" resultType="com.lgy.ShoppingMall.dto.ProductOrdDto" parameterType="hashmap">
+		<choose>
+		    <when test="key == 'all'">
+		      SELECT ordercode, userid, orderdate, status, totalprice, COUNT(*) OVER() count FROM product_ord WHERE ordercode LIKE '%' || #{value} || '%'
+		   		OR userid LIKE '%' || #{value} || '%'
+		    </when>
+			 <otherwise>
+			    <choose>
+			        <when test="key == 'ordercode'">
+			           SELECT ordercode, userid, orderdate, status, totalprice, COUNT(*) OVER() count FROM product_ord WHERE ordercode LIKE '%' || #{value} || '%'
+			        </when>
+			        <when test="key == 'userid'">
+			          SELECT ordercode, userid, orderdate, status, totalprice, COUNT(*) OVER() count FROM product_ord WHERE userid LIKE '%' || #{value} || '%'
+			        </when>
+		      </choose>
+		    </otherwise>
+	 	</choose>
+	</select>
+
+	<update id="orderModify" parameterType="hashmap">
+		update product_ord set
+			status = #{status}
+		where ordercode = #{ordercode}
+	</update>
+
+</mapper>
