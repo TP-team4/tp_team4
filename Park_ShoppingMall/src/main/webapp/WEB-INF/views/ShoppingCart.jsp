@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -188,24 +189,25 @@
                   <td>Choice</td>
                 </tr>
 
-
+				<c:forEach items="list" var="cart">
+	                <tr>
+	                  <td style="width: 30px; height: 5px; padding: 0px;"><input type="checkbox" style="margin-top: 10px;"></td>
+	                  <td style="border-left: hidden;">${cart.proimg}</td>
+	                  <td style="text-align: left; border-left: hidden;"><div id="product">${cart.proname}</div></td>
+	                  <td> 
+	                    <div style="float: left;">&#8361;</div> 
+	                    <div id="price">${cart.proprice}</div>
+	                    </td>
+	                  <td>${cart.proqty}</td>
+	                  <td>기본배송</td>
+	                  <td rowspan="${size}">[조건]</td>
+	                  <td></td>
+	                  <td>
+	                    버튼
+	                  </td>
+	                </tr>
+                </c:forEach>
                 <!-- 상품 정보 들어갈 공간 -->
-                <tr>
-                  <td></td>
-                  <td style="border-left: hidden;"></td>
-                  <td style="text-align: left; border-left: hidden;"><div id="product">${proname}</div></td>
-                  <td> 
-                    <div style="float: left;">&#8361;</div> 
-                    <div id="price">${proprice}</div>
-                    </td>
-                  <td></td>
-                  <td>기본배송</td>
-                  <td>[조건]</td>
-                  <td></td>
-                  <td>
-                    버튼
-                  </td>
-                </tr>
 
 
 

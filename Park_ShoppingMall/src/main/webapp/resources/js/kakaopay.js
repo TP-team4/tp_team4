@@ -58,13 +58,13 @@
 	        		
 	        		var form = document.createElement('form');
 					var ordercodeInput = document.createElement('input');
-					ordercodeInput.setAttribute('type', 'text');
+					ordercodeInput.setAttribute('type', 'hidden');
 					ordercodeInput.setAttribute('name', 'ordercode');
 					ordercodeInput.setAttribute('value', data.merchant_uid);
 					form.appendChild(ordercodeInput);
 					
 					var orderdateInput = document.createElement('input');
-					orderdateInput.setAttribute('type', 'text');
+					orderdateInput.setAttribute('type', 'hidden');
 					orderdateInput.setAttribute('name', 'orderdate');
 					orderdateInput.setAttribute('value', formattedDate); 
 					form.appendChild(orderdateInput);

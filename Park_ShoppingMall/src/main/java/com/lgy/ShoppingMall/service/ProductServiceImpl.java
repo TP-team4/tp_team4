@@ -23,12 +23,12 @@ public class ProductServiceImpl implements ProductService{
 	
 	//상품선택
 	@Override
-	public ArrayList<ProductDto> productSelect() {//상품상세페이지
+	public ProductDto productSelect(HashMap<String, String> param) {//상품상세페이지
 		log.info("@# ProductServiceImpl.productSelect start");
 		ProductDao dao = sqlSession.getMapper(ProductDao.class);
-		ArrayList<ProductDto> list = dao.productSelect();
+		ProductDto dto = dao.productSelect(param);
 		log.info("@# ProductServiceImpl.productSelect end");
-		return list;
+		return dto;
 	}
 	//상품주문
 	@Override
@@ -55,24 +55,7 @@ public class ProductServiceImpl implements ProductService{
 		dao.productOut(param);
 		log.info("@# ProductServiceImpl.productOut end");
 	}
-	//주문상세
-	@Override
-	public ArrayList<OrderDto> orderView() {
-		log.info("@# ProductServiceImpl.orderView start");
-		ProductDao dao = sqlSession.getMapper(ProductDao.class);
-		ArrayList<OrderDto> list = dao.orderView();
-		log.info("@# ProductServiceImpl.orderView end");
-		return list;
-	}
-	//출고상세
-	@Override
-	public ArrayList<ProductOutDto> outView() {
-		log.info("@# ProductServiceImpl.outView start");
-		ProductDao dao = sqlSession.getMapper(ProductDao.class);
-		ArrayList<ProductOutDto> list = dao.outView();
-		log.info("@# ProductServiceImpl.outView end");
-		return list;
-	}
+
 //	장바구니 담기
 	@Override
 	public void addCart(HashMap<String, String> param) {
@@ -83,10 +66,38 @@ public class ProductServiceImpl implements ProductService{
 	}
 //	장바구니 비어있는지 확인
 	@Override
-	public ArrayList<CheckCartDto> checkCart() {
+	public ArrayList<CheckCartDto> checkCart(HashMap<String, String> param) {
 		log.info("@# ProductServiceImpl.checkCart start");
 		ProductDao dao = sqlSession.getMapper(ProductDao.class);
-		ArrayList<CheckCartDto> list = dao.checkCart();
+		ArrayList<CheckCartDto> list = dao.checkCart(param);
 		return list;
 	}
+	//장바구니 확인 테스트용
+	@Override
+	public ArrayList<ProductDto> CartView(HashMap<String, String> param) {
+		log.info("@# ProductServiceImpl.CartView start");
+		ProductDao dao = sqlSession.getMapper(ProductDao.class);
+		ArrayList<ProductDto> list = dao.CartView(param);
+		return list;
+	}
+	
+	
+//	//주문상세
+//	@Override
+//	public ArrayList<OrderDto> orderView() {
+//		log.info("@# ProductServiceImpl.orderView start");
+//		ProductDao dao = sqlSession.getMapper(ProductDao.class);
+//		ArrayList<OrderDto> list = dao.orderView();
+//		log.info("@# ProductServiceImpl.orderView end");
+//		return list;
+//	}
+//	//출고상세
+//	@Override
+//	public ArrayList<ProductOutDto> outView() {
+//		log.info("@# ProductServiceImpl.outView start");
+//		ProductDao dao = sqlSession.getMapper(ProductDao.class);
+//		ArrayList<ProductOutDto> list = dao.outView();
+//		log.info("@# ProductServiceImpl.outView end");
+//		return list;
+//	}
 }

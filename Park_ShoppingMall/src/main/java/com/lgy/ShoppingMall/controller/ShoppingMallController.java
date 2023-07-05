@@ -27,10 +27,11 @@ public class ShoppingMallController {
 	
 	//테스트용 상품 선택 메소드
 	@RequestMapping("/select")
-	public String productSelect(Model model) {
+	public String productSelect(@RequestParam HashMap<String, String> param, Model model) {
 		log.info("@# productSelect start");
-		ArrayList<ProductDto> list = service.productSelect();
-		model.addAttribute("list", list);
+		param.put("procode", "101");
+		ProductDto dto = service.productSelect(param);
+		model.addAttribute("ProductView", dto);
 		return "select";
 	}
 	
@@ -39,13 +40,13 @@ public class ShoppingMallController {
 	@RequestMapping(value="/orderPage", method=RequestMethod.POST)
 	public String orderPage(@RequestParam HashMap<String, String> param, Model model) {
 		log.info("@# orderPage start");
-		log.info("@# param =>" + param.get("proname"));
+		log.info("@# param =>" + param);
 		//장바구니 담기		
 		log.info("@# procode" + param.get("procode"));
+		ProductDto dto = service.productSelect(param);
+		service.productSelect(param);
 		service.addCart(param);
-		model.addAttribute("proname", param.get("proname"));
-		model.addAttribute("proprice", param.get("proprice"));
-		model.addAttribute("procode", param.get("procode"));
+		model.addAttribute("order", dto);
 		
 		log.info("@# orderPage end");
 		return "orderPage";
@@ -56,10 +57,13 @@ public class ShoppingMallController {
 	@RequestMapping("/checkCart")
 	public String  checkCart(@RequestParam HashMap<String, String> param) {		
 		log.info("@# checkCart start");
-		log.info("@# 카트코드 확인용 =>" + service.checkCart());
+		
+		//임시 아이디
+		param.put("userid", "qwerty1234");
+		log.info("@# 카트코드 확인용 =>" + service.checkCart(param));
 		log.info("@# 상품코드 확인 =>" + param.get("procode"));
 		String check = "";
-		ArrayList<CheckCartDto> list = service.checkCart();
+		ArrayList<CheckCartDto> list = service.checkCart(param);
 		log.info("@# list 끝났어");
 		// 상품 분기처리용 기능
 		for (CheckCartDto dto : list) { //@@@@@@여기서 안됨
@@ -125,9 +129,28 @@ public class ShoppingMallController {
 	
 	//장바구니 이동
 	@RequestMapping("/ShoppingCart")
-	public String ShoppingCart() {
+	public String ShoppingCart(@RequestParam HashMap<String, String> param,Model model) {
 		log.info("shoppingCart start");
-		return "ShoppingCart";
+		param.put("userid", "qwerty1234");
+		ArrayList<ProductDto> list = service.CartView(param);
+		String size = String.valueOf(list.size());
+		model.addAttribute("size", size);
+		model.addAttribute("list", list);
+		log.info("list ==>" + list);
+//		return "ShoppingCart";
+		return "cartTest";
 	}
+	
+//	@RequestMapping("/cartView")
+//	public String CartView(@RequestParam HashMap<String, String> param, Model model) {
+//		log.info("CartView start");
+//		param.put("userid", "qwerty1234");
+//		ArrayList<ProductDto> list = service.CartView(param);
+//		String size = String.valueOf(list.size());
+//		param.put("size", size);
+//		log.info("asdf a" + param);
+//		model.addAttribute("list", list);
+//		return "redirect:ShoppingCart";
+//	}
 	
 }

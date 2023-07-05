@@ -149,13 +149,15 @@
                 <!-- 상품 추가될 시 증가하게 해야됨 -->
                 <tr>
                   <td></td>
-                  <td style="border-left: hidden;"></td>
-                  <td style="text-align: left; border-left: hidden;"><div id="product">${proname}</div></td>
+                  <td style="border-left: hidden;">${order.proimg}</td>
+                  <td style="text-align: left; border-left: hidden;"><div id="product">${order.proname}</div></td>
                   <td> 
                   	<div style="float: left;">&#8361;</div> 
-                  	<div id="price">${proprice}</div>
+                  	<div id="price">${order.proprice}</div>
                   	</td>
-                  <td></td>
+                  <td>
+                  	<div>${order.proqty}</div>
+                  </td>
                   <td>기본배송</td>
                   <td>[조건]</td>
                   <td></td>
