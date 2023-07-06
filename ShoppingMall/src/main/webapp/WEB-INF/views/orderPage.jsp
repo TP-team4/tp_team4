@@ -1,76 +1,371 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
-    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
-    function sample4_execDaumPostcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room and Bloom</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+    <!-- iamport.payment.js -->
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+  <style>
+      table, td{
+          border : 1px solid gray;
+          border-collapse : collapse;
+      }
 
-                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var roadAddr = data.roadAddress; // 도로명 주소 변수
-                var extraRoadAddr = ''; // 참고 항목 변수
-
-                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                    extraRoadAddr += data.bname;
-                }
-                // 건물명이 있고, 공동주택일 경우 추가한다.
-                if(data.buildingName !== '' && data.apartment === 'Y'){
-                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                }
-                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                if(extraRoadAddr !== ''){
-                    extraRoadAddr = ' (' + extraRoadAddr + ')';
-                }
-
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('sample4_postcode').value = data.zonecode;
-                document.getElementById("sample4_roadAddress").value = roadAddr;
-                document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
-                
-                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-                if(roadAddr !== ''){
-                    document.getElementById("sample4_extraAddress").value = extraRoadAddr;
-                } else {
-                    document.getElementById("sample4_extraAddress").value = '';
-                }
-
-                var guideTextBox = document.getElementById("guide");
-                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-                if(data.autoRoadAddress) {
-                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-                    guideTextBox.style.display = 'block';
-
-                } else if(data.autoJibunAddress) {
-                    var expJibunAddr = data.autoJibunAddress;
-                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-                    guideTextBox.style.display = 'block';
-                } else {
-                    guideTextBox.innerHTML = '';
-                    guideTextBox.style.display = 'none';
-                }
-            }
-        }).open();
+      td{
+        padding: 10px;
+        font-size: small;
+        height: 40px;
+      }
+      input{
+          border: 1px solid gray;
+          /* border-radius: 5px 5px 5px 5px;  */
+          height: 25px;
+          margin-top: 4px;
+      }
+/*       button:hover{ */
+/*         background-color: black; */
+/*       color: white; */
+/*       } */
+     #order{
+      display: flex;
+      justify-content: center;
+     }
+    .pay{
+       border: 1px solid black; 
+       margin-top: 50px; 
+       width: 900px;
+       height: 400px;
     }
-</script>
+    .block{
+      border: 1px solid black; 
+    }
+  </style>
+  <link rel="stylesheet" href="resources/css/orderpage.css">
 </head>
+
 <body>
-	<input type="text" id="sample4_postcode" placeholder="우편번호">
-	<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-	<input type="text" id="sample4_roadAddress" placeholder="도로명주소">
-	<input type="text" id="sample4_jibunAddress" placeholder="지번주소">
-	<span id="guide" style="color:#999;display:none"></span>
-	<input type="text" id="sample4_detailAddress" placeholder="상세주소">
-	<input type="text" id="sample4_extraAddress" placeholder="참고항목">
+
+    <!-- 
+    =================================================================
+    메인 화면
+    박정훈    |   23-06-17      |        전체 레이아웃 위치 세팅 및 스타일 적용 
+    ================================================================= 
+    -->
+
+  <main id="main">
+    <div class="container">
+    <!-- 
+    =================================================================
+    좌측 사이드바 레이아웃 세팅
+    작성자   |   수정자   |    작성 or 수정일    |     작업 내용
+    조은유   |   박동명   |     23-06-16      |    사이드바 레이아웃 조정
+    										 	카테고리 페이지 연결 
+    ================================================================= 
+    -->
+      <!-- 좌측 사이드바 -->
+      
+      <aside id="aisdeLeft">
+        <div id="title">
+          <a href="mainPage">
+            <span style="font-size: x-large; position: absolute; left: 0px; color: black;  width: 200px;">Room & Bloom</span>
+          </a>
+        </div>
+        <div class="category" style="position: absolute; top: 70px;">
+          <ul style="width: 200px;">
+              <li><a href="#">BEST</a></li>
+              <li><a href="ProductList?catecode=1">의자</a></li>
+              <li><a href="ProductList?catecode=2">침대</a></li>
+              <li><a href="ProductList?catecode=3">테이블/식탁/책상</a></li>
+              <li><a href="ProductList?catecode=4">소파</a></li>
+              <li><a href="ProductList?catecode=5">서랍/수납장</a></li>
+              <li><a href="ProductList?catecode=6">거실장/TV장</a></li>
+              <li><a href="ProductList?catecode=7">선반</a></li>
+              <li><a href="ProductList?catecode=8">진열장/책장</a></li>
+              <li><a href="ProductList?catecode=9">행거/옷장</a></li>
+              <li><a href="ProductList?catecode=0">화장대</a></li>
+          </ul>
+      </div>
+      <div class="notice" style="position: absolute; top: 400px;">
+          <ul>
+              <li><a href="noticePage">Notice</a></li>
+              <li><a href="QnAPage">QnA</a></li>
+              <!-- <li><a href="tp_main_review.html">Review</a></li> -->
+          </ul>
+      </div>
+      <div class="info" style="position: absolute; top: 550px;">
+          <ul>
+              <li>02-336-4363</li>
+              <li>
+                  Mon-Fri 10:00-19:00
+                  <br>
+                  Weekend,Holiday off
+              </li>
+          </ul>
+      </div>        
+
+      </aside>
+    
+    <!-- 
+    =================================================================
+    본문   / 상품 화면 출력부 / 상품 가격및 이미지 출력 부분
+    박정훈    |   23-06-16       |       a태그를 사용하여 클릭시 상세페이지 이동 
+    =================================================================
+    -->
+      <!-- 본문 -->
+      <section id="section" style="width: 600px;" >
+        <article>
+          <div id="article" style="height: auto;">
+            <div id="order">
+              <div style="position: absolute; left: 45%;">Order Page</div>
+             
+              <form id="frm">
+                <table style="width: 900px;" align="center" >
+                  <caption align="top"><hr style="width: 900px; margin-top: 60px; margin-bottom: 40px;"></caption>
+                <tr>
+                  <td colspan="8"><b style="float: left;">국내배송상품 주문내역</b>
+                    <div style="float: right; margin-top: -5px; margin-right: 5px;"><input type="button" value="이전페이지" onclick="cancel()" ></div>
+                  </td>
+                </tr>
+                <tr style="text-align: center;">
+                  <td style="width: 30px; height: 5px; padding: 0px;"><input type="checkbox" style="margin-top: 10px;"></td>
+                  <td style="width: 80px;">Image</td>
+                  <td>Item</td>
+                  <td style="width: 120px;">Price</td>
+                  <td style="width: 70px;">Qty</td>
+                  <td style="width: 120px;">Delivery</td>
+                  <td style="width: 120px;">Charge</td>
+                  <td>Total</td>
+                </tr>
+                <!-- 상품 추가될 시 증가하게 해야됨 -->
+                <tr>
+                  <td></td>
+                  <td style="border-left: hidden;"></td>
+                  <td style="text-align: left; border-left: hidden;"><div id="product">${proname}</div></td>
+                  <td> 
+                  	<div style="float: left;">&#8361;</div> 
+                  	<div id="price">${proprice}</div>
+                  	</td>
+                  <td></td>
+                  <td>기본배송</td>
+                  <td>[조건]</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td colspan="8"><span style="float: left;">[기본배송]</span></td>
+                </tr>
+              </table>
+              
+                
+              <table style="width: 900px;" align="center">
+                <caption align="top"><hr style="width: 900px; margin-top: 60px; margin-bottom: 40px;"></caption>
+                  <tr>
+                    <td colspan="2" style="border-top: hidden; border-left: hidden; border-right: hidden;">
+                      <span style="float: left;"><b>배송정보</b></span>
+                    </td>
+                  </tr>
+                  <tr>
+                      <td>배송지 선택</td>
+                      <td></td>
+                  </tr>
+                  <tr>
+                      <td>받으시는 분</td>
+                      <td>
+                        <input id="buyer_name" type="text" style="width: 150px; float: left;">
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>주소 *</td>
+                      <td>
+                          <input type="text" name="postcode" id="postcode" placeholder=" 우편번호" style="width: 60px; float: left;">
+                          <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" style="float: left; margin-left: 5px;"><br><br>
+                          <input type="text" name="addr" id="addr" placeholder="  기본주소" style="width: 300px; float: left; margin-top: -3px;"><br><br>
+                          <input type="text" id="etcaddr" placeholder="  상세주소" style="width: 300px; float: left; margin-top: -10px;">
+                          <input type="text" id="sample6_extraAddress" placeholder="참고항목" style="float: left; margin-left: 5px; margin-top: -10px;">
+                  </tr>
+                  <tr>
+                      <td>휴대전화 *</td>
+                      <td>
+                          <select id="ph1" style="float: left;">
+                              <option value="010" selected>010</option>
+                              <option value="011">011</option>
+                              <option value="016">016</option>
+                              <option value="017">017</option>
+                              <option value="018">018</option>
+                              <option value="019">019</option>      
+                          </select>
+                          <span style="float:left; margin-left: 3px;"> -</span>
+                          <input type="text" id="ph2" style="width: 60px; float: left; margin-left: 3px; margin-top: -1px;">
+                          <span style="float:left; margin-left: 3px;"> -</span>
+                          <input type="text" id="ph3" style="width: 60px; float: left;  margin-left: 3px; margin-top: -1px">
+                      </td>
+                  </tr>
+                  <tr>
+                  <tr>
+                      <td>배송메세지</td>
+                      <td>
+                          <input type="text" id="memo" name="memo" style="width: 500px; height: 60px; font-size: medium; float: left;" maxlength="100px">
+                      </td>
+                  </tr>
+              </table>
+
+              <table style="width: 900px; margin-top: 50px;" align="center">
+            	<tr>
+                  <td colspan="2" style="border-top: hidden; border-left: hidden; border-right: hidden;">
+                    <span style="float: left;"><b>결제수단</b></span>
+                  </td>
+                </tr>
+                <tr>
+                    <td style="width: 600px; height: 50px;">
+                      <div style="float: left; margin-left: 10px;">
+                      
+<!--                       		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+                        <input type="radio" name="payment" value="신용카드" checked>신용카드
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="radio" name="payment" value="카카오페이">카카오페이
+                      </div>
+                      
+                      
+                      
+                      
+                    </td>
+                    <td rowspan="2" style="width: 200px; height: 200px;">
+                      총 결제 금액 : 
+                      <!-- 일반결제 -->
+                      <div>
+                        <input style="width: 150px; height: 30px; background-color: black; color: white;" type="button" id="pay" value="결제하기" onclick="consultation_request(this.id)" >
+                      </div>
+
+                      <!-- 카카오페이 결제 버튼 -->
+                      <div >
+                        <button type="button" id="kakao" onclick="consultation_request(this.id)">
+                          <img alt="" src="resources/kakao.png" width="50px">
+                        </button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="3" style="height: 200px;">
+                      <div class="agreeInner" >
+                        <span class="agreeCheck">개인정보 수집 및 이용 동의</span>
+                          <span class="radioW">   
+                          <span style="position: absolute; margin-top: -8px; margin-left: 5px;">
+                            <input  type="checkbox" id="privacy_agreement0" name="privacy_agreement_radio" fw-filter="isFill" fw-label="개인정보보호정책" fw-msg="">
+                          </span>
+                        </span>
+                    </div>   
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                </tr>
+            </table>  
+            </form>
+          </div>		
+          </div>
+        </article>
+      </section>
+
+    <!-- 
+    =================================================================
+    우측 사이드바 레이아웃 세팅
+    조은유   |   23-06-16      |                      사이드바 레이아웃 조정 
+    ================================================================= 
+    -->
+      <!-- 우측사이드바 -->
+      <aside id="aisdeRight">
+        <div class="rightbar">
+          <div class="cart" style="position: absolute; top: 80px; right: 0px;">
+              <ul>
+                  <li><a href="#" style="width: 200px;">Cart - 0</a></li>
+              </ul>
+          </div>
+          <div class="login" style="position: absolute; top: 160px; right: 0px;">
+              <ul id="log_ul" style="width: 200px;">
+                  <li><a href="loginPage">Log in</a></li>
+                  <li><a href="registerPage">Register</a></li>
+                  <li><a href="#">Order</a></li>
+                  <li><a href="#">My Page</a></li>
+              </ul>
+          </div>
+          <!-- 검색기능 -->
+        <div class="search" style="position: absolute; top: 600px; right: 10px; width: 250px;">
+<!--           <form method="post" action="#"> -->
+          <form method="post" action="search">
+              <fieldset>
+                  <input type="text">
+                  <a href="#">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                      </svg>
+                  </a>
+              </fieldset>    
+            </form>
+          </div>
+      </aside>
+
+    </div>
+  </main>
+  <footer id="footer" style="font-family: notosans; text-align: left;">
+    <a href="mainPage" style="color: black;">Room & Bloom</a> <br>
+    <p style="line-height: 2em;">
+      <a href="#">About us</a>
+    </p>
+  </footer>
+  <div style="position: fixed; bottom: 5px; left: 50%; right: 50%;">
+    <a href="#" style="font-size: xx-large;">^</a>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>
+<!-- 카카오페이 -->
+<script type="text/javascript" src="resources/js/kakaopay.js"></script>
+<!-- 일반결제 -->
+<script type="text/javascript" src="resources/js/pay.js"></script>
+<!-- 개인정보 수집동의 -->
+<script type="text/javascript" src="resources/js/agree.js"></script>
+<!-- 주소api -->
+<script type="text/javascript" src="resources/js/addrAPI.js"></script>
+<script>
+        function cancel(){
+            alert("취소시 주문정보는 저장되지 않습니다.")
+            if (confirm("이전페이지로 이동하시겠습니까?") == true) {
+            	location.href="cancel";
+            }else{
+                return false;
+            }
+        }
+    </script>
+    
+     <script>
+       $(document).ready(function(){
+		
+    $('#kakao').hide();   // 초깃값 설정
+    
+$("input[name='payment']").change(function(){
+    // 휴대폰 결제 선택 시.
+    if($("input[name='payment']:checked").val() == '신용카드'){
+        $('#pay').show();
+        $('#kakao').hide();
+    }	
+    // 신용카드 결제 선택 시.
+    else if($("input[name='payment']:checked").val() == '카카오페이'){
+        $('#pay').hide();
+        $('#kakao').show();
+    }
+});
+    
+});
+  </script>
 </html>

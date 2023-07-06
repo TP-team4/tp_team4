@@ -17,6 +17,7 @@
 aside, section, footer {
 	margin: 3px;
 	text-align: center;
+	/* border: 1px solid black; */
 }
 
 footer {
@@ -219,17 +220,12 @@ a:hover {
 					<div class="login"
 						style="position: absolute; top: 160px; right: 0px;">
 						<ul id="log_ul" style="width: 200px;">
-							<!-- 로그인 하지 않은 상태 -->
-							<c:if test="${ dto == null }">
-								<li><a href="login">Log in</a></li>
-								<li><a href="register">Register</a></li>
-							</c:if>
-							<!-- 로그인한 상태 -->
-							<c:if test="${ dto != null }">
-								<li>${dto.name} 님</li>
+<!-- 							로그인 하지 않은 상태 -->
+							
+								<li>${admindto.id} 님</li>
 								
+						
 								<li><a href="logout">Log out</a></li>
-							</c:if>
 							<li><a href="#">Order</a></li>
 							<li><a href="myPage">My Page</a></li>
 						</ul>
