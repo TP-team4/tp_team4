@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lgy.ShoppingMall.dto.CheckCartDto;
+import com.lgy.ShoppingMall.dto.MemberDto;
 import com.lgy.ShoppingMall.dto.ProductDto;
 import com.lgy.ShoppingMall.service.ProductService;
 
@@ -27,28 +29,49 @@ public class ShoppingMallController {
 	
 	//테스트용 상품 선택 메소드
 	@RequestMapping("/select")
-	public String productSelect(Model model) {
+	public String productSelect(@RequestParam HashMap<String, String> param, Model model) {
 		log.info("@# productSelect start");
-		ArrayList<ProductDto> list = service.productSelect();
-		model.addAttribute("list", list);
+		param.put("procode", "101");
+		ProductDto dto = service.productSelect(param);
+		model.addAttribute("ProductView", dto);
 		return "select";
 	}
 	
 	
 //	주문페이지 이동
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/orderPage", method=RequestMethod.POST)
-	public String orderPage(@RequestParam HashMap<String, String> param, Model model) {
-		log.info("@# orderPage start");
-		log.info("@# param =>" + param.get("proname"));
-		//장바구니 담기		
-		log.info("@# procode" + param.get("procode"));
-		service.addCart(param);
-		model.addAttribute("proname", param.get("proname"));
-		model.addAttribute("proprice", param.get("proprice"));
-		model.addAttribute("procode", param.get("procode"));
-		
-		log.info("@# orderPage end");
-		return "orderPage";
+	public String orderPage(@RequestParam HashMap<String, String> param, Model model, HttpSession  session) {
+	    log.info("@# orderPage start");
+	    log.info("@# param =>" + param);
+	    String procode = param.get("procode");
+	    
+	    // 세션에서 이미 장바구니에 추가된 상품 목록을 가져옴
+	    ArrayList<String> cartItems = (ArrayList<String>) session.getAttribute("cartItems");
+	    
+	    if (cartItems == null || !cartItems.contains(procode)) {
+	        // 장바구니에 해당 상품이 없는 경우에만 추가
+	        service.addCart(param);
+	        
+	        // 장바구니에 추가된 상품 목록을 세션에 저장
+	        if (cartItems == null) {
+	            cartItems = new ArrayList<>();
+	        }
+	        cartItems.add(procode);
+	        session.setAttribute("cartItems", cartItems);
+	    }
+	    
+	    // 나머지 로직 수행
+	    ProductDto dto = service.productSelect(param);
+	    model.addAttribute("order", dto);
+	    
+	    param.put("id", "qwerty123");
+		MemberDto memdto = service.memberAddr(param);
+		log.info("회원 정보 확인 ==> " + memdto);
+		model.addAttribute("addr",memdto);
+	    
+	    log.info("@# orderPage end");
+	    return "orderPage";
 	}
 
 //	장바구니 체크
@@ -56,13 +79,16 @@ public class ShoppingMallController {
 	@RequestMapping("/checkCart")
 	public String  checkCart(@RequestParam HashMap<String, String> param) {		
 		log.info("@# checkCart start");
-		log.info("@# 카트코드 확인용 =>" + service.checkCart());
+		
+		//임시 아이디
+		param.put("userid", "qwerty123");
+		log.info("@# 카트코드 확인용 =>" + service.checkCart(param));
 		log.info("@# 상품코드 확인 =>" + param.get("procode"));
 		String check = "";
-		ArrayList<CheckCartDto> list = service.checkCart();
+		ArrayList<CheckCartDto> list = service.checkCart(param);
 		log.info("@# list 끝났어");
 		// 상품 분기처리용 기능
-		for (CheckCartDto dto : list) { //@@@@@@여기서 안됨
+		for (CheckCartDto dto : list) { 
 		    String procode = dto.getProcode();	   
 //		    해당 상품이 장바구니에 없을 때
 		    if (!procode.equals(param.get("procode"))) {	
@@ -125,9 +151,29 @@ public class ShoppingMallController {
 	
 	//장바구니 이동
 	@RequestMapping("/ShoppingCart")
-	public String ShoppingCart() {
+	public String ShoppingCart(@RequestParam HashMap<String, String> param,Model model) {
 		log.info("shoppingCart start");
-		return "ShoppingCart";
+		param.put("userid", "qwerty123");
+		ArrayList<ProductDto> list = service.CartView(param);
+		String size = String.valueOf(list.size());
+		model.addAttribute("size", size);
+		model.addAttribute("list", list);
+		log.info("list ==>" + list);
+		
+//		return "ShoppingCart";
+		return "cartTest";
 	}
+	
+//	@RequestMapping("/cartView")
+//	public String CartView(@RequestParam HashMap<String, String> param, Model model) {
+//		log.info("CartView start");
+//		param.put("userid", "qwerty1234");
+//		ArrayList<ProductDto> list = service.CartView(param);
+//		String size = String.valueOf(list.size());
+//		param.put("size", size);
+//		log.info("asdf a" + param);
+//		model.addAttribute("list", list);
+//		return "redirect:ShoppingCart";
+//	}
 	
 }

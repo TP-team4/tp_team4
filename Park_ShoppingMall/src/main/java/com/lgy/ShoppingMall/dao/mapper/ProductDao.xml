@@ -4,8 +4,9 @@
 
 <mapper namespace="com.lgy.ShoppingMall.dao.ProductDao">
 <!-- 	상품 상세페이지 테스트용    -->
-    <select id="productSelect" resultType="com.lgy.ShoppingMall.dto.ProductDto">
-       select procode, catecode, proname, proprice, prosale, proinfo, proyn, proqty, prothumb, proimg from product where procode=101
+<!--     <select id="productSelect" resultType="com.lgy.ShoppingMall.dto.ProductDto"> -->
+    <select id="productSelect" parameterType="hashmap" resultType="com.lgy.ShoppingMall.dto.ProductDto">
+       select procode, catecode, proname, proprice, prosale, proinfo, proyn, proqty, prothumb, proimg from product where procode=#{procode}
     </select>
     
 <!--     주문시 주문 정보 저장 / 회원 아이디 세션으로 받아와야해서 임시적으로 넣음 -->
@@ -20,14 +21,6 @@
     <insert id="productOut" parameterType="hashmap">
     	insert into product_out(pocode, ordercode, procode, amount, status) values(${pocode},${ordercode},${procode},${amount},${status})
     </insert>
-<!--     주문상세 -->
-     <select id="orderView" resultType="com.lgy.ShoppingMall.dto.OrderDto">
-
-    </select>
-<!--     출고 상세 -->
-    <select id="outView" resultType="com.lgy.ShoppingMall.dto.ProductOutDto">
-
-    </select>
 <!--     장바구니 담기 -->
     <insert id="addCart" parameterType="hashmap">
       	<selectKey keyProperty="cartcode" resultType="java.lang.String" order="BEFORE">
@@ -35,7 +28,23 @@
 		</selectKey>
 		insert into cart (cartcode, userid, procode) values (#{cartcode}, 'qwerty1234', #{procode})
     </insert>
-    <select id="checkCart" resultType="com.lgy.ShoppingMall.dto.CheckCartDto">
-		select cartcode, procode from cart where userid = 'qwerty1234'
+    <select id="checkCart" resultType="com.lgy.ShoppingMall.dto.CheckCartDto" parameterType="hashmap">
+		select cartcode, procode from cart where userid = #{userid}
     </select>
+    
+    <select id="CartView" parameterType="hashmap" resultType="com.lgy.ShoppingMall.dto.ProductDto">
+       select * from product where procode in (select procode from cart where userid = #{userid})
+    </select>
+    
+    <select id="memberAddr" parameterType="hashmap" resultType="com.lgy.ShoppingMall.dto.MemberDto">
+       select name, pcode, hp, loadaddr, etcaddr from member where id = #{id}
+    </select>
+    
+    <!--     주문상세 --> 
+<!--      <select id="orderView" resultType="com.lgy.ShoppingMall.dto.OrderDto"> -->
+
+<!--     </select> -->
+<!--     출고 상세 --> 
+<!--     <select id="outView" resultType="com.lgy.ShoppingMall.dto.ProductOutDto"> -->
+<!--     </select> -->
 </mapper>
