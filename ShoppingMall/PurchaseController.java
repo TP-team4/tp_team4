@@ -16,23 +16,23 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lgy.ShoppingMall.dto.CheckCartDto;
 import com.lgy.ShoppingMall.dto.MemberDto;
-import com.lgy.ShoppingMall.dto.ProductDto;
-import com.lgy.ShoppingMall.service.ProductService;
+import com.lgy.ShoppingMall.dto.PProductDto;
+import com.lgy.ShoppingMall.service.PurchaseProductService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
-public class ShoppingMallController {
+public class PurchaseController {
 	@Autowired
-	private ProductService service;
+	private PurchaseProductService service;
 	
 	//테스트용 상품 선택 메소드
 	@RequestMapping("/select")
 	public String productSelect(@RequestParam HashMap<String, String> param, Model model) {
 		log.info("@# productSelect start");
 		param.put("procode", "101");
-		ProductDto dto = service.productSelect(param);
+		PProductDto dto = service.productSelect(param);
 		model.addAttribute("ProductView", dto);
 		return "select";
 	}
@@ -62,7 +62,7 @@ public class ShoppingMallController {
 	    }
 	    
 	    // 나머지 로직 수행
-	    ProductDto dto = service.productSelect(param);
+	    PProductDto dto = service.productSelect(param);
 	    model.addAttribute("order", dto);
 	    
 	    param.put("id", "qwerty123");
@@ -159,7 +159,7 @@ public class ShoppingMallController {
 	public String ShoppingCart(@RequestParam HashMap<String, String> param,Model model) {
 		log.info("shoppingCart start");
 		param.put("userid", "qwerty123");
-		ArrayList<ProductDto> list = service.CartView(param);
+		ArrayList<PProductDto> list = service.CartView(param);
 		String size = String.valueOf(list.size());
 		model.addAttribute("size", size);
 		model.addAttribute("list", list);
