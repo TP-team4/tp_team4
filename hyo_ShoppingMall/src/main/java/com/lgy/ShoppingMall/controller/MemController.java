@@ -42,6 +42,8 @@ import lombok.extern.slf4j.Slf4j;
 			  김효진          23-07-02			  카카오톡 회원가입 완료페이지 연결 오류 해결
 			  김효진          23-07-03		  	  비번찾기	개인정보 일치시에 count 수정 완료
 			  김효진          				  	  회원가입 선택동의(sms,email)체크 여부에 따라 데이터 값을 전송 처리
+			  김효진          23-07-04		  	  비번찾기	정보가 null일 경우 NullPointerException 오류 해결
+			  김효진          				  	  비번찾기	id null일 경우 2번제한에서 정보확인 메세지로 변경
 		=========================================================================================*/
 		@Autowired
 		private MemService service;
@@ -82,7 +84,7 @@ import lombok.extern.slf4j.Slf4j;
 		    // 카카오톡 회원 등록
 	        MemDto dto = new MemDto();
 	        dto.setId(id);
-	        dto.setEmail(email);
+			dto.setEmail(email);
 	        service.registerkakao(param);
 	        
 		    log.info("@# register_kakao end2");
@@ -90,7 +92,7 @@ import lombok.extern.slf4j.Slf4j;
 		}
 		
 		/* 카카오톡 회원가입 */
-		@RequestMapping("/register_kakaoOk")
+		@RequestMapping("/registerKakaoOk")
 		public String aaaa(HttpSession session, Model model) {
 			log.info("@# aaaa start");
 			// 세션에서 데이터 가져오기
@@ -102,7 +104,7 @@ import lombok.extern.slf4j.Slf4j;
 		    model.addAttribute("id", id);
 		    model.addAttribute("email", email);
 		    log.info("@# aaaa end");
-			return "loginRegister/register_kakaoOk";
+			return "loginRegister/registerKakaoOk";
 		}
 		
 		/* 로그인 페이지 이동 */
@@ -163,8 +165,12 @@ import lombok.extern.slf4j.Slf4j;
 	    public String find_pwd(@RequestParam HashMap<String, String> param, Model model) {
 	        log.info("@# find_pwd");
 
-	        // searchCountMap에서 사용자별 검색 횟수를 가져오기, 없으면 기본값 0으로 설정
 	        String id = param.get("id");
+	        String name = param.get("name");
+	        String hp = param.get("hp");
+	        String email = param.get("email");
+	        
+	        // searchCountMap에서 사용자별 검색 횟수를 가져오기, 없으면 기본값 0으로 설정
 	        Integer searchCount = searchCountMap.getOrDefault(id, 0);
 	        
 	        // 현재 날짜
@@ -181,17 +187,22 @@ import lombok.extern.slf4j.Slf4j;
 	        
 	        // 제공된 개인정보와 회원 정보를 비교하여 일치하지 않는 경우
 	        MemDto dto = service.memInfo(id);
-	        if (!param.get("name").equals(dto.getName())
-	        		|| !param.get("hp").equals(dto.getHp())
-	        		|| !param.get("email").equals(dto.getEmail())) {
-	        	log.info("비밀번호를 찾기 위한 개인정보 오류");
-	        	searchCount--;
+	        if(!id.isEmpty() && !name.isEmpty() && !hp.isEmpty() && !email.isEmpty()) {
+	        	if (!param.get("name").equals(dto.getName())
+	        			|| !param.get("id").equals(dto.getId())
+	        			|| !param.get("hp").equals(dto.getHp())
+	        			|| !param.get("email").equals(dto.getEmail())) {
+	        		log.info("비밀번호를 찾기 위한 개인정보 오류");
+	        		searchCount--;
+	        	}
 	        }
-	        
+
 	        // 검색 횟수가 2회 이상인 경우 'end'를 반환하여 처리 종료
 	        if (searchCount >= 2) {
-	        	String findPwd2="end";
-	            return findPwd2;
+	        	if (!id.isEmpty() && !name.isEmpty() && !hp.isEmpty() && !email.isEmpty()) {
+	        		String findPwd2="end";
+	        		return findPwd2;
+	            }
 	        }
 	        
 	        //비밀번호 결과
@@ -290,9 +301,9 @@ import lombok.extern.slf4j.Slf4j;
 //=============================================================================================
 		/*=======================================================================================
 			  작성자   |    개발 및 수정 일자    |    수정 내용
-			  조은유          23-06-22           로그인 중복확인 기능 구현 완료
+			  조은유          23-06-22           로그인	 중복확인 기능 구현 완료
 			  조은유          23-06-26           로그아웃 구현 완료
-			  조은유          23-07-03           관리자 로그인 설정 완료
+			  조은유          23-07-03           로그인	 관리자 로그인 기능 구현 완료
 		=========================================================================================*/
 	      /*  관리자 로그인 실행 */
 	      @RequestMapping("/adminlogin_yn")
@@ -353,7 +364,7 @@ import lombok.extern.slf4j.Slf4j;
 	         
 	          // 로그인하지 않은 경우 로그인 페이지로 리다이렉트합니다.
 	          if (dto == null) {
-	              return "redirect:loginRegister/login";
+	              return "redirect:/login";
 	          }
 
 	          // 로그인한 사용자의 경우 myPage로 이동합니다.

@@ -150,7 +150,7 @@
                                                 <td style="width: 60%;">
                                                     <div class="thumbnail" style="height: 400px; float: left; ">
                                                         <!-- 상품 이미지 사진 -->
-                                                        <img src="img/test.jpeg" alt="이미지">이미지
+                                                        <img src="${ProductView.proimg}" alt="이미지">이미지
                                                     </div>
                                                 </td>
                                                 <td style="width: 40%;">
@@ -245,7 +245,7 @@
                                                                         <p>
                                                                             <!-- onClick="location.href='tp_main_login'" 로그인 안했을시 로그인 창으로 -->
                                                                             <!-- <input style="width: 120px; height: 40px;" type="button" id="buy" name="buy" value="Buy Now"  onClick="location.href='로그인창'"> -->
-                                                                            <input  type="button" id="buy" name="buy" value="Buy Now" onclick="checkCart()">
+                                                                            <input  type="submit" id="buy" name="buy" value="Buy Now" >
                                                                             <!-- 클릭시 바로 order Form으로 간다 -->
                                                                             <input  type="button" id="cartBtn" name="cart" value="Add to Cart">
                                                                             <!-- 클릭시 팝업창 띄워야함 -->

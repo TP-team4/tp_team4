@@ -14,7 +14,7 @@
 	crossorigin="anonymous">
 <link rel="canonical"
 	href="https://getbootstrap.com/docs/5.2/examples/sign-in/">
-<link href="css/bootstrap.min.css" rel="stylesheet">
+<!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
 <style>
 
 /* @media (min-width: 768px) {
@@ -322,7 +322,7 @@ button {
 											</tr>
 											<tr height="50px">
 												<td width="100px" align="left">Tel<td>
-												<td><input class="w3-input" type="text" id="hp"
+												<td><input class="w3-input" type="text" id="hp" onkeyup="phoneNumber(this)"
 													name="hp" placeholder="핸드폰 번호를 입력해주세요." required>
 												<td>
 											</tr>
@@ -415,7 +415,8 @@ button {
 <!-- =========================================================================================
            로그인 및 회원가입 구현
            작성자   |    개발 및 수정 일자    |    수정 내용
-           김효진          23-06-27           로그인   비밀번호 찾기 기능 구현 완료 (하루 2회 제한)           
+           김효진          23-06-27           로그인   비밀번호 찾기 기능 구현 완료 (하루 2회 제한) 
+           김효진          23-07-04           로그인   아이디 찾기 Tel 입력시 하이픈 처리 완료          
    ===========================================================================================-->
 <script>
    /* 비밀번호 찾기 */ 
@@ -467,7 +468,7 @@ button {
             }
          },
           error:function(){
-                   alert("에러입니다");
+        	  alert("비밀번호 찾기 요청 중 오류가 발생했습니다. 다시 시도해주세요.");
                }
       });
    };
@@ -490,6 +491,25 @@ modal.addEventListener("click", e => {
         modal.style.display = "none"
     }
 })
+
+/* 전화번호 하이픈 */
+function phoneNumber(input) {
+     // 입력된 번호에서 "-"를 제거
+     var hpNumber = input.value.replace(/-/g, '');
+
+     // "-"를 포함한 적절한 포맷으로 번호를 변경
+     if (hpNumber.length === 3) {
+            hpNumber = hpNumber;
+     } else if (hpNumber.length > 3 && hpNumber.length < 7) {
+          hpNumber = hpNumber.slice(0, 3) + '-' + hpNumber.slice(3);
+     } else if (hpNumber.length >= 7 && hpNumber.length < 11) {
+          hpNumber = hpNumber.slice(0, 3) + '-' + hpNumber.slice(3, 6) + '-' + hpNumber.slice(6);
+     } else if (hpNumber.length >= 11) {
+           hpNumber = hpNumber.slice(0, 3) + '-' + hpNumber.slice(3, 7) + '-' + hpNumber.slice(7);
+     }
+     // 변경된 번호를 입력 필드에 반영
+     input.value = hpNumber;
+   }
 </script>
 <!-- =============================================================================================    -->
 

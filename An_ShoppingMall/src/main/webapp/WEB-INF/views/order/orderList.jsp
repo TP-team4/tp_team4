@@ -69,7 +69,7 @@
 							<td>${dto.status}</td>
 							<form action="orderModify" method="post">
 							<td>
-								<select name="status">
+								<select name="status" value="dto.status">
 									<c:choose>
 										<c:when test="${dto.status == 1}">
 											<option value="2">2:교환</option>

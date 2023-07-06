@@ -222,7 +222,7 @@ a:hover{
       
 <!-- =========================================================================================
            작성자   |    개발 및 수정 일자    |    수정 내용
-           조은유          23-06-27            로그인 화면 설정
+           조은유          23-06-27            프론트   로그인 화면 설정
 ===========================================================================================-->
       <!-- 본문 -->
       <section id="section" style="width: 600px;" >
@@ -328,12 +328,9 @@ a:hover{
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <!-- =========================================================================================
            작성자   |    개발 및 수정 일자    |    수정 내용
-           조은유          23-06-27            
-           조은유          23-07-03           라디오 버튼 조건 추가
+           조은유          23-07-03           관리자&회원 로그인 라디오 버튼 조건 추가
 ===========================================================================================-->
 <script>
-   
-    
    $("input[name='loigntype']").change(function(){
        if($("input[name='loigntype']:checked").val() == 'user'){
            $(".login_button").click(function(){
@@ -345,11 +342,16 @@ a:hover{
                $("#login_form").attr("action", "adminlogin_yn");
            });
        }
-    
    });
 
+   $(".login_button").click(function(){
+	    var login_form = document.login_form;
+	    if((login_form.loigntype[0].checked == false) && (login_form.loigntype[1].checked == false)){
+	        alert("로그인 유형을 선택해주세요.");
+	        return false;
+	    }
+	});
 </script>
-
 <!-- =========================================================================================
            로그인 및 회원가입 구현
            작성자   |    개발 및 수정 일자    |    수정 내용
@@ -362,7 +364,6 @@ a:hover{
            김효진          23-07-02           카카오톡 회원가입 완료페이지 연결 오류 해결
            김효진          23-07-03           카카오톡 회원가입 이메일(선택동의) null 일 경우 데이터 전송 오류 해결
    ===========================================================================================-->
-
 <script type="text/javascript">
 
    /* 카카오톡 가입 */
@@ -385,10 +386,10 @@ a:hover{
 //                resultdiv += '<h4>connected_at: '+connected_at+'<h4>'
                email ="";
                gender = "";
-//                if(typeof kakao_account != 'undefined'){
-//                   email = kakao_account.email;
-//                   gender = kakao_account.gender;
-//                }
+               if(typeof kakao_account != 'undefined'){
+                  email = kakao_account.email;
+                  gender = kakao_account.gender;
+               }
                
                
                if (id && email) {
@@ -402,15 +403,15 @@ a:hover{
                          console.log("Encoded ID:", encodedId);
                          console.log("Encoded Email:", encodedEmail);
                            if (response == "success") {
-                               document.location.href = "register_kakaoOk"; // 가입 성공 시
+                               document.location.href = "registerKakaoOk"; // 가입 성공 시
                            } else {
                               document.location.href = "login_kakao"; // 이미 가입된 회원인 경우
                            }
                        },
                    })
-               } else {
+               } else if(id!=null && email==null){
                   const encodedId = encodeURIComponent(id);
-                   const encodedEmail = encodeURIComponent("null"); //이메일 선택동의 수락 안한 경우
+                   const encodedEmail = encodeURIComponent(email); //이메일 선택동의 수락 안한 경우
                    $.ajax({
                        type: "post",
                        url: "register_kakao",
@@ -419,7 +420,7 @@ a:hover{
                            console.log("Encoded ID:", encodedId);
                            console.log("Encoded Email:", encodedEmail);
                            if (response == "success") {
-                               document.location.href = "register_kakaoOk"; // 가입 성공 시
+                               document.location.href = "registerKakaoOk"; // 가입 성공 시
                            } else {
                               document.location.href = "login_kakao"; // 이미 가입된 회원인 경우
                            }

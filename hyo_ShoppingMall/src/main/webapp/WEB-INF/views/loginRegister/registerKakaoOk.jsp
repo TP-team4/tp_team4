@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<!-- <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -147,7 +147,6 @@ a:hover{
   border-bottom: none;
   width: 100px;
   height: 30px;
-
 }
 
   </style>
@@ -206,7 +205,7 @@ a:hover{
     <!-- 
     =================================================================
     회원가입 완료 화면 
-    조은유    |   23-07-04       |    프론트	   회원가입 완료 화면 설정
+    조은유    |   23-07-04       |            프론트	   회원가입 완료 화면 설정
     =================================================================
     -->
     
@@ -219,14 +218,14 @@ a:hover{
                     <form action="login" method="post">
                     <tr>
                         <td>
-                            <strong>회원가입 완료</strong>
+                            <strong>카카오 간편 회원가입 완료</strong>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            ${registerOk.name}님 가입을 축하합니다!
+                            ID: ${id} 님 가입을 축하합니다!
                             <br>
-                            (ID : ${registerOk.id} )
+                            (Email: ${email})
                         </td>
                     </tr>
                     <tr height="50px">
@@ -288,4 +287,3 @@ a:hover{
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>
 </html>
-

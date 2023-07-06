@@ -33,7 +33,7 @@
       	<selectKey keyProperty="cartcode" resultType="java.lang.String" order="BEFORE">
 		 	select to_char(sysdate, 'yyyymmdd') || lpad(cart_seq.nextval, 4, '0') as cartcode from dual
 		</selectKey>
-		insert into cart (cartcode, userid, procode) values (#{cartcode}, 'qwerty1234', #{procode})
+		insert into cart (cartcode, userid, procode) values (#{cartcode}, 'test1', #{procode})
     </insert>
     <select id="checkCart" resultType="com.lgy.ShoppingMall.dto.CheckCartDto">
 		select cartcode, procode from cart where userid = 'qwerty1234'
