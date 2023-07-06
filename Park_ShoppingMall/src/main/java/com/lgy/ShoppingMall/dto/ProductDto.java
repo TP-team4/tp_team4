@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PProductDto {
+public class ProductDto {
 	private int procode;//상품코드
 	private int catecode;//카테고리 코드
 	private String proname;//상품이름

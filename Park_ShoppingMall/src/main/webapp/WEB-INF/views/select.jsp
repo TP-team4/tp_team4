@@ -129,6 +129,50 @@
 
   <main id="main">
     <div class="container">
+    
+    <aside id="aisdeLeft">
+        <div id="title">
+          <a href="tp_main_1.html">
+            <span style="font-size: x-large; position: absolute; left: 0px; color: black;  width: 200px;">Room & Bloom</span>
+          </a>
+        </div>
+        <div class="category" style="position: absolute; top: 70px;">
+          <ul style="width: 200px;">
+              <li><a href="#">BEST</a></li>
+              <li><a href="#">의자</a></li>
+              <li><a href="#">침대</a></li>
+              <li><a href="#">테이블/식탁/책상</a></li>
+              <li><a href="#">소파</a></li>
+              <li><a href="#">서랍/수납장</a></li>
+              <li><a href="#">거실장/TV장</a></li>
+              <li><a href="#">선반</a></li>
+              <li><a href="#">진열장/책장</a></li>
+              <li><a href="#">행거/옷장</a></li>
+              <li><a href="#">화장대</a></li>
+          </ul>
+      </div>
+      <div class="notice" style="position: absolute; top: 400px;">
+          <ul>
+              <li><a href="tp_main_notice.html">Notice</a></li>
+              <li><a href="tp_main_QnA.html">QnA</a></li>
+              <li><a href="tp_main_review.html">Review</a></li>
+          </ul>
+      </div>
+      <div class="info" style="position: absolute; top: 550px;">
+          <ul>
+              <li>02-336-4363</li>
+              <li>
+                  Mon-Fri 10:00-19:00
+                  <br>
+                  Weekend,Holiday off
+              </li>
+          </ul>
+      </div>        
+
+      </aside>
+    
+    
+    
 <!--      @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@여기서 부터 상품 본문@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
       <!-- 본문 -->
       <section id="section" style="width: 600px;" >
@@ -140,9 +184,13 @@
                             <div class="detailArea">
                             
                             
+                            
+                            
+                            
+                            
+                            
 <!--                             @@@@@@@@@@@@@@@@@여기가 진짜@@@@@@@@@@@@@ -->
-                                <c:forEach items="${list}" var="ProductView"> 
-                                    <form id="frm" method="post" action="orderPage">
+                                    <form id="frm">
                                     
                                     
                                          <table style="width: 100%;">
@@ -150,7 +198,7 @@
                                                 <td style="width: 60%;">
                                                     <div class="thumbnail" style="height: 400px; float: left; ">
                                                         <!-- 상품 이미지 사진 -->
-                                                        <img src="${ProductView.proimg}" alt="이미지">이미지
+                                                        <img src="img/test.jpeg" alt="이미지">이미지
                                                     </div>
                                                 </td>
                                                 <td style="width: 40%;">
@@ -168,7 +216,8 @@
                                                             <tr height="40px">
                                                                 <td id="proprice">
                                                                     <!-- 판매가 -->
-                                                                    <del>${ProductView.proprice}</del> 원
+<%--                                                                     <del>${ProductView.proprice}</del> 원 --%>
+                                                                    ${ProductView.proprice} 원
                                                                 </td>
                                                             </tr>
                                                             <tr height="40px">
@@ -196,24 +245,24 @@
                                                                     </select>
                                                                 </td>
                                                             </tr>
-                                                            <tr id="insertRow">
-                                                                <td>상품사이즈 선택 <br>
-                                                                    <select id="optionSize" onchange="updateProductInfo()">
-                                                                        <option value="" class="x"><b>[필수] option</b></option>
-                                                                        <option value="" class="x"><b>------------</b></option>
-                                                                        <optgroup label="상품옵션" selected="selected">
-                                                                            <c:forEach var="size" items="${Gu_ProductView.sizeOptions}" varStatus="status">
-                                                                                <c:if test="${not empty size}">
-                                                                                    <option id="size${status.index + 1}" value="${size}">${size}</option>
-                                                                                </c:if>
-                                                                            </c:forEach>
-                                                                             <!-- <option id="size1" value="${Gu_ProductView.size1}">${Gu_ProductView.size1}</option>  -->
-                                                                             <!-- <option id="size2" value="${Gu_ProductView.size2}">${Gu_ProductView.size2}</option> -->
-                                                                             <!-- <option id="size3" value="${Gu_ProductView.size3}">${Gu_ProductView.size3}</option>  -->
-                                                                        </optgroup>
-                                                                    </select>
-                                                                </td>
-                                                            </tr>
+				                                           <tr id="insertRow">
+				                                               <td>상품사이즈 선택 <br>
+				                                                   <select id="optionSize" onchange="updateProductInfo()">
+				                                                       <option value="" class="x"><b>[필수] option</b></option>
+				                                                       <option value="" class="x"><b>------------</b></option>
+				                                                       <optgroup label="상품옵션" selected="selected">
+				                                                           <c:forEach var="size" items="${Gu_ProductView.sizeOptions}" varStatus="status">
+				                                                               <c:if test="${not empty size}">
+				                                                                   <option id="size${status.index + 1}" value="${size}">${size}</option>
+				                                                               </c:if>
+				                                                           </c:forEach>
+				                                                            <!-- <option id="size1" value="${Gu_ProductView.size1}">${Gu_ProductView.size1}</option>  -->
+				                                                            <!-- <option id="size2" value="${Gu_ProductView.size2}">${Gu_ProductView.size2}</option> -->
+				                                                            <!-- <option id="size3" value="${Gu_ProductView.size3}">${Gu_ProductView.size3}</option>  -->
+				                                                       </optgroup>
+				                                                   </select>
+				                                               </td>
+				                                           </tr>
                                                             <tr>
                                                                 <td>
                                                                     <!-- 추가구성상품 토글창 미완.. -->
@@ -245,7 +294,10 @@
                                                                         <p>
                                                                             <!-- onClick="location.href='tp_main_login'" 로그인 안했을시 로그인 창으로 -->
                                                                             <!-- <input style="width: 120px; height: 40px;" type="button" id="buy" name="buy" value="Buy Now"  onClick="location.href='로그인창'"> -->
-                                                                            <input  type="submit" id="buy" name="buy" value="Buy Now" >
+                                                                            <input type="hidden" id="proprice" name="proprice" value="${ProductView.proprice}">
+										                                    <input type="hidden" id="proname" name="proname" value="${ProductView.proname}">
+										                                    <input type="hidden" id="procode" name="procode" value="${ProductView.procode}">
+                                                                            <input  type="button" id="buy" name="buy" value="Buy Now" onclick="checkCart()">
                                                                             <!-- 클릭시 바로 order Form으로 간다 -->
                                                                             <input  type="button" id="cartBtn" name="cart" value="Add to Cart">
                                                                             <!-- 클릭시 팝업창 띄워야함 -->
@@ -270,14 +322,7 @@
                                             </tr>
                                         </table>
 
-                                        <input type="hidden" name="proprice" value="${ProductView.proprice}">
-                                        <input type="hidden" name="proname" value="${ProductView.proname}">
-                                        <input type="hidden" name="procode" value="${ProductView.procode}">
-
-
                                         </form>
-                                </c:forEach>
-            
 
                             </div>
                         </div>
@@ -289,19 +334,56 @@
             </div>
         </article>
     </section>
-
+	
+	 <!-- 
+    =================================================================
+    우측 사이드바 레이아웃 세팅
+    조은유   |   23-06-16      |                      사이드바 레이아웃 조정 
+    ================================================================= 
+    -->
+      <!-- 우측사이드바 -->
+      <aside id="aisdeRight">
+        <div class="rightbar">
+          <div class="cart" style="position: absolute; top: 80px; right: 0px;">
+              <ul>
+                  <li><a href="#" style="color: black; width: 200px;">Cart - 0</a></li>
+              </ul>
+          </div>
+          <div class="login" style="position: absolute; top: 160px; right: 0px;">
+              <ul id="log_ul" style="width: 200px;">
+                  <li><a href="tp_main_login noneStyle.html">Log in</a></li>
+                  <li><a href="tp_main_register.html">Register</a></li>
+                  <li><a href="#">Order</a></li>
+                  <li><a href="#">My Page</a></li>
+              </ul>
+          </div>
+          <!-- 검색기능 -->
+        <div class="search" style="position: absolute; top: 600px; right: 10px; width: 250px;">
+          <form method="post" action="#">
+              <fieldset>
+                  <input type="text" class="underline">
+                  <a href="#">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                      </svg>
+                  </a>
+              </fieldset>    
+            </form>
+          </div>
+         </div>
+      </aside>
+	
+	
+	
     </div>
   </main>
   <div style="position: fixed; bottom: 5px; left: 50%; right: 50%;">
     <a href="#" style="font-size: xx-large;">^</a>
   </div>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	
 	<script type="text/javascript">
-	  let procode = document.getElementById("procode").value;
-	  let proprice = document.getElementById("proprice").value;
-	  let proname = document.getElementById("proname").value;
-	
+		let procode = document.getElementById("procode").value;
+		
 	  function checkCart() {
 	    var form = $('#frm').serialize();
 	
@@ -310,36 +392,24 @@
 	      url: 'checkCart',
 	      data: form,
 	      success: function(response) {
-	        alert(response);
 	        if (response === '') {
 	          alert('주문페이지로 이동합니다.');
-	
+	          var form2 = document.createElement('form');
 	          
-	
-	          // procode 입력 필드 추가
+	          
+	      	  // procode 입력 필드 추가
 	          var procodeInput = document.createElement('input');
 	          procodeInput.setAttribute('type', 'hidden');
 	          procodeInput.setAttribute('name', 'procode');
 	          procodeInput.setAttribute('value', procode);
 	          form2.appendChild(procodeInput);
-	
-	          // proprice 입력 필드 추가
-	          var propriceInput = document.createElement('input');
-	          propriceInput.setAttribute('type', 'hidden');
-	          propriceInput.setAttribute('name', 'proprice');
-	          propriceInput.setAttribute('value', proprice);
-	          form2.appendChild(propriceInput);
-	
-	          // proname 입력 필드 추가
-	          var pronameInput = document.createElement('input');
-	          pronameInput.setAttribute('type', 'hidden');
-	          pronameInput.setAttribute('name', 'proname');
-	          pronameInput.setAttribute('value', proname);
-	          form2.appendChild(pronameInput);
-	
+
+	          form2.setAttribute('method', 'POST');
+	          form2.setAttribute('action', 'orderPage');
 	          // form을 body에 추가하고 제출
 	          document.body.appendChild(form2);
 	          form2.submit();
+// 	          form2.dispatchEvent(new Event('submit'));	
 	        } else if (response === 'notnull') {
 	          alert("장바구니에 같은 상품이 존재합니다. 장바구니로 이동합니다.");
 	          window.location.href = 'ShoppingCart';

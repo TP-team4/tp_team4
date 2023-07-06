@@ -126,155 +126,216 @@
         <article>
           <div id="article" style="height: auto;">
             <div id="order">
-              <div style="position: absolute; left: 45%;">Order Page</div>
+                <div style="position: absolute; left: 45%;">Order Page</div>
              
-              <form id="frm">
-                <table style="width: 900px;" align="center" >
-                  <caption align="top"><hr style="width: 900px; margin-top: 60px; margin-bottom: 40px;"></caption>
-                <tr>
-                  <td colspan="8"><b style="float: left;">국내배송상품 주문내역</b>
-                    <div style="float: right; margin-top: -5px; margin-right: 5px;"><input type="button" value="이전페이지" onclick="cancel()" ></div>
-                  </td>
-                </tr>
-                <tr style="text-align: center;">
-                  <td style="width: 30px; height: 5px; padding: 0px;"><input type="checkbox" style="margin-top: 10px;"></td>
-                  <td style="width: 80px;">Image</td>
-                  <td>Item</td>
-                  <td style="width: 120px;">Price</td>
-                  <td style="width: 70px;">Qty</td>
-                  <td style="width: 120px;">Delivery</td>
-                  <td style="width: 120px;">Charge</td>
-                  <td>Total</td>
-                </tr>
-                <!-- 상품 추가될 시 증가하게 해야됨 -->
-                <tr>
-                  <td></td>
-                  <td style="border-left: hidden;"></td>
-                  <td style="text-align: left; border-left: hidden;"><div id="product">${proname}</div></td>
-                  <td> 
-                  	<div style="float: left;">&#8361;</div> 
-                  	<div id="price">${proprice}</div>
-                  	</td>
-                  <td></td>
-                  <td>기본배송</td>
-                  <td>[조건]</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td colspan="8"><span style="float: left;">[기본배송]</span></td>
-                </tr>
-              </table>
+                    <form id="frm">
+                        <table style="width: 900px;" align="center" >
+                            <caption align="top"><hr style="width: 900px; margin-top: 60px; margin-bottom: 40px;"></caption>
+                            <tr>
+                                <td colspan="8"><b style="float: left;">국내배송상품 주문내역</b>
+                                <div style="float: right; margin-top: -5px; margin-right: 5px;"><input type="button" value="이전페이지" onclick="cancel()" ></div>
+                                </td>
+                            </tr>
+                            <tr style="text-align: center;">
+                                <td style="width: 30px; height: 5px; padding: 0px;"><input type="checkbox" style="margin-top: 10px;"></td>
+                                <td style="width: 80px;">Image</td>
+                                <td>Item</td>
+                                <td style="width: 120px;">Price</td>
+                                <td style="width: 70px;">Qty</td>
+                                <td style="width: 120px;">Delivery</td>
+                                <td style="width: 120px;">Charge</td>
+                                <td>Total</td>
+                            </tr>
+                            <!-- 상품 추가될 시 증가하게 해야됨 -->
+                            <tr>
+                                <td></td>
+                                <td style="border-left: hidden;">${order.proimg}</td>
+                                <td style="text-align: left; border-left: hidden;"><div id="product">${order.proname}</div></td>
+                                <td> 
+                                    <div style="float: left;">&#8361;</div> 
+                                    <div id="price">${order.proprice}</div>
+                                </td>
+                                <td>
+                                    <div>${order.proqty}</div>
+                                </td>
+                                <td>기본배송</td>
+                                <td>[조건]</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td colspan="8"><span style="float: left;">[기본배송]</span></td>
+                            </tr>
+                        </table>
               
-                
-              <table style="width: 900px;" align="center">
-                <caption align="top"><hr style="width: 900px; margin-top: 60px; margin-bottom: 40px;"></caption>
-                  <tr>
-                    <td colspan="2" style="border-top: hidden; border-left: hidden; border-right: hidden;">
-                      <span style="float: left;"><b>배송정보</b></span>
-                    </td>
-                  </tr>
-                  <tr>
-                      <td>배송지 선택</td>
-                      <td></td>
-                  </tr>
-                  <tr>
-                      <td>받으시는 분</td>
-                      <td>
-                        <input id="buyer_name" type="text" style="width: 150px; float: left;">
-                      </td>
-                  </tr>
-                  <tr>
-                      <td>주소 *</td>
-                      <td>
-                          <input type="text" name="postcode" id="postcode" placeholder=" 우편번호" style="width: 60px; float: left;">
-                          <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" style="float: left; margin-left: 5px;"><br><br>
-                          <input type="text" name="addr" id="addr" placeholder="  기본주소" style="width: 300px; float: left; margin-top: -3px;"><br><br>
-                          <input type="text" id="etcaddr" placeholder="  상세주소" style="width: 300px; float: left; margin-top: -10px;">
-                          <input type="text" id="sample6_extraAddress" placeholder="참고항목" style="float: left; margin-left: 5px; margin-top: -10px;">
-                  </tr>
-                  <tr>
-                      <td>휴대전화 *</td>
-                      <td>
-                          <select id="ph1" style="float: left;">
-                              <option value="010" selected>010</option>
-                              <option value="011">011</option>
-                              <option value="016">016</option>
-                              <option value="017">017</option>
-                              <option value="018">018</option>
-                              <option value="019">019</option>      
-                          </select>
-                          <span style="float:left; margin-left: 3px;"> -</span>
-                          <input type="text" id="ph2" style="width: 60px; float: left; margin-left: 3px; margin-top: -1px;">
-                          <span style="float:left; margin-left: 3px;"> -</span>
-                          <input type="text" id="ph3" style="width: 60px; float: left;  margin-left: 3px; margin-top: -1px">
-                      </td>
-                  </tr>
-                  <tr>
-                  <tr>
-                      <td>배송메세지</td>
-                      <td>
-                          <input type="text" id="memo" name="memo" style="width: 500px; height: 60px; font-size: medium; float: left;" maxlength="100px">
-                      </td>
-                  </tr>
-              </table>
-
-              <table style="width: 900px; margin-top: 50px;" align="center">
-            	<tr>
-                  <td colspan="2" style="border-top: hidden; border-left: hidden; border-right: hidden;">
-                    <span style="float: left;"><b>결제수단</b></span>
-                  </td>
-                </tr>
-                <tr>
-                    <td style="width: 600px; height: 50px;">
-                      <div style="float: left; margin-left: 10px;">
-                      
-<!--                       		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
-                        <input type="radio" name="payment" value="신용카드" checked>신용카드
-                          &nbsp;&nbsp;&nbsp;&nbsp;
-                        <input type="radio" name="payment" value="카카오페이">카카오페이
-                      </div>
-                      
-                      
-                      
-                      
-                    </td>
-                    <td rowspan="2" style="width: 200px; height: 200px;">
-                      총 결제 금액 : 
-                      <!-- 일반결제 -->
-                      <div>
-                        <input style="width: 150px; height: 30px; background-color: black; color: white;" type="button" id="pay" value="결제하기" onclick="consultation_request(this.id)" >
-                      </div>
-
-                      <!-- 카카오페이 결제 버튼 -->
-                      <div >
-                        <button type="button" id="kakao" onclick="consultation_request(this.id)">
-                          <img alt="" src="resources/kakao.png" width="50px">
-                        </button>
+        
+                        <table style="width: 900px;" align="center">
+                            <caption align="top"><hr style="width: 900px; margin-top: 60px; margin-bottom: 40px;"></caption>
+                            <tr>
+                                <td colspan="2" style="border-top: hidden; border-left: hidden; border-right: hidden;">
+                                <span style="float: left;"><b>배송정보</b></span>
+                                </td>
+                            </tr>
+                            <tr style="border-bottom: hidden;">
+                                <td style="border-right: hidden; width: 135px">배송지 선택</td>
+                                <td style=" text-align: left;">
+                                    <input type="radio" name="addr" value="회원정보와동일" checked> 회원 정보와 동일
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input type="radio" name="addr" value="새로운배송지">새로운 배송지
+                                </td>
+                            </tr>
+                            
+                        </table>
+                        
+                                      <!-- 회원배송지 -->
+                        <div id="userAddr"> 
+                            <table style="width: 900px;" align="center">
+                                <tr>
+                                    <td>받으시는 분</td>
+                                    <td>
+                                        <input id="buyer_name" type="text" style="width: 150px; float: left;" value="${addr.name}">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>주소 *</td>
+                                    <td>
+                                        <input type="text" name="postcode" id="postcode" placeholder=" 우편번호" style="width: 60px; float: left;" value="${addr.pcode }">
+                                        <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" style="float: left; margin-left: 5px;"><br><br>
+                                        <input type="text" name="addr" id="addr" placeholder="  기본주소" style="width: 300px; float: left; margin-top: -3px;" value="${addr.loadaddr }"><br><br>
+                                        <input type="text" id="etcaddr" placeholder="  상세주소" style="width: 300px; float: left; margin-top: -10px;" value="${addr.etcaddr }"> 
+                                        <input type="text" id="sample6_extraAddress" placeholder="참고항목" style="float: left; margin-left: 5px; margin-top: -10px;" >
+                                </tr>
+                                <tr>
+                                    <td>휴대전화 *</td>
+                                    <td>
+                                        <select id="ph1" style="float: left;">
+                                            <option value="010" selected>010</option>
+                                            <option value="011">011</option>
+                                            <option value="016">016</option>
+                                            <option value="017">017</option>
+                                            <option value="018">018</option>
+                                            <option value="019">019</option>      
+                                        </select>
+                                        <span style="float:left; margin-left: 3px;"> -</span>
+                                        <input type="text" id="ph2" style="width: 60px; float: left; margin-left: 3px; margin-top: -1px;" value="${hp1 }">
+                                        <span style="float:left; margin-left: 3px;"> -</span>
+                                        <input type="text" id="ph3" style="width: 60px; float: left;  margin-left: 3px; margin-top: -1px" value="${hp2 }">
+                                    </td>
+                                </tr>
+                                <tr>
+                                <tr>
+                                    <td>배송메세지</td>
+                                    <td>
+                                        <input type="text" id="memo" name="memo" style="width: 500px; height: 60px; font-size: medium; float: left;" maxlength="100px">
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td rowspan="3" style="height: 200px;">
-                      <div class="agreeInner" >
-                        <span class="agreeCheck">개인정보 수집 및 이용 동의</span>
-                          <span class="radioW">   
-                          <span style="position: absolute; margin-top: -8px; margin-left: 5px;">
-                            <input  type="checkbox" id="privacy_agreement0" name="privacy_agreement_radio" fw-filter="isFill" fw-label="개인정보보호정책" fw-msg="">
-                          </span>
-                        </span>
-                    </div>   
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                </tr>
-            </table>  
-            </form>
-          </div>		
-          </div>
+                        <!-- 신규배송지 -->
+                        <div id="newAddr"> 
+                            <table style="width: 900px;" align="center">
+                                    <td>받으시는 분</td>
+                                    <td>
+                                        <input id="buyer_name" type="text" style="width: 150px; float: left;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>주소 *</td>
+                                    <td>
+                                        <input type="text" name="postcode" id="postcode" placeholder=" 우편번호" style="width: 60px; float: left;">
+                                        <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" style="float: left; margin-left: 5px;"><br><br>
+                                        <input type="text" name="addr" id="addr" placeholder="  기본주소" style="width: 300px; float: left; margin-top: -3px;"><br><br>
+                                        <input type="text" id="etcaddr" placeholder="  상세주소" style="width: 300px; float: left; margin-top: -10px;">
+                                        <input type="text" id="sample6_extraAddress" placeholder="참고항목" style="float: left; margin-left: 5px; margin-top: -10px;">
+                                </tr>
+                                <tr>
+                                    <td>휴대전화 *</td>
+                                    <td>
+                                        <select id="ph1" style="float: left;">
+                                            <option value="010" selected>010</option>
+                                            <option value="011">011</option>
+                                            <option value="016">016</option>
+                                            <option value="017">017</option>
+                                            <option value="018">018</option>
+                                            <option value="019">019</option>      
+                                        </select>
+                                        <span style="float:left; margin-left: 3px;"> -</span>
+                                        <input type="text" id="ph2" style="width: 60px; float: left; margin-left: 3px; margin-top: -1px;">
+                                        <span style="float:left; margin-left: 3px;"> -</span>
+                                        <input type="text" id="ph3" style="width: 60px; float: left;  margin-left: 3px; margin-top: -1px">
+                                    </td>
+                                </tr>
+                                <tr>
+                                <tr>
+                                    <td>배송메세지</td>
+                                    <td>
+                                        <input type="text" id="memo" name="memo" style="width: 500px; height: 60px; font-size: medium; float: left;" maxlength="100px">
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+              
+              
+              
+              
+              
+              
+              
+
+                        <table style="width: 900px; margin-top: 50px;" align="center">
+                            <tr>
+                            <td colspan="2" style="border-top: hidden; border-left: hidden; border-right: hidden;">
+                                <span style="float: left;"><b>결제수단</b></span>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 600px; height: 50px;">
+                                <div style="float: left; margin-left: 10px;">
+                                    <input type="radio" name="payment" value="신용카드" checked>신용카드
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input type="radio" name="payment" value="카카오페이">카카오페이
+                                </div>
+                      
+                      
+                      
+                      
+                                </td>
+                                <td rowspan="2" style="width: 200px; height: 200px;">
+                                총 결제 금액 : 
+                                <!-- 일반결제 -->
+                                <div>
+                                    <input style="width: 150px; height: 30px; background-color: black; color: white;" type="button" id="pay" value="결제하기" onclick="consultation_request(this.id)" >
+                                </div>
+
+                                <!-- 카카오페이 결제 버튼 -->
+                                <div >
+                                    <button type="button" id="kakao" onclick="consultation_request(this.id)">
+                                    <img alt="" src="resources/kakao.png" width="50px">
+                                    </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="3" style="height: 200px;">
+                                <div class="agreeInner" >
+                                    <span class="agreeCheck">개인정보 수집 및 이용 동의</span>
+                                    <span class="radioW">   
+                                    <span style="position: absolute; margin-top: -8px; margin-left: 5px;">
+                                        <input  type="checkbox" id="privacy_agreement0" name="privacy_agreement_radio" fw-filter="isFill" fw-label="개인정보보호정책" fw-msg="">
+                                    </span>
+                                    </span>
+                                </div>   
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                            </tr>
+                        </table>  
+                    </form>
+                </div>		
+            </div>
         </article>
       </section>
 
@@ -329,43 +390,65 @@
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>
-<!-- 카카오페이 -->
-<script type="text/javascript" src="resources/js/kakaopay.js"></script>
-<!-- 일반결제 -->
-<script type="text/javascript" src="resources/js/pay.js"></script>
-<!-- 개인정보 수집동의 -->
-<script type="text/javascript" src="resources/js/agree.js"></script>
-<!-- 주소api -->
-<script type="text/javascript" src="resources/js/addrAPI.js"></script>
-<script>
+    <!-- 카카오페이 -->
+    <script type="text/javascript" src="resources/js/kakaopay.js"></script>
+    <!-- 일반결제 -->
+    <script type="text/javascript" src="resources/js/pay.js"></script>
+    <!-- 개인정보 수집동의 -->
+    <script type="text/javascript" src="resources/js/agree.js"></script>
+    <!-- 주소api -->
+    <script type="text/javascript" src="resources/js/addrAPI.js"></script>
+    <script>
         function cancel(){
             alert("취소시 주문정보는 저장되지 않습니다.")
             if (confirm("이전페이지로 이동하시겠습니까?") == true) {
-            	location.href="cancel";
+                location.href="cancel";
             }else{
                 return false;
             }
-        }
+            }
     </script>
-    
-     <script>
-       $(document).ready(function(){
-		
-    $('#kakao').hide();   // 초깃값 설정
-    
-$("input[name='payment']").change(function(){
-    // 휴대폰 결제 선택 시.
-    if($("input[name='payment']:checked").val() == '신용카드'){
-        $('#pay').show();
-        $('#kakao').hide();
-    }	
-    // 신용카드 결제 선택 시.
-    else if($("input[name='payment']:checked").val() == '카카오페이'){
-        $('#pay').hide();
-        $('#kakao').show();
-    }
-});
-    
-});
-  </script>
+
+    <script>
+        $(document).ready(function(){
+
+        $('#kakao').hide();   // 초깃값 설정
+
+        $("input[name='payment']").change(function(){
+        // 휴대폰 결제 선택 시.
+        if($("input[name='payment']:checked").val() == '신용카드'){
+            $('#pay').show();
+            $('#kakao').hide();
+        }	
+        // 신용카드 결제 선택 시.
+        else if($("input[name='payment']:checked").val() == '카카오페이'){
+            $('#pay').hide();
+            $('#kakao').show();
+        }
+        });
+
+        });
+    </script>
+    <script>
+        $("input[name='payment']").change(function(){		
+        });
+        $(document).ready(function(){
+            
+            $('#newAddr').hide();   // 초깃값 설정
+                
+            $("input[name='addr']").change(function(){
+                // 휴대폰 결제 선택 시.
+                if($("input[name='addr']:checked").val() == '회원정보와동일'){
+                    $('#newAddr').hide();
+                    $('#userAddr').show();
+                }	
+                // 무통장입금 결제 선택 시.
+                else if($("input[name='addr']:checked").val() == '새로운배송지'){
+                    $('#userAddr').hide();
+                    $('#newAddr').show();
+                }
+            });
+                
+        });
+    </script>
 </html>
