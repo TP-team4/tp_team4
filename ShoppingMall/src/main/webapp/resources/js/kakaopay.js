@@ -13,6 +13,7 @@
          	let code = Math.round(new Date().getTime());
         	let userid = document.getElementById("userid").value; // 세션으로 받아올 회원 아이디?
         	let procode = document.getElementById("procode").value; // 세션으로 받아올 제품 번호
+        	let cartcode = document.getElementById("cartcode").value; // 세션으로 받아올 장바구니번호
         	
         	var date = new Date();
 			var year = date.getFullYear();
@@ -54,7 +55,8 @@
                              	, "payment" : 3 //결제수단
                              	, "ispaid" : 1
                              	, "code" : code
-                             	, "procode" : procode}
+                             	, "procode" : procode
+                             	, "cartcode" : cartcode}
                     });
 	        		alert(msg);
 	        		

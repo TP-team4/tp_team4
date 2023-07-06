@@ -89,6 +89,16 @@ public class PurchaseProductServiceImpl implements PurchaseProductService{
 		MemberDto dto = dao.memberAddr(param);
 		return dto;
 	}
+//	장바구니 번호 가져오기
+	@Override
+	public CheckCartDto checkCartCode(HashMap<String, String> param) {
+		log.info("@# ProductServiceImpl.checkCartCode start");
+		log.info("@#$ 아이디 주문번호 체크===> " + param);
+		PProductDao dao = sqlSession.getMapper(PProductDao.class);
+		CheckCartDto dto = dao.checkCartCode(param);
+		
+		return dto;
+	}
 	
 	
 //	//주문상세

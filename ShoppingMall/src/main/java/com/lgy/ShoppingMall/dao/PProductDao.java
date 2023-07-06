@@ -30,5 +30,6 @@ public interface PProductDao {
 	public ArrayList<PProductDto> CartView(HashMap<String, String> param);
 	//회원 주소정보 가져오기
 	public MemberDto memberAddr(HashMap<String, String> param);
-	
+	//장바구니 번호 가져오기
+	public CheckCartDto checkCartCode(HashMap<String, String> param);
 }

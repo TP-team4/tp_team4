@@ -16,4 +16,5 @@ public class ProductOutDto {
 	private int amount;
 	private int status;
 	private Timestamp outdate;
+	private String cartcode;
 }

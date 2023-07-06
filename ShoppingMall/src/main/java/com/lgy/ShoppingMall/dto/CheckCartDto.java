@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CheckCartDto {
-	private long cartcode;
+	private String cartcode;
 	private String procode;
 }

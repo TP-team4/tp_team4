@@ -205,6 +205,7 @@
                                         <input type="text" id="sample6_extraAddress" placeholder="참고항목" style="float: left; margin-left: 5px; margin-top: -10px;" >
                                         <input type="hidden" id="userid" value="${userid}">
                                         <input type="hidden" id="procode" value="${procode}">
+                                        <input type="hidden" id="cartcode" value="${cartcode}">
                                 </tr>
                                 <tr>
                                     <td>휴대전화 *</td>

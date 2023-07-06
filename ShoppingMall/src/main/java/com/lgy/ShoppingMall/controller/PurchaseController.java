@@ -50,6 +50,8 @@ public class PurchaseController {
         log.info("@# 마이페이지 세션 getid "+ getid);
         log.info("세션에서 받은 id : " + getid.getId());
         param.put("userid", getid.getId());
+        
+       
 	    
 	    // 세션에서 이미 장바구니에 추가된 상품 목록을 가져옴
 	    ArrayList<String> cartItems = (ArrayList<String>) session.getAttribute("cartItems");
@@ -67,6 +69,10 @@ public class PurchaseController {
 	        session.setAttribute("cartItems", cartItems);
 	    }
 	    
+        CheckCartDto dto2 = service.checkCartCode(param);
+        param.put("cartcode", dto2.getCartcode());
+        log.info("!@# cartcode === > " + param.get("cartcode"));
+	    
 	    // 나머지 로직 수행
 	    PProductDto dto = service.productSelect(param);
 	    model.addAttribute("order", dto);
@@ -78,6 +84,7 @@ public class PurchaseController {
 		log.info("회원 정보 확인 ==> " + memdto);
 		log.info("회원 정보 확인 ==> " + hp[1]);
 		log.info("회원 정보 확인 ==> " + hp[2]);
+		model.addAttribute("cartcode",param.get("cartcode"));
 		model.addAttribute("userid", getid.getId());
 		model.addAttribute("procode", param.get("procode"));
 		model.addAttribute("hp1",hp[1]);
@@ -128,6 +135,8 @@ public class PurchaseController {
 		
 //		장바구니 번호 받아오기
 //		select cartcode from cart where userid = '~' and procode = '!'
+		CheckCartDto dto = service.checkCartCode(param);
+		param.put("cartcode", dto.getCartcode());
 		
 //		param 에 cartcode put
 		
