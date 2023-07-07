@@ -55,13 +55,20 @@ public class OrderController {
 	}
 	
 	@RequestMapping("/ordSearchList")
-	public String ordSearchList(@RequestParam HashMap<String, String> param, Model model) {
+	public String ordSearchList(Criteria cri, Model model) {
 		log.info("@@## ordSearchList");
 		
-		ArrayList<ProductOrdDto> ordSearchList = orderService.ordSearchList(param);
-		log.info("@@## param"+param);
-		log.info("@@## param"+ordSearchList);
+		ArrayList<ProductOrdDto> ordSearchList = orderService.ordSearchList(cri);
 		
+		int total = 0;
+ 		try {
+ 			total = Integer.parseInt(ordSearchList.get(0).getCount());
+		} catch (Exception e) {
+		}
+ 		
+		log.info("@@## param"+cri);
+		log.info("@@## param"+ordSearchList);
+		model.addAttribute("pageMaker", new PageDTO(total, cri));
 		model.addAttribute("orderListPaging", ordSearchList);
 		
 		return "order/orderList";

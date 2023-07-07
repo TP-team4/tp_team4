@@ -55,7 +55,12 @@ public class MyPageController {
 	@RequestMapping("/myPage_view")
 	public String myPageView(@RequestParam("id") String id, Model model) {
 		HashMap<String, String> param = new HashMap<String, String>();
-		param.put("id", id);
+		log.info("$$$$"+id);
+		if (!id.equals(null)) {
+			log.info("$$$들어옴");
+			param.put("id", id);
+		}
+		log.info("@#@#"+param);
 		MemberDto dto = myPageService.myPageView(param);
 		model.addAttribute("myPage_view", dto);
 		return "mypage/myPage_view";
@@ -80,7 +85,9 @@ public class MyPageController {
 	    
 	    log.info("@# myPageView");
 	    MemberDto dto = myPageService.myPageView(param);
+	    log.info("@#@#dto"+dto);
 		model.addAttribute("myPage_view", dto);
+//		return "mypage/myPage_view";
 		return "mypage/myPage_view";
 	    
 	    
@@ -110,7 +117,7 @@ public class MyPageController {
 	// 회원 탈퇴 get
 	@RequestMapping("/memberDeleteView")
 	public String memberDeleteView(@RequestParam HashMap<String, String> param, Model model){
-		log.info("@@@@@@@@@"+param);
+		log.info("@@@### memberDeleteView"+param);
 		model.addAttribute("id", param.get("id"));
 		return "mypage/memberDeleteView";
 	}
@@ -119,7 +126,7 @@ public class MyPageController {
 	@RequestMapping("/memberDelete")
 	public String memberDelete(@RequestParam HashMap<String, String> param, RedirectAttributes attr){
 			
-		log.info("@###param"+param);
+		log.info("@memberDelete###param"+param);
 		MemberDto dto = myPageService.memberPassword(param);
 
 		String pwd = dto.getPwd();

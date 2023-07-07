@@ -26,10 +26,14 @@ public class ProductOrdDto {
 	private int status;
 	private Date changdate;
 	
+	private String rn;
 	private String count;
 	
 	private String proThumb; //상품썸네일
 	private String proName; //상품이름
 	private int proPrice; //상품가격
+	
 	private int amount; //수량 (product_out)
+	private String pocode; //상품출고번호 (product_out)
+	
 }

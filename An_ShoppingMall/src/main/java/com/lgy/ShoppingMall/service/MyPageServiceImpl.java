@@ -36,10 +36,10 @@ public class MyPageServiceImpl implements MyPageService{
 	@Override
 	public MemberDto myPageView(HashMap<String, String> param) {
 		log.info("@# MyPageServiceImpl.myPageView() start");
-		
+		log.info("@#@#param"+param);
 		MyPageDao dao = sqlSession.getMapper(MyPageDao.class);
 		MemberDto dto = dao.myPageView(param);
-
+		log.info("@#@#dto"+dto);
 		log.info("@# MyPageServiceImpl.myPageView() end");
 		
 		return dto;

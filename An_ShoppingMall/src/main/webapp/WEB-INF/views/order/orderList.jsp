@@ -30,15 +30,18 @@
             </div>
 
             <div class="form-group">
-                <select class="form-control" name="key" id="skey">
-                    <option value="all">전체</option>
-                    <option value="ordercode">주문번호</option>
-                    <option value="userid">아이디</option>
+                <select class="form-control" name="type" id="skey">
+                   <option value="OU" <c:out value="${pageMaker.cri.type eq 'OU' ? 'selected' : ''}"/>>전체</option>
+                   <option value="O" <c:out value="${pageMaker.cri.type eq 'O' ? 'selected' : ''}"/>>주문번호</option>
+                   <option value="U" <c:out value="${pageMaker.cri.type eq 'U' ? 'selected' : ''}"/>>아이디</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <input type="text" class="form-control" id="value" name="value">
+               <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+				<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+               <input type="text" name="keyword" id="value" class="form-control" value='<c:out value="${pageMaker.cri.keyword}"></c:out>'>
+<!--                 <input type="text" class="form-control" id="value" name="value"> -->
             </div>
 
             <button type="submit" class="btn btn-default">Search</button>
@@ -69,7 +72,7 @@
 							<td>${dto.status}</td>
 							<form action="orderModify" method="post">
 							<td>
-								<select name="status" value="dto.status">
+								<select name="status">
 									<c:choose>
 										<c:when test="${dto.status == 1}">
 											<option value="2">2:교환</option>
@@ -139,6 +142,8 @@
 	<form method="get" id="actionForm" action="#">
 		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
 		<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+		<input type="hidden" name="type" value='<c:out value="${pageMaker.cri.type}"/>'>
+      <input type="hidden" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"/>'>
 	</form>
 	
 </body>
@@ -163,7 +168,7 @@
 		console.log("click~!!!");
 		console.log("@# href ===>"+$(this).attr("href"));
 		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-		actionForm.attr("action", "orderListPaging");
+		actionForm.attr("action", "ordSearchList");
 		actionForm.submit();
 	});
     </script>

@@ -21,7 +21,7 @@
 <body>
     <div class="container">
         <a href="memberList"><h2>회원관리</h2></a>
-        <form method="post" class="form-inline" action="searchList">
+        <form method="post" class="form-inline" action="searchList" id="searchForm">
             <div class="form-group">
                 <button type="button" class="btn btn-default">
                     Count <span class="badge">${memberList[0].count}</span>
@@ -29,17 +29,21 @@
             </div>
 
             <div class="form-group">
-                <select class="form-control" name="key" id="skey">
-                    <option value="all">전체</option>
-                    <option value="id">아이디</option>
-                    <option value="name">이름</option>
-                    <option value="hp">전화번호</option>
-                    <option value="email">이메일</option>
+            
+                <select class="form-control" name="type" id="skey">
+                    <option value="INHE" <c:out value="${pageMaker.cri.type eq 'INHE' ? 'selected' : ''}"/>>전체</option>
+                    <option value="I" <c:out value="${pageMaker.cri.type eq 'I' ? 'selected' : ''}"/>>아이디</option>
+                    <option value="N" <c:out value="${pageMaker.cri.type eq 'N' ? 'selected' : ''}"/>>이름</option>
+                    <option value="H" <c:out value="${pageMaker.cri.type eq 'H' ? 'selected' : ''}"/>>전화번호</option>
+                    <option value="E" <c:out value="${pageMaker.cri.type eq 'E' ? 'selected' : ''}"/>>이메일</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <input type="text" class="form-control" id="value" name="value">
+	            <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+				<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+	            <input type="text" name="keyword" id="value" class="form-control" value='<c:out value="${pageMaker.cri.keyword}"></c:out>'>
+<!--                 <input type="text" class="form-control" id="value" name="value"> -->
             </div>
 
             <button type="submit" class="btn btn-default">Search</button>
@@ -73,7 +77,6 @@
 		</div>
 	</div>
 	
-	
 		<div class="div_page">
 		<ul  class="pagination">
 			<c:if test="${pageMaker.prev}">
@@ -105,9 +108,12 @@
 		</ul>
 	</div>
 	
-	<form method="get" id="actionForm" action="#">
+<!-- 	<form method="get" id="actionForm" action="#"> -->
+	<form method="get" id="actionForm" action="memberList">
 		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
 		<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+		<input type="hidden" name="type" value='<c:out value="${pageMaker.cri.type}"/>'>
+      <input type="hidden" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"/>'>
 	</form>
 	
 </body>
@@ -134,7 +140,7 @@
 		console.log("click~!!!");
 		console.log("@# href ===>"+$(this).attr("href"));
 		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-		actionForm.attr("action", "memberList");
+		actionForm.attr("action", "searchList");
 		actionForm.submit();
 	});
     </script>

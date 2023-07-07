@@ -24,12 +24,14 @@ public class UserOrderController {
 	private UserOrderService userOrderService;
 	
 	@RequestMapping("/userOrderList")
-	public String userOrderList(Model model, Criteria cri) {
+	public String userOrderList(@RequestParam HashMap<String, String> param, Model model, Criteria cri) {
 		log.info("@# UserOrderController.userOrderList() start");
 		log.info("@# cri===>"+cri);
 		
-		ArrayList<ProductOrdDto> userOrderList = userOrderService.userOrderList(cri);
-		userOrderList = userOrderService.userOrderListByProduct(cri);
+		param.put("userid", "yeju");
+		
+		ArrayList<ProductOrdDto> userOrderList = userOrderService.userOrderList(param, cri);
+		log.info("@@###userOrderList"+userOrderList);
 		
 		int total = 0;
  		try {
@@ -38,6 +40,7 @@ public class UserOrderController {
 		}
  		
  		model.addAttribute("userOrderList", userOrderList);
+ 		log.info("@#@#@#userOrderList"+userOrderList);
  		model.addAttribute("pageMaker", new PageDTO(total, cri));
  		
  		log.info("@# UserOrderController.userOrderList() end");
@@ -45,50 +48,39 @@ public class UserOrderController {
  		return "userOrder/userOrderList";
 	}
 	
-	@RequestMapping("userOrder_view")
+	@RequestMapping("/userOrder_view")
 	public String userOrderView(@RequestParam HashMap<String, String> param, Model model) {
 		log.info("@@## userOrder_view");
 		
-		ProductOrdDto dto = userOrderService.userOrderView(param);
+		log.info("@#@#userOrder_view"+param);
+		ArrayList<ProductOrdDto> dto = userOrderService.userOrderView(param);
+		log.info("@@@####dto"+dto);
 		model.addAttribute("userOrder_view", dto);
 		
 		return "userOrder/userOrder_view";
 	}
 
-	 @RequestMapping("/userOrderShip")
-	    public String userOrderShip(@RequestParam HashMap<String, String> param, Model model) {
-	        log.info("@# UserOrderController.userOrderShip() start");
-	        log.info("@# param ===>" + param);
-	        
-	        ProductOrdDto dto = userOrderService.userOrderShip(param);
-	        model.addAttribute("userOrderShip", dto);
-	        
-	        log.info("@# UserOrderController.userOrderShip() end");
-	        
-	        return "userOrder/userOrderShip";
-	    }
-	 
-	  @RequestMapping("/userOrderCancel")
-	    public String userOrderCancel(@RequestParam HashMap<String, String> param) {
-		  	log.info("@# UserOrderController.userOrderCancel() start");
-	        log.info("@# param ===>" + param);
-	        
-	        userOrderService.userOrderCancel(param);
-	        
-	        log.info("@# UserOrderController.userOrderCancel() end");
-	        
-	        return "redirect:/userOrder/userOrderList";
-	    }
-	 
-	  @RequestMapping("/userOrderDelete")
-	    public String userOrderDelete(@RequestParam HashMap<String, String> param) {
-	        log.info("@# UserOrderController.userOrderDelete() start");
-	        log.info("@# param ===>" + param);
-	        
-	        userOrderService.userOrderDelete(param);
-	        
-	        log.info("@# UserOrderController.userOrderDelete() end");
-	        
-	        return "redirect:/userOrder/userOrderList";
-	    }
+//	  @RequestMapping("/userOrderCancel")
+//	    public String userOrderCancel(@RequestParam HashMap<String, String> param) {
+//		  	log.info("@# UserOrderController.userOrderCancel() start");
+//	        log.info("@# param ===>" + param);
+//	        
+//	        userOrderService.userOrderCancel(param);
+//	        
+//	        log.info("@# UserOrderController.userOrderCancel() end");
+//	        
+//	        return "redirect:/userOrder/userOrderList";
+//	    }
+//	 
+//	  @RequestMapping("/userOrderDelete")
+//	    public String userOrderDelete(@RequestParam HashMap<String, String> param) {
+//	        log.info("@# UserOrderController.userOrderDelete() start");
+//	        log.info("@# param ===>" + param);
+//	        
+//	        userOrderService.userOrderDelete(param);
+//	        
+//	        log.info("@# UserOrderController.userOrderDelete() end");
+//	        
+//	        return "redirect:/userOrder/userOrderList";
+//	    }
 }

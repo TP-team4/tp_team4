@@ -48,11 +48,11 @@ public class OrderServiceImpl implements OrderService{
 
 
 	@Override
-	public ArrayList<ProductOrdDto> ordSearchList(HashMap<String, String> param) {
+	public ArrayList<ProductOrdDto> ordSearchList(Criteria cri) {
 		log.info("@# OrderServiceImpl.ordSearchList() start");
 
 		OrderDao dao = sqlSession.getMapper(OrderDao.class);
-		ArrayList<ProductOrdDto> ordSearchList = dao.ordSearchList(param);
+		ArrayList<ProductOrdDto> ordSearchList = dao.ordSearchList(cri);
 		
 		log.info("@# OrderServiceImpl.ordSearchList() end");
 

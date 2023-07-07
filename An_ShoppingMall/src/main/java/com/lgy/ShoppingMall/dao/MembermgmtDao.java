@@ -17,7 +17,7 @@ public interface MembermgmtDao {
 	 public void membermgmtModify(HashMap<String, String> param);
 	
 	//회원 검색
-	public ArrayList<MemberDto> searchList(HashMap<String, String> param);
+	public ArrayList<MemberDto> searchList(Criteria cri);
 	
 	//회원 삭제
 	public void membermgmtDelete(HashMap<String, String> param);

@@ -41,7 +41,28 @@
                     }
                 }
             });
-        })
+        });
+        
+//         $(document).ready(function () {
+//             $("#sub").on("click", function () {
+//                 var userPass = $("#userPass").val(); // 입력된 비밀번호 가져오기
+//                 var confirmPass = "비밀번호 확인용 값"; // 확인용 비밀번호 설정
+                
+//                 if (userPass === confirmPass) {
+//                     // 비밀번호 일치하는 경우
+//                     if (confirm("회원탈퇴하시겠습니까?")) {
+//                         $("#delForm").submit();
+//                     }
+//                 } else {
+//                     // 비밀번호 불일치하는 경우
+//                     alert("비밀번호가 일치하지 않습니다.");
+//                     $("#userPass").val(""); // 비밀번호 필드 초기화
+//                     $("#userPass").focus(); // 비밀번호 필드에 포커스 설정
+//                 }
+//             });
+//         });
+
+
     </script>
 
 </html>

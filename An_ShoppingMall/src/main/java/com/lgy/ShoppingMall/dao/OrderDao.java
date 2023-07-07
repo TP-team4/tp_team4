@@ -14,7 +14,7 @@ public interface OrderDao {
 	public ProductOrdDto orderView(HashMap<String, String> param);
 	
 	//검색
-	public ArrayList<ProductOrdDto> ordSearchList(HashMap<String, String> param);
+	public ArrayList<ProductOrdDto> ordSearchList(Criteria cri);
 	
 	//수정
 	public void orderModify(HashMap<String, String> param);

@@ -20,73 +20,60 @@ public class UserOrderServiceImpl implements UserOrderService{
 	private SqlSession sqlsession;
 
 	@Override
-	public ArrayList<ProductOrdDto> userOrderList(Criteria cri) {
+	public ArrayList<ProductOrdDto> userOrderList(HashMap<String, String> param, Criteria cri) {
 		log.info("@# UserOrderServiceImpl.UserOrderDao(Criteria cri) start");
 		log.info("@# cri ===>"+cri);
 		
 		UserOrderDao dao = sqlsession.getMapper(UserOrderDao.class);
 		
 		log.info("@# UserOrderServiceImpl.UserOrderDao(Criteria cri) end");
+		ArrayList<ProductOrdDto> userOrderList = dao.userOrderList(param);
+		ArrayList<ProductOrdDto> userOrderList2 = new ArrayList<ProductOrdDto>();
 		
-		return dao.userOrderList(cri);
+		for (int i = 0; i < userOrderList.size(); i++) {
+			int rn = Integer.parseInt(userOrderList.get(i).getRn());
+			if(rn <= cri.getPageNum() * cri.getAmount() && rn> (cri.getPageNum()-1) * cri.getAmount()) {
+				userOrderList2.add(userOrderList.get(i));
+			}
+		}
+		
+//		<!-- 	        WHERE ROWNUM <= (#{pageNum} * #{amount}) -->
+//		<!-- 	    WHERE o.rn > (#{pageNum}-1) * #{amount} -->
+		
+		return userOrderList2;
 	}
-
-
-	@Override
-	public ArrayList<ProductOrdDto> userOrderListByProduct(Criteria cri) {
-		log.info("@# UserOrderServiceImpl.userOrderListByProduct(Criteria cri) start");
-		log.info("@# cri ===>"+cri);
-		
-		UserOrderDao dao = sqlsession.getMapper(UserOrderDao.class);
-		
-		log.info("@# UserOrderServiceImpl.userOrderListByProduct(Criteria cri) end");
-		
-		return dao.userOrderListByProduct(cri);
-	}
-
 
 	
 	@Override
-	public ProductOrdDto userOrderView(HashMap<String, String> param) {
+	public ArrayList<ProductOrdDto> userOrderView(HashMap<String, String> param) {
 		log.info("@# MyOrderServiceImpl.userOrderView() start");
 
 		UserOrderDao dao = sqlsession.getMapper(UserOrderDao.class);
-		ProductOrdDto dto = dao.userOrderView(param);
+		ArrayList<ProductOrdDto> dto = dao.userOrderView(param);
 		
 		log.info("@# MyOrderServiceImpl.userOrderView() end");
 		return dto;
 	}
 
-	@Override
-	public ProductOrdDto userOrderShip(HashMap<String, String> param) {
-		log.info("@# MyOrderServiceImpl.userOrderShip() start");
-
-		UserOrderDao dao = sqlsession.getMapper(UserOrderDao.class);
-	    ProductOrdDto dto = dao.userOrderShip(param);
-	    
-	    log.info("@# MyOrderServiceImpl.userOrderShip() end");
-	    return dto;
-	}
-
-	@Override
-	public void userOrderCancel(HashMap<String, String> param) {
-		 log.info("@# MyOrderServiceImpl.userOrderCancel() start");
-
-		 UserOrderDao dao = sqlsession.getMapper(UserOrderDao.class);
-		 dao.userOrderCancel(param);
-		    
-		 log.info("@# MyOrderServiceImpl.userOrderCancel() end");
-	}
-
-
-	@Override
-	public void userOrderDelete(HashMap<String, String> param) {
-		log.info("@# MyOrderServiceImpl.userOrderDelete() start");
-
-		UserOrderDao dao = sqlsession.getMapper(UserOrderDao.class);
-		dao.userOrderDelete(param);
-		
-		log.info("@# MyOrderServiceImpl.userOrderDelete() end");
-	}
+//	@Override
+//	public void userOrderCancel(HashMap<String, String> param) {
+//		 log.info("@# MyOrderServiceImpl.userOrderCancel() start");
+//
+//		 UserOrderDao dao = sqlsession.getMapper(UserOrderDao.class);
+//		 dao.userOrderCancel(param);
+//		    
+//		 log.info("@# MyOrderServiceImpl.userOrderCancel() end");
+//	}
+//
+//
+//	@Override
+//	public void userOrderDelete(HashMap<String, String> param) {
+//		log.info("@# MyOrderServiceImpl.userOrderDelete() start");
+//
+//		UserOrderDao dao = sqlsession.getMapper(UserOrderDao.class);
+//		dao.userOrderDelete(param);
+//		
+//		log.info("@# MyOrderServiceImpl.userOrderDelete() end");
+//	}
 
 }

@@ -5,6 +5,29 @@
     
 <mapper namespace="com.lgy.ShoppingMall.dao.MembermgmtDao">
 
+	<sql id="criteria">
+      <trim prefix="(" suffix=") AND" prefixOverrides="OR">
+         <foreach item="type" collection="typeArr">
+            <trim prefix="OR">
+               <choose>
+                  <when test="type == 'I'.toString()">
+                     id like '%' || '${keyword}' || '%'
+                  </when>
+                  <when test="type == 'N'.toString()">
+                     name like '%' || '${keyword}' || '%'
+                  </when>
+                  <when test="type == 'H'.toString()">
+                     hp like '%' || '${keyword}' || '%'
+                  </when>
+                  <when test="type == 'E'.toString()">
+                     email like '%' || '${keyword}' || '%'
+                  </when>
+               </choose>
+            </trim>
+         </foreach>
+      </trim>
+	</sql>
+
     <!-- 회원 목록을 가져오는 쿼리 -->
     <select resultType="com.lgy.ShoppingMall.dto.MemberDto" id="memberList">
 		<![CDATA[
@@ -14,7 +37,12 @@
 			           (SELECT COUNT(*) FROM member) AS count,
 			           ROWNUM rn
 			    FROM member
-			    WHERE ROWNUM <= (#{pageNum} * #{amount})
+			    WHERE
+			   ]]> 
+			    <include refid="criteria"></include>
+		<![CDATA[
+			    
+			     ROWNUM <= (#{pageNum} * #{amount})
 			)
 			WHERE rn > (#{pageNum}-1) * #{amount}
 		]]>
@@ -43,31 +71,69 @@
 	</update>
 	
 	<!-- 회원 검색 -->
-	<select id="searchList" resultType="com.lgy.ShoppingMall.dto.MemberDto" parameterType="hashmap">
-		<choose>
-		    <when test="key == 'all'">
-		      SELECT id, name, hp, email, COUNT(*) OVER() count FROM member WHERE id LIKE '%' || #{value} || '%'
-		      	OR name LIKE '%' || #{value} || '%'
-		   		OR hp LIKE '%' || #{value} || '%'
-		   		OR email LIKE '%' || #{value} || '%'
-		    </when>
-			 <otherwise>
-			    <choose>
-			     	<when test="key == 'id'">
-			          SELECT id, name, hp, email, COUNT(*) OVER() count FROM member WHERE id LIKE '%' || #{value} || '%'
-			        </when>
-			        <when test="key == 'name'">
-			          SELECT id, name, hp, email, COUNT(*) OVER() count FROM member WHERE name LIKE '%' || #{value} || '%'
-			        </when>
-			        <when test="key == 'hp'">
-			          SELECT id, name, hp, email, COUNT(*) OVER() count FROM member WHERE hp LIKE '%' || #{value} || '%'
-			        </when>
-			        <when test="key == 'email'">
-			          SELECT id, name, hp, email, COUNT(*) OVER() count FROM member WHERE email LIKE '%' || #{value} || '%'
-			        </when>
-		      </choose>
-		    </otherwise>
-	 	</choose>
+	<select id="searchList" resultType="com.lgy.ShoppingMall.dto.MemberDto">
+<!-- 	<![CDATA[ -->
+<!-- 			SELECT id, pwd, email, hp, name, count -->
+<!-- 			FROM ( -->
+<!-- 			    SELECT id, pwd, email, hp, name, -->
+<!-- 			           (SELECT COUNT(*) FROM member) AS count, -->
+<!-- 			           ROWNUM rn -->
+<!-- 			    FROM member -->
+<!-- 			    WHERE -->
+<!-- 			   ]]>  -->
+<!-- 			    <include refid="criteria"></include> -->
+<!-- 		<![CDATA[ -->
+			    
+<!-- 			     ROWNUM <= (#{pageNum} * #{amount}) -->
+<!-- 			) -->
+<!-- 			WHERE rn > (#{pageNum}-1) * #{amount} -->
+<!-- 		]]> -->
+		
+		
+		<![CDATA[
+	SELECT id, pwd, email, hp, name,
+	       (SELECT COUNT(*) FROM member WHERE 
+	          ]]> 
+  
+	       		<include refid="criteria"></include>
+	    <![CDATA[  
+	   1=1 ) AS count
+	FROM (
+	    SELECT id, pwd, email, hp, name, ROWNUM rn
+	    FROM member
+	    WHERE 
+	    	]]> 
+	       <include refid="criteria"></include>
+	  <![CDATA[  
+	     1=1  AND ROWNUM <= (#{pageNum} * #{amount})
+	)
+	WHERE rn > (#{pageNum}-1) * #{amount}
+]]>
+
+<!-- 		<choose> -->
+<!-- 		    <when test="key == 'all'"> -->
+<!-- 		      SELECT id, name, hp, email, COUNT(*) OVER() count FROM member WHERE id LIKE '%' || #{value} || '%' -->
+<!-- 		      	OR name LIKE '%' || #{value} || '%' -->
+<!-- 		   		OR hp LIKE '%' || #{value} || '%' -->
+<!-- 		   		OR email LIKE '%' || #{value} || '%' -->
+<!-- 		    </when> -->
+<!-- 			 <otherwise> -->
+<!-- 			    <choose> -->
+<!-- 			     	<when test="key == 'id'"> -->
+<!-- 			          SELECT id, name, hp, email, COUNT(*) OVER() count FROM member WHERE id LIKE '%' || #{value} || '%' -->
+<!-- 			        </when> -->
+<!-- 			        <when test="key == 'name'"> -->
+<!-- 			          SELECT id, name, hp, email, COUNT(*) OVER() count FROM member WHERE name LIKE '%' || #{value} || '%' -->
+<!-- 			        </when> -->
+<!-- 			        <when test="key == 'hp'"> -->
+<!-- 			          SELECT id, name, hp, email, COUNT(*) OVER() count FROM member WHERE hp LIKE '%' || #{value} || '%' -->
+<!-- 			        </when> -->
+<!-- 			        <when test="key == 'email'"> -->
+<!-- 			          SELECT id, name, hp, email, COUNT(*) OVER() count FROM member WHERE email LIKE '%' || #{value} || '%' -->
+<!-- 			        </when> -->
+<!-- 		      </choose> -->
+<!-- 		    </otherwise> -->
+<!-- 	 	</choose> -->
 	</select>
 	
 	<!-- 회원 삭제 -->

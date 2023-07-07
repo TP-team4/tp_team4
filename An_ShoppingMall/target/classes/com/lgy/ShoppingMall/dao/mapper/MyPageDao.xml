@@ -21,7 +21,7 @@
             pwd = #{pwd},
             email = #{email},
             hp = #{hp},
-            name= #{name},
+<!--             name= #{name}, -->
             pcode = #{pcode},
             loadaddr = #{loadaddr},
             etcaddr = #{etcaddr},

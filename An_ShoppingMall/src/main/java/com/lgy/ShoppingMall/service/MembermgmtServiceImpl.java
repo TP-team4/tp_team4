@@ -57,11 +57,11 @@ public class MembermgmtServiceImpl implements MembermgmtService{
 	}
 
 	@Override
-	public ArrayList<MemberDto> searchList(HashMap<String, String> param) {
+	public ArrayList<MemberDto> searchList(Criteria cri) {
 		log.info("@# MembermgmtServiceImpl.searchList() start");
 
 		MembermgmtDao dao = sqlSession.getMapper(MembermgmtDao.class);
-		ArrayList<MemberDto> searchList = dao.searchList(param);
+		ArrayList<MemberDto> searchList = dao.searchList(cri);
 		
 		log.info("@# MembermgmtServiceImpl.searchList() end");
 		

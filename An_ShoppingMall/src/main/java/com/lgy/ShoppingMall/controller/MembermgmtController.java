@@ -64,12 +64,22 @@ public class MembermgmtController {
 	}
 	
 	@RequestMapping("/searchList")
-	public String searchList(@RequestParam HashMap<String, String> param, Model model) {
+	public String searchList(Model model, Criteria cri) {
 		// 검색 결과 목록 조회
-		log.info("@@@### search"+param);
+		log.info("@@@### search"+cri);
 		
-		ArrayList<MemberDto> searchList = membermgmtService.searchList(param);
+		ArrayList<MemberDto> searchList = membermgmtService.searchList(cri);
+		
+		int total = 0;
+ 		try {
+ 			total = Integer.parseInt(searchList.get(0).getCount());
+		} catch (Exception e) {
+		}
+		
+		log.info("@@@### memberList"+searchList);
 		model.addAttribute("memberList", searchList);
+		model.addAttribute("pageMaker", new PageDTO(total, cri));
+		
 		log.info("@@@### searchList"+searchList);
 		
 		return "mem_mgmt/memberList";

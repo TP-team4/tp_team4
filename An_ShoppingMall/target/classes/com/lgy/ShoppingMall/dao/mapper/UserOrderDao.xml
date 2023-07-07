@@ -6,39 +6,42 @@
 <mapper namespace="com.lgy.ShoppingMall.dao.UserOrderDao">
 
 	<select id="userOrderList" resultType="com.lgy.ShoppingMall.dto.ProductOrdDto">
-		<![CDATA[
-			SELECT ordercode, totalprice, count
-			FROM (
-			    SELECT ordercode, totalprice,
-			           (SELECT COUNT(*) FROM PRODUCT_ORD) AS count,
-			           ROWNUM rn
-			    FROM PRODUCT_ORD
-			    WHERE ROWNUM <= (#{pageNum} * #{amount})
-			)
-			WHERE rn > (#{pageNum}-1) * #{amount}
-	]]>
+<!-- 		<![CDATA[ -->
+<!-- 	    SELECT o.ordercode, o.totalprice, ( -->
+<!-- 	    SELECT COUNT(*) FROM PRODUCT_ORD -->
+<!-- 	    )as count, p.proThumb, p.proName, p.proPrice -->
+<!-- 	    FROM ( -->
+<!-- 	        SELECT o.ordercode, o.totalprice, -->
+<!-- 	        ROWNUM rn -->
+<!-- 	        FROM PRODUCT_ORD o -->
+<!-- 	        WHERE ROWNUM <= (#{pageNum} * #{amount}) -->
+<!-- 	    ) o -->
+<!-- 	    JOIN PRODUCT p ON o.ordercode = p.proCode -->
+<!-- 	    WHERE o.rn > (#{pageNum}-1) * #{amount} -->
+<!-- 	]]> -->
+
+<!-- 	    select p.proThumb, p.proName, p.proPrice, o.ordercode, o.totalprice, po.amount, po.status, po.pocode,  o.orderdate -->
+<!-- 	    FROM PRODUCT p, PRODUCT_ORD o,PRODUCT_OUT po -->
+<!-- 	    where o.ordercode = po.ordercode and p.procode = po.procode and o.userid = #{userid} -->
+	    
+	    SELECT rownum rn, p.proThumb, p.proName, p.proPrice, o.ordercode, o.totalprice, po.amount, po.status, po.pocode, o.orderdate,
+	       COUNT(*) OVER () AS count
+		FROM PRODUCT p
+		INNER JOIN PRODUCT_OUT po ON p.procode = po.procode
+		INNER JOIN PRODUCT_ORD o ON o.ordercode = po.ordercode
+		WHERE o.userid = #{userid}
 	</select>
 	
-	<select id="userOrderListByProduct" resultType="com.lgy.ShoppingMall.dto.ProductOrdDto">
-		<![CDATA[
-			SELECT proThumb, proName, proPrice, count
-			FROM (
-			    SELECT proThumb, proName, proPrice,
-			           (SELECT COUNT(*) FROM PRODUCT) AS count,
-			           ROWNUM rn
-			    FROM PRODUCT
-			    WHERE ROWNUM <= (#{pageNum} * #{amount})
-			)
-			WHERE rn > (#{pageNum}-1) * #{amount}
-	]]>
+	<select id="userOrderView" resultType="com.lgy.ShoppingMall.dto.ProductOrdDto"  parameterType="hashmap">
+		select p.proThumb, p.proName, p.proPrice, po.amount,po.pocode, o.ordercode, o.name, o.hp, o.postcode, o.addr, o.memo, o.totalprice, o.orderdate, o.etcaddr
+	    FROM PRODUCT p, PRODUCT_ORD o,PRODUCT_OUT po
+	    WHERE o.ordercode = po.ordercode and p.procode = po.procode and po.pocode = #{pocode}
 	</select>
-	
-	
 	
 	
 	
 	<delete id="userOrderDelete" parameterType="hashmap">
-		delete from PRODUCT_ORD where orderCode = #{orderCode}
+		delete from CART where cartcode = #{cartcode}
 	</delete>
 	
 </mapper>
