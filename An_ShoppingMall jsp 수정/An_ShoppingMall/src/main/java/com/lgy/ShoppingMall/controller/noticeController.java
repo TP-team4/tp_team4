@@ -46,6 +46,29 @@ public class noticeController {
 
         return "notice/list";
     }
+    
+    @RequestMapping("/list_admin")
+//    public String list(Model model) {
+    public String list_admin(Model model, Criteria cri) {
+    	log.info("@# list");
+    	log.info("@# cri===>"+cri);
+    	
+    	// 공지사항 리스트를 가져옴
+    	ArrayList<NoticeDto> list = noticeService.list(cri);
+    	
+    	int total = 0;
+    	try {
+    		total = Integer.parseInt(list.get(0).getCount());
+    	} catch (Exception e) {
+    	}
+//        model.addAttribute("list", list);
+    	
+    	log.info("@# list ===>"+ list);
+    	model.addAttribute("list", list);
+    	model.addAttribute("pageMaker", new PageDTO(total, cri));
+    	
+    	return "notice/list_admin";
+    }
 
     @RequestMapping("/write")
     public String write(@RequestParam HashMap<String, String> param) {
@@ -57,7 +80,7 @@ public class noticeController {
 
         log.info("@# NoticeController.write() end");
 
-        return "redirect:/notice/list";
+        return "redirect:/notice/list_admin";
     }
 
     @RequestMapping("/write_view")
@@ -73,6 +96,15 @@ public class noticeController {
 
         return "notice/content_view";
     }
+    
+    @RequestMapping("/content_view_admin")
+    public String content_view_admin(@RequestParam HashMap<String, String> param, Model model) {
+    	// 공지사항의 내용을 가져옴
+    	NoticeDto dto = noticeService.contentView(param);
+    	model.addAttribute("content_view", dto);
+    	
+    	return "notice/content_view_admin";
+    }
 
     @RequestMapping("/noticeModify")
     public String noticeModify(@RequestParam HashMap<String, String> param) {
@@ -80,7 +112,7 @@ public class noticeController {
         noticeService.noticeModify(param);
 
         // return "/notice/list";
-        return "redirect:/notice/list";
+        return "redirect:/notice/list_admin";
     }
 
     @RequestMapping("/noticeDelete")
@@ -89,6 +121,6 @@ public class noticeController {
         noticeService.noticeDelete(param);
 
         // return "/notice/list";
-        return "redirect:/notice/list";
+        return "redirect:/notice/list_admin";
     }
 }

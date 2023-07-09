@@ -199,14 +199,9 @@ a:hover{
 							<input type="button" onclick="fn_submit()" value="Write" class="btn"> 
 						</td>
 						<td>
-							<a href="list"><input type="button" value="목록보기" class="btn"></a>
+							<a href="list_admin"><input type="button" value="목록보기" class="btn"></a>
 						</td>
 					</tr>
-<!-- 					<tr> -->
-<!-- 						<td> -->
-<!-- 							<a href="list"><input type="button" value="목록보기" class="btn"></a> -->
-<!-- 						</td> -->
-<!-- 					</tr> -->
 				</form>
 			</table>
 			
@@ -218,19 +213,22 @@ a:hover{
       <!-- 우측 사이드바 -->
       <aside id="aisdeRight">
         <div class="rightbar">
-          <div class="cart" style="position: absolute; top: 80px; right: 0px;">
-              <ul>
-                  <li><a href="#" style="color: black; width: 200px;">Cart - 0</a></li>
-              </ul>
-          </div>
-          <div class="login" style="position: absolute; top: 160px; right: 0px;">
-              <ul id="log_ul" style="width: 200px;">
-                  <li><a href="login">Log in</a></li>
-                  <li><a href="register">Register</a></li>
-                  <li><a href="#">Order</a></li>
-                  <li><a href="myPage">My Page</a></li>
-              </ul>
-          </div>
+			          <div class="cart" style="position: absolute; top: 80px; right: 0px;">
+			              <ul>
+			                  <li><a href="#" style="color: black; width: 200px;">Cart - 0</a></li>
+			              </ul>
+			          </div>
+			          <div class="login"
+						style="position: absolute; top: 160px; right: 0px;">
+						<ul id="log_ul" style="width: 200px;">
+<!-- 						관리자 로그인 한 상태 -->
+								<li>${admindto.id}님</li>
+								<li><a href="logout">Log out</a></li>
+								<li><a href="http://localhost:8181/An_ShoppingMall/product/productList">상품관리</a></li>
+								<li><a href="http://localhost:8181/An_ShoppingMall/order/orderListPaging">주문관리</a></li>
+								<li><a href="http://localhost:8181/An_ShoppingMall/mem_mgmt/memberList">회원관리</a></li>
+						</ul>
+					</div>
           <!-- 검색기능 -->
 					<div class="search"
 						style="position: absolute; top: 600px; right: 10px;">
@@ -246,7 +244,6 @@ a:hover{
 						</form>
 					</div>
      		 </aside>
-     		 
     	</div>
   </main>
   <footer id="footer" style="font-family: notosans; text-align: left;">
@@ -273,7 +270,7 @@ a:hover{
 			,url:"write"
 			,success: function(data) {
 				alert("작성완료");
-				location.href="list";
+				location.href="list_admin";
 			}
 			,error: function() {
 				alert("오류발생")

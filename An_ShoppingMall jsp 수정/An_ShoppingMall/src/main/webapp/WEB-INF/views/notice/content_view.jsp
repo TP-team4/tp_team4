@@ -191,7 +191,7 @@ th, td {
 									<!-- <td> -->
 									<%-- <input type="text" name="notititle" value="${content_view.notititle}">	 --%>
 									<!-- </td> -->
-									<td colspan="1" style="border-bottom-color: transparent;">
+									<td style="border-bottom-color: transparent;">
 									<input type="text" name="notititle" value="${content_view.notititle}" size="95" style="border: none; margin-top: 5px; padding: 20px;">
 									</td>
 								</tr>
@@ -221,19 +221,15 @@ th, td {
 <!-- 									</td> -->
 <!-- 								</tr> -->
 								<tr>
-									<td colspan="2" style="padding:20px;">
-									<textarea cols="110" rows="13" name="noticont" style="border: 1px solid #ced4da;">${content_view.noticont}</textarea>
+									<td style="padding:20px;">
+										<div style="width: 300px; height: 200px;">
+										${content_view.noticont}										
+										</div>
 									</td>
 								</tr>
 								<tr height="70px;">
-									<td colspan="2" style="border-color:transparent;">
-										<input type="submit" value="수정" class="btn"> 
-										<!-- &nbsp;&nbsp;<a href="list">목록보기</a> -->
+									<td style="border-color:transparent;">
 										<a href="list"><input type="button" value="목록보기" class="btn"></a>
-										<%-- &nbsp;&nbsp;<a href="noticeDelete?noticode=${content_view.noticode}">삭제</a> --%>
-										<a href="noticeDelete?noticode=${content_view.noticode}">
-										<input type="button" value="삭제" class="btn">
-										</a>
 									</td>
 								</tr>
 							</form>

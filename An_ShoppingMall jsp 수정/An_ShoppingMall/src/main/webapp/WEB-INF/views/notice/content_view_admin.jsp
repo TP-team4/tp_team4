@@ -1,6 +1,6 @@
- <%@ page language="java" contentType="text/html; charset=UTF-8"
+<!-- <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,13 +49,13 @@ footer {
 #article {
 	flex-grow: 1;
 	padding: auto;
+	margin-bottom:150px;
 }
 
 #aisdeLeft {
 	flex-grow: 0;
 	width: 230px;
 	padding: auto;
-	margin-bottom: 150px;
 }
 
 #section {
@@ -105,31 +105,26 @@ a:hover {
 	border-right: none;
 }
 
-table {
-	margin: 5px auto;
+.btn{
 	border: 1px solid rgb(207, 207, 207);
-	width: 850px;
-	border-collapse: collapse;
-	margin-top: 10px;
+	border-radius: 0px;
+	width: 100px;
+	height: 30px;
+	line-height: 10px;
+	background-color: #F0F0F0;
+}
+
+.btn:hover{
+	border: 1px solid grey;
+	background-color: #F0F0F0;
 }
 
 th, td {
  	border: 1px solid rgb(207, 207, 207); 
 	border-collapse: collapse;
 }
-
-.div_page ul {
-	display: flex;
-	justify-content: center;
-	list-style: none;
-}
 </style>
-
-<!-- Custom styles for this template -->
-<!-- <link href="css/signin.css" rel="stylesheet"> -->
-
 </head>
-
 <body>
 
 	<main id="main">
@@ -172,82 +167,77 @@ th, td {
 
 			</aside>
 
-    <!-- 
+	<!-- 
     =================================================================
-    notice list  
-    조은유    |     23-07-05     |              프론트	화면 배열 , css 적용
+    notice/content_view_admin
+    조은유    |     23-07-09     |       프론트	 화면 배열 , css 적용 / 파일 생성
     =================================================================
     -->
 
 			<!-- 본문 -->
 			<section id="section">
 				<article>
-					<div id="article">
+					<div id="article" style="margin-bottom: 150px;">
 
-						<div style="text-align: center; margin-bottom: 10px;">Notice </div>
+						<div style="text-align: center; margin-bottom: 10px;">Notice</div>
 						<div style="text-align: center; font-size: small; color: grey;">공지사항</div>
 						<!-- <h1 align="center">NOTICE 관리</h1> -->
 						<br>
-							
-						<table align="center" style="margin-bottom: 30px;">
-							<tr height="40px;">
-								<td width="50" align="center">No</td>
-								<td width="530" align="center">Subject</td>
-								<td width="70" align="center">Writer</td>
-								<td width="110" align="center">Date</td>
-							</tr>
-							<c:forEach items="${list}" var="dto">
-								<tr height="40px;">
-									<td align="center">${dto.noticode}</td>
-									<td>
-										<!-- content_view : 컨트롤러단 호출 --> 
-										<a href="content_view?noticode=${dto.noticode}" style="margin-left:10px;">${dto.notititle}</a>
-									</td>
-									<%-- <td>${dto.notiauth}</td> --%>
-									<td align="center">admin</td>
-									<td align="center">${dto.notidate}</td>
-								</tr>
-							</c:forEach>
-							<!-- 		<tr> -->
-							<!-- 			<td colspan="5"> -->
-							<!-- 				<a href="write_view">글작성</a> -->
-							<!-- 			</td> -->
-							<!-- 		</tr> -->
-						</table>
-						
-						<div class="div_page" style="margin-top:50px;">
-							<ul class="pagination">
-								<c:if test="${pageMaker.prev}">
-									<li class="paginate_button" style="margin-right: 5px;">
-										<!-- 시작페이지 - 1 하면 이전의 10개 페이지 표시 --> 
-										<!-- ex>11->10(1~10), 21->20(11~20) -->
-										<a href="${pageMaker.startPage - 1}"> [이전] </a>
-									</li>
-								</c:if>
-								<c:forEach var="num" begin="${pageMaker.startPage}"
-									end="${pageMaker.endPage}">
-									<li class="paginate_button" style="width:30px; height:30px;"
-										${pageMaker.cri.pageNum == num ? "style='background-color:white'":""}>
-										<!-- 클릭한 현재페이지 번호를 링크로 연결 --> 
-										<a href="${num}"> ${num} </a>
-									</li>
-								</c:forEach>
-								<c:if test="${pageMaker.next}">
-									<li class="paginate_button">
-										<!-- 끝페이지 + 1 하면 이후의 10개 페이지 표시 --> 
-										<!-- ex>10->11(11~20), 20->21(21~30) -->
-										<a href="${pageMaker.endPage + 1}"> [다음] </a>
-									</li>
-								</c:if>
-							</ul>
-						</div>
 
-						<form method="get" id="actionForm" action="#">
-							<input type="hidden" name="pageNum"
-								value="${pageMaker.cri.pageNum}"> 
-								<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
-						</form>
-						
+						<table class="box" width="850px" border="1" align="center">
+							<form method="post" action="noticeModify">
+								<input type="hidden" name=noticode value="${content_view.noticode}">
+								<tr>
+									<!-- <td> -->
+									<%-- <input type="text" name="notititle" value="${content_view.notititle}">	 --%>
+									<!-- </td> -->
+									<td colspan="1" style="border-bottom-color: transparent;">
+									<input type="text" name="notititle" value="${content_view.notititle}" size="95" style="border: none; margin-top: 5px; padding: 20px;">
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<div style="padding: 0 0 20px 20px;">
+										<span style="color: grey;">No.</span> ${content_view.noticode}									
+										</div>
+									</td>
+								</tr>
+<!-- 								<tr> -->
+<%-- 									<td>${content_view.noticode}</td> --%>
+<!-- 								</tr> -->
+								<!-- <tr>  -->
+								<!-- 	<td>이름</td> -->
+								<%-- 	<td>${content_view.bname}</td> --%>
+								<!-- 	<td>  -->
+								<%-- 	<input type="text" name="notiauth" value="${content_view.notiauth}"> --%>
+								<!-- 	</td> -->
+								<!-- </tr> -->
+								
+<!-- 								<tr> -->
+<!-- 									<td align="left">내용</td> -->
+<%-- 									<td>${content_view.bcontent}</td> --%>
+<!-- 									<td> -->
+<%-- 									<input type="text" name="noticont" value="${content_view.noticont}"> --%>
+<!-- 									</td> -->
+<!-- 								</tr> -->
+								<tr>
+									<td colspan="2" style="padding:20px;">
+									<textarea cols="110" rows="13" name="noticont" style="border: 1px solid #ced4da;">${content_view.noticont}</textarea>
+									</td>
+								</tr>
+								<tr height="70px;">
+									<td colspan="2" style="border-color:transparent;">
+										<input type="submit" value="수정" class="btn"> 
+										<!-- &nbsp;&nbsp;<a href="list">목록보기</a> -->
+										<a href="list_admin"><input type="button" value="목록보기" class="btn"></a>
+										<%-- &nbsp;&nbsp;<a href="noticeDelete?noticode=${content_view.noticode}">삭제</a> --%>
+										<a href="noticeDelete?noticode=${content_view.noticode}">
+										<input type="button" value="삭제" class="btn">
+										</a>
+									</td>
+								</tr>
+							</form>
+						</table>
 					</div>
 				</article>
 			</section>
@@ -259,16 +249,19 @@ th, td {
 					<div class="cart"
 						style="position: absolute; top: 80px; right: 0px;">
 						<ul>
-							<li><a href="#" style="color: black; width: 200px;">Cart - 0</a></li>
+							<li><a href="#" style="color: black; width: 200px;">Cart
+									- 0</a></li>
 						</ul>
 					</div>
 					<div class="login"
 						style="position: absolute; top: 160px; right: 0px;">
 						<ul id="log_ul" style="width: 200px;">
-							<li><a href="login">Log in</a></li>
-							<li><a href="register">Register</a></li>
-							<li><a href="#">Order</a></li>
-							<li><a href="myPage">My Page</a></li>
+<!-- 						관리자 로그인 한 상태 -->
+								<li>${admindto.id}님</li>
+								<li><a href="logout">Log out</a></li>
+								<li><a href="http://localhost:8181/An_ShoppingMall/product/productList">상품관리</a></li>
+								<li><a href="http://localhost:8181/An_ShoppingMall/order/orderListPaging">주문관리</a></li>
+								<li><a href="http://localhost:8181/An_ShoppingMall/mem_mgmt/memberList">회원관리</a></li>
 						</ul>
 					</div>
 					<!-- 검색기능 -->
@@ -276,13 +269,11 @@ th, td {
 						style="position: absolute; top: 600px; right: 10px;">
 						<form method="post" action="#">
 							<fieldset>
-								<input type="text" id="search" style="width: 150px;"> <a href="#"> 
-								<svg
-										xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-										fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                          		<path
-											d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                     		   </svg>
+								<input type="text" id="search" style="width: 120px;"> 
+								<a href="#"> 
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                          		<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                      			</svg>
 								</a>
 							</fieldset>
 						</form>
@@ -306,19 +297,5 @@ th, td {
 		crossorigin="anonymous"></script>
 </body>
 </html>
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
-//페이징
-    var actionForm = $("#actionForm");
 
-	$(".paginate_button a").on("click", function(e){
-//기본 동작 막음: 페이지 링크를 통해서 이동
-		e.preventDefault();
-		console.log("click~!!!");
-		console.log("@# href ===>"+$(this).attr("href"));
-		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-		actionForm.attr("action", "list");
-		actionForm.submit();
-	});
-</script>
+
