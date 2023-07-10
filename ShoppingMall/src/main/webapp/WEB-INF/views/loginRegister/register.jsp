@@ -440,17 +440,48 @@ a:hover {
 					<div class="cart"
 						style="position: absolute; top: 80px; right: 0px;">
 						<ul>
-							<li><a href="#" style="color: black; width: 200px;">Cart
-									- 0</a></li>
-						</ul>
+                           <c:if test="${ dto == null }">
+            		 			<li><a href="login" style="color: black;">Cart</a></li>
+              				</c:if>
+              				<c:if test="${ dto != null }">
+              					<li><a href="Gu_cart" style="width: 200px; color: black;">Cart</a></li>
+              				</c:if>
+                       </ul>
 					</div>
 					<div class="login"
 						style="position: absolute; top: 160px; right: 0px;">
 						<ul id="log_ul" style="width: 200px;">
-							<li><a href="login">Log in</a></li>
-							<li><a href="register">Register</a></li>
-							<li><a href="#">Order</a></li>
-							<li><a href="#">My Page</a></li>
+							<!-- 로그인 하지 않은 상태 -->
+							<c:if test="${ dto == null }">
+								<li><a href="login">Log in</a></li>
+								<li><a href="register">Register</a></li>
+							</c:if>
+							<!-- 로그인한 상태 -->
+							<c:if test="${ dto != null }">
+								<li>${dto.name} 님</li>
+								
+								<li><a href="logout">Log out</a></li>
+							</c:if>
+
+							<!-- 로그인 하지 않은 상태 -->
+							<c:if test="${ dto == null }">
+								<li><a href="login">Order</a></li>
+							</c:if>
+							<!-- 로그인한 상태 -->
+							<c:if test="${ dto != null }">
+								
+								<li><a href="userOrder/userOrderList">Order</a></li>
+							</c:if> 
+							
+							<!-- 로그인 하지 않은 상태 -->
+							<c:if test="${ dto == null }">
+								<li><a href="login">My Page</a></li>
+							</c:if>
+							<!-- 로그인한 상태 -->
+							<c:if test="${ dto != null }">
+								
+								<li><a href="myPage">My Page</a></li>
+							</c:if> 
 						</ul>
 					</div>
 					<!-- 검색기능 -->

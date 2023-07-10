@@ -226,11 +226,11 @@
                                 <tr>
                                     <td>주소 *</td>
                                     <td>
-                                        <input type="text" name="postcode" id="postcode" placeholder=" 우편번호" style="width: 60px; float: left;" value="${addr.pcode }">
+                                        <input type="text" name="postcode" id="postcode" placeholder=" 우편번호" style="width: 60px; float: left;" value="${addr.pcode }" required="required">
                                         <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" style="float: left; margin-left: 5px;"><br><br>
-                                        <input type="text" name="addr" id="addr" placeholder="  기본주소" style="width: 300px; float: left; margin-top: -3px;" value="${addr.loadaddr }"><br><br>
-                                        <input type="text" id="etcaddr" placeholder="  상세주소" style="width: 300px; float: left; margin-top: -10px;" value="${addr.etcaddr }"> 
-                                        <input type="text" id="sample6_extraAddress" placeholder="참고항목" style="float: left; margin-left: 5px; margin-top: -10px;" >
+                                        <input type="text" name="addr" id="addr" placeholder="  기본주소" style="width: 300px; float: left; margin-top: -3px;" value="${addr.loadaddr }" required="required"><br><br>
+                                        <input type="text" id="etcaddr" placeholder="  상세주소" style="width: 300px; float: left; margin-top: -10px;" value="${addr.etcaddr }" required="required"> 
+                                        <input type="text" id="sample6_extraAddress" placeholder="참고항목" style="float: left; margin-left: 5px; margin-top: -10px;" required="required">
                                         <input type="hidden" id="userid" value="${userid}">
                                         <input type="hidden" id="procode" value="${procode}">
                                         <input type="hidden" id="cartcode" value="${cartcode}">
@@ -249,9 +249,9 @@
                                             <option value="019">019</option>      
                                         </select>
                                         <span style="float:left; margin-left: 3px;"> -</span>
-                                        <input type="text" id="ph2" style="width: 60px; float: left; margin-left: 3px; margin-top: -1px;" value="${hp1 }">
+                                        <input type="text" id="ph2" style="width: 60px; float: left; margin-left: 3px; margin-top: -1px;" value="${hp1 }" required="required">
                                         <span style="float:left; margin-left: 3px;"> -</span>
-                                        <input type="text" id="ph3" style="width: 60px; float: left;  margin-left: 3px; margin-top: -1px" value="${hp2 }">
+                                        <input type="text" id="ph3" style="width: 60px; float: left;  margin-left: 3px; margin-top: -1px" value="${hp2 }" required="required">
                                     </td>
                                 </tr>
                                 <tr>
@@ -275,11 +275,11 @@
                                 <tr>
                                     <td>주소 *</td>
                                     <td>
-                                        <input type="text" name="postcode" id="postcode" placeholder=" 우편번호" style="width: 60px; float: left;">
+                                        <input type="text" name="postcode" id="postcode" placeholder=" 우편번호" style="width: 60px; float: left;" required="required">
                                         <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" style="float: left; margin-left: 5px;"><br><br>
-                                        <input type="text" name="addr" id="addr" placeholder="  기본주소" style="width: 300px; float: left; margin-top: -3px;"><br><br>
-                                        <input type="text" id="etcaddr" placeholder="  상세주소" style="width: 300px; float: left; margin-top: -10px;">
-                                        <input type="text" id="sample6_extraAddress" placeholder="참고항목" style="float: left; margin-left: 5px; margin-top: -10px;">
+                                        <input type="text" name="addr" id="addr" placeholder="  기본주소" style="width: 300px; float: left; margin-top: -3px;" required="required"><br><br>
+                                        <input type="text" id="etcaddr" placeholder="  상세주소" style="width: 300px; float: left; margin-top: -10px;" required="required">
+                                        <input type="text" id="sample6_extraAddress" placeholder="참고항목" style="float: left; margin-left: 5px; margin-top: -10px;" required="required">
                                 </tr>
                                 <tr>
                                     <td>휴대전화 *</td>
@@ -293,9 +293,9 @@
                                             <option value="019">019</option>      
                                         </select>
                                         <span style="float:left; margin-left: 3px;"> -</span>
-                                        <input type="text" id="ph2" style="width: 60px; float: left; margin-left: 3px; margin-top: -1px;">
+                                        <input type="text" id="ph2" style="width: 60px; float: left; margin-left: 3px; margin-top: -1px;" required="required">
                                         <span style="float:left; margin-left: 3px;"> -</span>
-                                        <input type="text" id="ph3" style="width: 60px; float: left;  margin-left: 3px; margin-top: -1px">
+                                        <input type="text" id="ph3" style="width: 60px; float: left;  margin-left: 3px; margin-top: -1px" required="required">
                                     </td>
                                 </tr>
                                 <tr>
