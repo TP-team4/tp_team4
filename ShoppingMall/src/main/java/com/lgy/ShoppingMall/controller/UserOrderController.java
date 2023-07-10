@@ -30,7 +30,9 @@ public class UserOrderController {
 		log.info("@# UserOrderController.userOrderList() start");
 		log.info("@# cri===>"+cri);
 		
-		param.put("userid", "tteesstt"); // 세션에서 가져오기
+		
+		
+		param.put("userid", session.getId()); // 세션에서 가져오기
 //		MemDto getid = (MemDto) session.getAttribute("dto");
 //	    log.info("@# 마이페이지 세션 getid "+ getid);
 //	    log.info("세션에서 받은 id : " + getid.getId());

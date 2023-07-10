@@ -368,9 +368,14 @@ import lombok.extern.slf4j.Slf4j;
 	      
 	      /* 마이페이지 이동 */   
 	      @RequestMapping(value = "myPage")
-	      public String myPage(HttpSession session){
+	      public String myPage(HttpSession session, Model model){
 	         MemDto dto = (MemDto) session.getAttribute("dto");
 	         log.info("@# 마이페이지 세션 dto "+dto);
+	         MemDto getid = (MemDto) session.getAttribute("dto");
+	         log.info("@# 마이페이지 세션 getid "+ getid);
+	         log.info("세션에서 받은 id : " + getid.getId());
+	         model.addAttribute("id",getid.getId());
+	         model.addAttribute("pwd",getid.getPwd());
 	         
 	          // 로그인하지 않은 경우 로그인 페이지로 리다이렉트합니다.
 	          if (dto == null) {

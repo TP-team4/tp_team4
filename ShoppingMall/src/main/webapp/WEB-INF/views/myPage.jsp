@@ -286,7 +286,7 @@ a:hover {
                      </a>
                      </li>
                      <li class="box">
-                     <a href="#">
+                     <a href="myPage_view?id=${id}&pwd=${pwd}">
                       Profile 
                       <br>
                       <span> 회원정보 </span>
