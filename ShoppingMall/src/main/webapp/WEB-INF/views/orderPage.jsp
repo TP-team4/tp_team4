@@ -133,7 +133,7 @@
                             <caption align="top"><hr style="width: 900px; margin-top: 60px; margin-bottom: 40px;"></caption>
                             <tr>
                                 <td colspan="8"><b style="float: left;">국내배송상품 주문내역</b>
-                                <div style="float: right; margin-top: -5px; margin-right: 5px;"><input type="button" value="이전페이지" onclick="cancel()" ></div>
+                                <div style="float: right; margin-top: -5px; margin-right: 5px;"><input type="button" value="구매페이지 나가기" onclick="cancel()" ></div>
                                 </td>
                             </tr>
                             <tr style="text-align: center;">
@@ -156,8 +156,7 @@
 
 							<c:forEach items="${orderPro}" var="order">
 							    <tr>
-<%-- 							        <td><img src="${proimg}" width="50px" height="60px"></td> --%>
-							        <td></td>
+							        <td><img src="${proimg}" width="50px" height="60px"></td>
 							        <td style="text-align: left; border-left: hidden;">
 							            <div id="product">${order.proname}</div> <br>
 							            <div style="color: gray;">
@@ -172,10 +171,10 @@
 							            <div id="amount">${order.amount}</div>
 							        </td>
 							        <td>기본배송</td>
-							        <td>[조건]</td>
+							        <td>[조건 할인]</td>
 							        <td>
 							            <c:set var="total" value="${order.proprice * order.amount}" />
-							            ${total}
+							            &#8361; ${total}
 							        </td>
 							    </tr>
 							    
@@ -187,7 +186,7 @@
 							        <span style="float: left;">[기본배송]</span>
 							        <div style="float: right;">
 							            상품구매금액 ${totalPurchaseAmount} + 배송비 2,500 = 합계 : &#8361; 
-							            <div id="price" style="float: right;">${totalPurchaseAmount + 2500}</div> 
+							            <div id="price" style="float: right;"> ${totalPurchaseAmount + 2500}</div> 
 							        </div>
 							    </td>
 							</tr>
@@ -334,7 +333,7 @@
                       
                                 </td>
                                 <td rowspan="2" style="width: 200px; height: 200px;">
-                                총 결제 금액 : 
+                                총 결제 금액 : &#8361; ${totalPurchaseAmount + 2500} 
                                 <!-- 일반결제 -->
                                 <div>
                                     <input style="width: 150px; height: 30px; background-color: black; color: white;" type="button" id="pay" value="결제하기" onclick="consultation_request(this.id)" >
@@ -361,10 +360,10 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td></td>
+                                <td> 상품금액 : &#8361; ${totalPurchaseAmount}</td>
                             </tr>
                             <tr>
-                                <td></td>
+                                <td> 배송비 : 2500</td>
                             </tr>
                         </table>  
                     </form>
@@ -385,25 +384,48 @@
                    <div class="cart" style="position: absolute; top: 80px; right: 0px;">
                        <ul>
                            <c:if test="${ dto == null }">
-            		 			<li><a href="login" style="color: black;">Cart - 0</a></li>
+            		 			<li><a href="login" style="color: black;">Cart</a></li>
               				</c:if>
               				<c:if test="${ dto != null }">
-              					<li><a href="Gu_cart" style="width: 200px; color: black;">Cart - 0</a></li>
+              					<li><a href="Gu_cart" style="width: 200px; color: black;">Cart</a></li>
               				</c:if>
                        </ul>
                    </div>
                <div class="login"
                   style="position: absolute; top: 160px; right: 0px;">
                   <ul id="log_ul" style="width: 200px;">
-                     <!-- 로그인한 상태 -->
-                           <c:if test="${ dto != null }">
-                              <li>${dto.name} 님</li>
-                              
-                              <li><a href="logout">Log out</a></li>
-                              <li><a href="#">Order</a></li>
-                              <li><a href="myPage">My Page</a></li>
-                           </c:if>
-                  </ul>
+						<!-- 로그인 하지 않은 상태 -->
+						<c:if test="${ dto == null }">
+							<li><a href="login">Log in</a></li>
+							<li><a href="register">Register</a></li>
+						</c:if>
+						<!-- 로그인한 상태 -->
+						<c:if test="${ dto != null }">
+							<li>${dto.name} 님</li>
+							
+							<li><a href="logout">Log out</a></li>
+						</c:if>
+
+						<!-- 로그인 하지 않은 상태 -->
+						<c:if test="${ dto == null }">
+							<li><a href="login">Order</a></li>
+						</c:if>
+						<!-- 로그인한 상태 -->
+						<c:if test="${ dto != null }">
+							
+							<li><a href="order/orderList">Order</a></li>
+						</c:if> 
+						
+						<!-- 로그인 하지 않은 상태 -->
+						<c:if test="${ dto == null }">
+							<li><a href="login">My Page</a></li>
+						</c:if>
+						<!-- 로그인한 상태 -->
+						<c:if test="${ dto != null }">
+							
+							<li><a href="myPage">My Page</a></li>
+						</c:if> 
+					</ul>
                </div>
                <!-- 검색기능 -->
 <!--                <div class="search" -->
@@ -446,7 +468,7 @@
     <script>
         function cancel(){
             alert("취소시 주문정보는 저장되지 않습니다.")
-            if (confirm("이전페이지로 이동하시겠습니까?") == true) {
+            if (confirm("페이지를 이동하시겠습니까?") == true) {
                 location.href="cancel";
             }else{
                 return false;

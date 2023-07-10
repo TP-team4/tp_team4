@@ -56,10 +56,10 @@ public class PurchaseController {
 
 //      상세페이지에서 오는 경우
         
-    	ArrayList<PProductDto> dto = service.productSelect(param);
+    	PProductDto dto = service.productSelect(param);
         ArrayList<Gu_CartDto> list = service.selectFromCart(param);
         log.info("list 값 => " + list);
-        model.addAttribute("proimg", dto); //for each 돌면서 dto.get proimg 받아와서 사진 처리
+        model.addAttribute("proimg", dto.getProimg()); //for each 돌면서 dto.get proimg 받아와서 사진 처리
         model.addAttribute("orderPro", list);
         
         
@@ -211,10 +211,10 @@ public class PurchaseController {
 	
 	//결제 안함
 	@RequestMapping("/cancel")
-	public String cancel(HttpServletRequest request) {
+	public String cancel() {
 		log.info("@#cancel");
 //		return "redirect:orderView";
-		return "redirect:" + request.getHeader("Referer");
+		return "redirect:mainPage";
 	}
 	
 	//주문 완료페이지

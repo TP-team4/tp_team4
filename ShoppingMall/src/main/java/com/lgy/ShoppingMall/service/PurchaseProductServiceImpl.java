@@ -25,12 +25,12 @@ public class PurchaseProductServiceImpl implements PurchaseProductService{
 	
 	//상품선택
 	@Override
-	public ArrayList<PProductDto> productSelect(HashMap<String, String> param) {//상품상세페이지
+	public PProductDto  productSelect(HashMap<String, String> param) {//상품상세페이지
 		log.info("@# ProductServiceImpl.productSelect start");
 		PProductDao dao = sqlSession.getMapper(PProductDao.class);
-		ArrayList<PProductDto> list = dao.productSelect(param);
+		PProductDto dto = dao.productSelect(param);
 		log.info("@# ProductServiceImpl.productSelect end");
-		return list;
+		return dto;
 	}
 	//상품주문
 	@Override

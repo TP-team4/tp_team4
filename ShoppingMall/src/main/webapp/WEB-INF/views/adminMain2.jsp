@@ -139,7 +139,7 @@
 
           <aside id="aisdeLeft">
             <div id="title">
-              <a href="mainPage"> <span
+              <a href="adminMain2"> <span
                   style="font-size: x-large; position: absolute; left: 0px; color: black; width: 200px;">Room
                   & Bloom</span>
               </a>
@@ -210,6 +210,7 @@
     -->
               <div class="login" style="position: absolute; top: 160px; right: 0px;">
                 <ul id="log_ul" style="width: 200px;">
+<<<<<<< HEAD
                 
 <!-- <!-- 							로그인 하지 않은 상태 -->
 <%-- 							<c:if test="${ admindto == null }"> --%>
@@ -238,6 +239,14 @@
 							
 				
 						</ul>
+=======
+                  	<!--                      로그인한 상태 -->
+                     <c:if test="${ admindto != null }">
+                        <li>${admindto.id} 님</li>
+                        <li><a href="logout">Log out</a></li>
+                     </c:if> 
+                </ul>
+>>>>>>> 058f259 (userPageMapping)
               </div>
               <!-- 검색기능 -->
               <!-- 			        <div class="search" style="position: absolute; top: 600px; right: 10px;"> -->

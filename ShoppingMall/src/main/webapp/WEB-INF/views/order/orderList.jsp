@@ -131,29 +131,36 @@
 
     <body>
 
-      <main id="main">
+      <main id="adminMain2">
         <div class="container">
 
           <aside id="aisdeLeft">
             <div id="title">
-              <a href="mainPage">
+              <a href="/ShoppingMall/mainPage">
                 <span style="font-size: x-large; position: absolute; left: 0px; color: black; width: 200px;">Room &
                   Bloom</span>
               </a>
             </div>
             <div class="category" style="position: absolute; top: 70px;">
               <ul style="width: 200px;">
+<<<<<<< HEAD
                 <li><a href="notice/list_admin">공지사항</a></li>
                 <li><a href="mem_mgmt/memberList">회원 관리</a></li>
                 <li><a href="product/productList">상품 관리</a></li>
                 <li><a href="order/orderListPaging">주문 현황</a></li>
+=======
+                <li><a href="/ShoppingMall/notice/list">공지사항</a></li>
+                <li><a href="/ShoppingMall/mem_mgmt/memberList">회원 관리</a></li>
+                <li><a href="/ShoppingMall/product/productList">상품 관리</a></li>
+                <li><a href="/ShoppingMall/order/orderListPaging">주문 현황</a></li>
+>>>>>>> 058f259 (userPageMapping)
               </ul>
             </div>
             <div class="notice" style="position: absolute; top: 400px;">
               <ul>
-                <li><a href="noticePage">Notice</a></li>
-                <li><a href="QnAPage">QnA</a></li>
-                <!-- <li><a href="tp_main_review.html">Review</a></li> -->
+                <li><a href="/ShoppingMall/noticePage">Notice</a></li>
+                <li><a href="/ShoppingMall/QnAPage">QnA</a></li>
+                <!-- <li><a href="/ShoppingMall/tp_main_review.html">Review</a></li> -->
               </ul>
             </div>
             <div class="info" style="position: absolute; top: 550px;">
@@ -179,7 +186,7 @@
               <div id="article">
 
                 <div>
-                  <a href="orderListPaging" style="color: #508FED;">
+                  <a href="/ShoppingMall/orderListPaging" style="color: #508FED;">
                     <h2>회원 주문 현황</h2>
                   </a>
                   <form method="post" class="form-inline" action="ordSearchList">
@@ -227,14 +234,14 @@
                         <tbody>
                           <c:forEach var="dto" items="${orderListPaging}">
                             <tr>
-                              <td><a href="order_view?ordercode=${dto.ordercode}"
+                              <td><a href="/ShoppingMall/order_view?ordercode=${dto.ordercode}"
                                   style="color:#508FED;">${dto.ordercode}</a></td>
                               <td>${dto.userid}</td>
                               <td>${dto.orderdate}</td>
                               <td>${dto.totalprice}</td>
                               <td>${dto.status}</td>
-                              <form action="orderModify" method="post">
-                                <td>
+                              <td>
+                                <form action="orderModify" method="post">
                                   <select name="status">
                                     <c:choose>
                                       <c:when test="${dto.status == 1}">
@@ -261,7 +268,7 @@
                                   </select>
                                   <input type="hidden" name="ordercode" value="${dto.ordercode}">
                                   <input type="submit" value="수정">
-                              </form>
+                                </form>
                               </td>
                             </tr>
                           </c:forEach>
@@ -278,21 +285,21 @@
                       <li class="paginate_button" style="margin-right: 5px;">
                         <!-- 시작페이지 - 1 하면 이전의 10개 페이지 표시 -->
                         <!-- ex>11->10(1~10), 21->20(11~20) -->
-                        <a href="${pageMaker.startPage - 1}" style="color:#508FED;"> [이전] </a>
+                        <a href="/ShoppingMall/${pageMaker.startPage - 1}" style="color:#508FED;"> [이전] </a>
                       </li>
                     </c:if>
                     <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
                       <li class="paginate_button" style="width:30px; height:30px;" ${pageMaker.cri.pageNum==num
                         ? "style='background-color:white'" :""}>
                         <!-- 클릭한 현재페이지 번호를 링크로 연결 -->
-                        <a href="${num}" style="color: #508FED;"> ${num} </a>
+                        <a href="/ShoppingMall/${num}" style="color: #508FED;"> ${num} </a>
                       </li>
                     </c:forEach>
                     <c:if test="${pageMaker.next}">
                       <li class="paginate_button">
                         <!-- 끝페이지 + 1 하면 이후의 10개 페이지 표시 -->
                         <!-- ex>10->11(11~20), 20->21(21~30) -->
-                        <a href="${pageMaker.endPage + 1}" style="color: #508FED;"> [다음] </a>
+                        <a href="/ShoppingMall/${pageMaker.endPage + 1}" style="color: #508FED;"> [다음] </a>
                       </li>
                     </c:if>
                   </ul>
@@ -312,20 +319,15 @@
           <aside id="aisdeRight">
             <div class="rightbar">
               <div class="cart" style="position: absolute; top: 80px; right: 0px;">
-                
+
               </div>
               <div class="login" style="position: absolute; top: 160px; right: 0px;">
                 <ul id="log_ul" style="width: 200px;">
-                  <!-- 로그인 하지 않은 상태 -->
-                  <c:if test="${ dto == null }">
-                    <li><a href="login">Log in</a></li>
-                  </c:if>
-                  <!-- 로그인한 상태 -->
-                  <c:if test="${ dto != null }">
-                    <li>${dto.name} 님</li>
-
-                    <li><a href="logout">Log out</a></li>
-                  </c:if>
+                  	<!--                      로그인한 상태 -->
+                     <c:if test="${ admindto != null }">
+                        <li>${admindto.id} 님</li>
+                        <li><a href="/ShoppingMall/logout">Log out</a></li>
+                     </c:if> 
                 </ul>
               </div>
               <!-- 검색기능 -->
@@ -333,7 +335,7 @@
                 <form method="post" action="#">
                   <fieldset>
                     <input type="text" id="search" style="width: 120px;">
-                    <a href="#">
+                    <a href="/ShoppingMall/#">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-search" viewBox="0 0 16 16">
                         <path
@@ -347,7 +349,7 @@
         </div>
       </main>
       <footer id="footer" style="font-family: notosans; text-align: left;">
-        <a href="mainPage" style="color: black;">Room & Bloom</a> <br>
+        <a href="/ShoppingMall/adminMain2" style="color: black;">Room & Bloom</a> <br>
         <p style="line-height: 2em;">
           <a href="#">About us</a>
         </p>

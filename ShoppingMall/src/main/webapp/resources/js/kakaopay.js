@@ -38,8 +38,6 @@
                 //rsp.imp_uid 값으로 결제 단건조회 API를 호출하여 결제결과를 판단합니다.
             	if(data.success){
         			var msg = "결제 완료";
-                    msg += '// procode : ' + procode;
-                    msg += '// amount : ' + amount;
 
                     $.ajax({
                     	type : 'post',

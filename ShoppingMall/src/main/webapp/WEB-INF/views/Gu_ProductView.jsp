@@ -223,7 +223,8 @@ border: 2px solid red;
                               <td style="width: 50%;">
                                 <div class="thumbnail" style="height: 400px; float: left; ">
                                   <!-- 상품 이미지 사진 -->
-                                  <img src="${Gu_ProductView.proimg}" width="100%" height="100%" style="border-radius: 10%" alt="이미지">
+                                  <img src="${Gu_ProductView.proimg}" width="100%" height="100%"
+                                    style="border-radius: 10%" alt="이미지">
                                 </div>
                               </td>
 
@@ -505,17 +506,17 @@ border: 2px solid red;
     -->
           <!-- 우측사이드바 -->
           <aside id="aisdeRight">
-               <div class="rightbar">
-                   <div class="cart" style="position: absolute; top: 80px; right: 0px;">
-                       <ul>
-                           <c:if test="${ dto == null }">
-            		 			<li><a href="login" style="color: black;">Cart</a></li>
-              				</c:if>
-              				<c:if test="${ dto != null }">
-              					<li><a href="Gu_cart" style="width: 200px; color: black;">Cart</a></li>
-              				</c:if>
-                       </ul>
-                   </div>
+            <div class="rightbar">
+              <div class="cart" style="position: absolute; top: 80px; right: 0px;">
+                <ul>
+                  <c:if test="${ dto == null }">
+                    <li><a href="login" style="color: black;">Cart</a></li>
+                  </c:if>
+                  <c:if test="${ dto != null }">
+                    <li><a href="Gu_cart" style="width: 200px; color: black;">Cart</a></li>
+                  </c:if>
+                </ul>
+              </div>
               <!-- 
     =================================================================
     로그인시 회원 이름 보이게 수정
@@ -524,38 +525,38 @@ border: 2px solid red;
     -->
               <div class="login" style="position: absolute; top: 160px; right: 0px;">
                 <ul id="log_ul" style="width: 200px;">
-							<!-- 로그인 하지 않은 상태 -->
-							<c:if test="${ dto == null }">
-								<li><a href="login">Log in</a></li>
-								<li><a href="register">Register</a></li>
-							</c:if>
-							<!-- 로그인한 상태 -->
-							<c:if test="${ dto != null }">
-								<li>${dto.name} 님</li>
-								
-								<li><a href="logout">Log out</a></li>
-							</c:if>
+                  <!-- 로그인 하지 않은 상태 -->
+                  <c:if test="${ dto == null }">
+                    <li><a href="login">Log in</a></li>
+                    <li><a href="register">Register</a></li>
+                  </c:if>
+                  <!-- 로그인한 상태 -->
+                  <c:if test="${ dto != null }">
+                    <li>${dto.name} 님</li>
 
-							<!-- 로그인 하지 않은 상태 -->
-							<c:if test="${ dto == null }">
-								<li><a href="login">Order</a></li>
-							</c:if>
-							<!-- 로그인한 상태 -->
-							<c:if test="${ dto != null }">
-								
-								<li><a href="userOrder/userOrderList">Order</a></li>
-							</c:if> 
-							
-							<!-- 로그인 하지 않은 상태 -->
-							<c:if test="${ dto == null }">
-								<li><a href="login">My Page</a></li>
-							</c:if>
-							<!-- 로그인한 상태 -->
-							<c:if test="${ dto != null }">
-								
-								<li><a href="myPage">My Page</a></li>
-							</c:if> 
-						</ul>
+                    <li><a href="logout">Log out</a></li>
+                  </c:if>
+
+                  <!-- 로그인 하지 않은 상태 -->
+                  <c:if test="${ dto == null }">
+                    <li><a href="login">Order</a></li>
+                  </c:if>
+                  <!-- 로그인한 상태 -->
+                  <c:if test="${ dto != null }">
+
+                    <li><a href="userOrder/userOrderList">Order</a></li>
+                  </c:if>
+
+                  <!-- 로그인 하지 않은 상태 -->
+                  <c:if test="${ dto == null }">
+                    <li><a href="login">My Page</a></li>
+                  </c:if>
+                  <!-- 로그인한 상태 -->
+                  <c:if test="${ dto != null }">
+
+                    <li><a href="myPage">My Page</a></li>
+                  </c:if>
+                </ul>
               </div>
               <!-- 검색기능 -->
               <!-- 			        <div class="search" style="position: absolute; top: 600px; right: 10px;"> -->
@@ -569,7 +570,7 @@ border: 2px solid red;
               <!--                   </a> -->
               <!--               </fieldset>     -->
               <!--             </form> -->
-                        </div>
+            </div>
           </aside>
 
         </div>
@@ -921,62 +922,62 @@ border: 2px solid red;
 
     <!-- 		주문페이지 이동하면서 값 들고 이동함 -->
     <script type="text/javascript">
-    function orderPage() {
-    	  var procode = ${ Gu_ProductView.procode };
-    	  var promises = [];
+      function orderPage() {
+        var procode = ${ Gu_ProductView.procode };
+        var promises = [];
 
-    	  $("tr[id^=productRow]").each(function () {
-    	    var row = $(this);
+        $("tr[id^=productRow]").each(function () {
+          var row = $(this);
 
-    	    var opColor = row.find("[id^=colorN]").text();
-    	    var opSize = row.find("[id^=sizeN]").text();
-    	    var amount = row.find("input[id^=quantityN]").val();
+          var opColor = row.find("[id^=colorN]").text();
+          var opSize = row.find("[id^=sizeN]").text();
+          var amount = row.find("input[id^=quantityN]").val();
 
-    	    var form = {
-    	      userid: userid,
-    	      procode: procode,
-    	      color: opColor,
-    	      psize: opSize,
-    	      amount: amount
-    	    };
-    	    var promise = $.ajax({
-    	      url: "cartAdd", // 호출할 URL
-    	      type: 'POST', // 호출 방식
-    	      data: form // 서버에 보낼 데이터
-    	    });
+          var form = {
+            userid: userid,
+            procode: procode,
+            color: opColor,
+            psize: opSize,
+            amount: amount
+          };
+          var promise = $.ajax({
+            url: "cartAdd", // 호출할 URL
+            type: 'POST', // 호출 방식
+            data: form // 서버에 보낼 데이터
+          });
 
-    	    promises.push(promise);
-    	  });
+          promises.push(promise);
+        });
 
-    	  Promise.all(promises).then(function (results) {
-    	    var procode = ${ Gu_ProductView.procode };
-    	    var result = results[0];
-    	    /* if (result == 0) {
-    	        alert("장바구니에 추가되지 않았습니다. 다시 시도해주세요.");
-    	    } else */ 
-    	    if (result == 1) {
-    	      alert("주문페이지로 이동합니다.");
+        Promise.all(promises).then(function (results) {
+          var procode = ${ Gu_ProductView.procode };
+          var result = results[0];
+          /* if (result == 0) {
+              alert("장바구니에 추가되지 않았습니다. 다시 시도해주세요.");
+          } else */
+          if (result == 1) {
+            alert("주문페이지로 이동합니다.");
 
-    	      // procode 입력 필드 추가 
-    	      var form2 = document.createElement('form');
-    	      var procodeInput = document.createElement('input');
-    	      procodeInput.setAttribute('type', 'hidden');
-    	      procodeInput.setAttribute('name', 'procode');
-    	      procodeInput.setAttribute('value', procode);
-    	      form2.appendChild(procodeInput);
-    	      form2.setAttribute('method', 'POST');
-    	      form2.setAttribute('action', 'orderPage');
-    	      document.body.appendChild(form2);
-    	      form2.submit(); 
-    	    } else if (result == 2) {
-    	      alert("장바구니에 동일한 상품이 있습니다.");
-    	      // 장바구니로 이동하시겠습니까?
-    	      orderCancel();
-    	    }
-    	  }).catch(function (error) {
-    	    alert(error);
-    	  });
-    	}
+            // procode 입력 필드 추가 
+            var form2 = document.createElement('form');
+            var procodeInput = document.createElement('input');
+            procodeInput.setAttribute('type', 'hidden');
+            procodeInput.setAttribute('name', 'procode');
+            procodeInput.setAttribute('value', procode);
+            form2.appendChild(procodeInput);
+            form2.setAttribute('method', 'POST');
+            form2.setAttribute('action', 'orderPage');
+            document.body.appendChild(form2);
+            form2.submit();
+          } else if (result == 2) {
+            alert("장바구니에 동일한 상품이 있습니다.");
+            // 장바구니로 이동하시겠습니까?
+            orderCancel();
+          }
+        }).catch(function (error) {
+          alert(error);
+        });
+      }
     </script>
 
     <script>

@@ -12,7 +12,7 @@ import com.lgy.ShoppingMall.dto.ProductOutDto;
 
 public interface PProductDao {
 	//상품선택
-	public ArrayList<PProductDto> productSelect(HashMap<String, String> param);
+	public PProductDto productSelect(HashMap<String, String> param);
 	//상품주문
 	public void productOrd(HashMap<String, String> param);
 	//결제

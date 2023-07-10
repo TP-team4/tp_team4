@@ -197,10 +197,10 @@ input{
                    <div class="cart" style="position: absolute; top: 80px; right: 0px;">
                        <ul>
                            <c:if test="${ dto == null }">
-            		 			<li><a href="login">Cart - 0</a></li>
+            		 			<li><a href="login">Cart</a></li>
               				</c:if>
               				<c:if test="${ dto != null }">
-              					<li><a href="#" style="width: 200px; color: black;">Cart - 0</a></li>
+              					<li><a href="Gu_cart" style="width: 200px; color: black;">Cart</a></li>
               				</c:if>
                        </ul>
                    </div>

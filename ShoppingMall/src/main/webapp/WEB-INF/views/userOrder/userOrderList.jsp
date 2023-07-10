@@ -162,7 +162,7 @@
 
             <aside id="aisdeLeft">
               <div id="title">
-                <a href="mainPage">
+                <a href="/ShoppingMall/mainPage">
                   <span style="font-size: x-large; position: absolute; left: 0px; color: black; width: 200px;">
                     Room & Bloom
                   </span>
@@ -170,24 +170,24 @@
               </div>
               <div class="category" style="position:absolute; top:70px;">
                 <ul style="width: 200px;">
-                  <!-- 						<li><a href="#">BEST</a></li> -->
-                  <li><a href="ProductList?catecode=1">의자</a></li>
-                  <li><a href="ProductList?catecode=2">침대</a></li>
-                  <li><a href="ProductList?catecode=3">테이블/식탁/책상</a></li>
-                  <li><a href="ProductList?catecode=4">소파</a></li>
-                  <li><a href="ProductList?catecode=5">서랍/수납장</a></li>
-                  <li><a href="ProductList?catecode=6">거실장/TV장</a></li>
-                  <li><a href="ProductList?catecode=7">선반</a></li>
-                  <li><a href="ProductList?catecode=8">진열장/책장</a></li>
-                  <li><a href="ProductList?catecode=9">행거/옷장</a></li>
-                  <li><a href="ProductList?catecode=0">화장대</a></li>
+                  <!-- 			<li><a href="/ShoppingMall/#">BEST</a></li> -->
+                  <li><a href="/ShoppingMall/ProductList?catecode=1">의자</a></li>
+                  <li><a href="/ShoppingMall/ProductList?catecode=2">침대</a></li>
+                  <li><a href="/ShoppingMall/ProductList?catecode=3">테이블/식탁/책상</a></li>
+                  <li><a href="/ShoppingMall/ProductList?catecode=4">소파</a></li>
+                  <li><a href="/ShoppingMall/ProductList?catecode=5">서랍/수납장</a></li>
+                  <li><a href="/ShoppingMall/ProductList?catecode=6">거실장/TV장</a></li>
+                  <li><a href="/ShoppingMall/ProductList?catecode=7">선반</a></li>
+                  <li><a href="/ShoppingMall/ProductList?catecode=8">진열장/책장</a></li>
+                  <li><a href="/ShoppingMall/ProductList?catecode=9">행거/옷장</a></li>
+                  <li><a href="/ShoppingMall/ProductList?catecode=0">화장대</a></li>
                 </ul>
               </div>
               <div class="notice" style="position: absolute; top: 400px;">
                 <ul>
-                  <li><a href="noticePage">Notice</a></li>
-                  <li><a href="QnAPage">QnA</a></li>
-                  <!-- <li><a href="tp_main_review.html">Review</a></li> -->
+                  <li><a href="/ShoppingMall/noticePage">Notice</a></li>
+                  <li><a href="/ShoppingMall/QnAPage">QnA</a></li>
+                  <!-- <li><a href="/ShoppingMall/tp_main_review.html">Review</a></li> -->
                 </ul>
               </div>
               <div class="info" style="position: absolute; top: 550px;">
@@ -256,7 +256,7 @@
                               <fmt:formatNumber value="${dto.proPrice}" pattern="##,###,###" />
                             </td>
                             <td>
-                              <a href="userOrder_view?pocode=${dto.pocode}">주문상세</a>
+                              <a href="/ShoppingMall/userOrder_view?pocode=${dto.pocode}">주문상세</a>
                             </td>
                             <td>${dto.amount}</td>
                             <!--                         <td> -->
@@ -277,10 +277,10 @@
                 <div class="cart" style="position: absolute; top: 80px; right: 0px;">
                   <ul>
                     <c:if test="${ dto == null }">
-                      <li><a href="login" style="color: black;">Cart</a></li>
+                      <li><a href="/ShoppingMall/login" style="color: black;">Cart</a></li>
                     </c:if>
                     <c:if test="${ dto != null }">
-                      <li><a href="Gu_cart" style="width: 200px; color: black;">Cart</a></li>
+                      <li><a href="/ShoppingMall/Gu_cart" style="width: 200px; color: black;">Cart</a></li>
                     </c:if>
                   </ul>
                 </div>
@@ -288,34 +288,34 @@
                   <ul id="log_ul" style="width: 200px;">
                     <!-- 로그인 하지 않은 상태 -->
                     <c:if test="${ dto == null }">
-                      <li><a href="login">Log in</a></li>
-                      <li><a href="register">Register</a></li>
+                      <li><a href="/ShoppingMall/login">Log in</a></li>
+                      <li><a href="/ShoppingMall/register">Register</a></li>
                     </c:if>
                     <!-- 로그인한 상태 -->
                     <c:if test="${ dto != null }">
                       <li>${dto.name} 님</li>
 
-                      <li><a href="logout">Log out</a></li>
+                      <li><a href="/ShoppingMall/logout">Log out</a></li>
                     </c:if>
 
                     <!-- 로그인 하지 않은 상태 -->
                     <c:if test="${ dto == null }">
-                      <li><a href="login">Order</a></li>
+                      <li><a href="/ShoppingMall/login">Order</a></li>
                     </c:if>
                     <!-- 로그인한 상태 -->
                     <c:if test="${ dto != null }">
 
-                      <li><a href="userOrder/userOrderList">Order</a></li>
+                      <li><a href="/ShoppingMall/userOrder/userOrderList">Order</a></li>
                     </c:if>
 
                     <!-- 로그인 하지 않은 상태 -->
                     <c:if test="${ dto == null }">
-                      <li><a href="login">My Page</a></li>
+                      <li><a href="/ShoppingMall/login">My Page</a></li>
                     </c:if>
                     <!-- 로그인한 상태 -->
                     <c:if test="${ dto != null }">
 
-                      <li><a href="myPage">My Page</a></li>
+                      <li><a href="/ShoppingMall/myPage">My Page</a></li>
                     </c:if>
                   </ul>
                 </div>
@@ -325,7 +325,7 @@
                 <!-- 						<form method="post" action="#"> -->
                 <!-- 							<fieldset> -->
                 <!-- 								<input type="text" id="search" style="width: 120px;">  -->
-                <!-- 								<a href="#">  -->
+                <!-- 								<a href="/ShoppingMall/#">  -->
                 <!-- 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"> -->
                 <!--                           		<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" /> -->
                 <!--                       			</svg> -->
@@ -337,7 +337,7 @@
           </div>
         </main>
         <footer id="footer" style="font-family: notosans; text-align: left;">
-          <a href="mainPage" style="color: black;">Room & Bloom</a> <br>
+          <a href="/ShoppingMall/mainPage" style="color: black;">Room & Bloom</a> <br>
           <p style="line-height: 2em;">
             <a href="#">About us</a>
           </p>

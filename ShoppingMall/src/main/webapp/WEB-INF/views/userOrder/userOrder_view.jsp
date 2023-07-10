@@ -167,18 +167,18 @@
               </div>
               <div class="category" style="position:absolute; top:70px;">
                 <ul style="width: 200px;">
-<!-- 						<li><a href="#">BEST</a></li> -->
-						<li><a href="ProductList?catecode=1">의자</a></li>
-						<li><a href="ProductList?catecode=2">침대</a></li>
-						<li><a href="ProductList?catecode=3">테이블/식탁/책상</a></li>
-						<li><a href="ProductList?catecode=4">소파</a></li>
-						<li><a href="ProductList?catecode=5">서랍/수납장</a></li>
-						<li><a href="ProductList?catecode=6">거실장/TV장</a></li>
-						<li><a href="ProductList?catecode=7">선반</a></li>
-						<li><a href="ProductList?catecode=8">진열장/책장</a></li>
-						<li><a href="ProductList?catecode=9">행거/옷장</a></li>
-						<li><a href="ProductList?catecode=0">화장대</a></li>
-					</ul>
+                  <!-- 						<li><a href="#">BEST</a></li> -->
+                  <li><a href="ProductList?catecode=1">의자</a></li>
+                  <li><a href="ProductList?catecode=2">침대</a></li>
+                  <li><a href="ProductList?catecode=3">테이블/식탁/책상</a></li>
+                  <li><a href="ProductList?catecode=4">소파</a></li>
+                  <li><a href="ProductList?catecode=5">서랍/수납장</a></li>
+                  <li><a href="ProductList?catecode=6">거실장/TV장</a></li>
+                  <li><a href="ProductList?catecode=7">선반</a></li>
+                  <li><a href="ProductList?catecode=8">진열장/책장</a></li>
+                  <li><a href="ProductList?catecode=9">행거/옷장</a></li>
+                  <li><a href="ProductList?catecode=0">화장대</a></li>
+                </ul>
               </div>
               <div class="notice" style="position: absolute; top: 400px;">
                 <ul>
@@ -306,49 +306,49 @@
             <aside id="aisdeRight">
               <div class="rightbar">
                 <div class="cart" style="position: absolute; top: 80px; right: 0px;">
-                  	<ul>
-                           <c:if test="${ dto == null }">
-            		 			<li><a href="login" style="color: black;">Cart</a></li>
-              				</c:if>
-              				<c:if test="${ dto != null }">
-              					<li><a href="Gu_cart" style="width: 200px; color: black;">Cart</a></li>
-              				</c:if>
-                       </ul>
+                  <ul>
+                    <c:if test="${ dto == null }">
+                      <li><a href="login" style="color: black;">Cart</a></li>
+                    </c:if>
+                    <c:if test="${ dto != null }">
+                      <li><a href="Gu_cart" style="width: 200px; color: black;">Cart</a></li>
+                    </c:if>
+                  </ul>
                 </div>
                 <div class="login" style="position: absolute; top: 160px; right: 0px;">
                   <ul id="log_ul" style="width: 200px;">
-							<!-- 로그인 하지 않은 상태 -->
-							<c:if test="${ dto == null }">
-								<li><a href="login">Log in</a></li>
-								<li><a href="register">Register</a></li>
-							</c:if>
-							<!-- 로그인한 상태 -->
-							<c:if test="${ dto != null }">
-								<li>${dto.name} 님</li>
-								
-								<li><a href="logout">Log out</a></li>
-							</c:if>
+                    <!-- 로그인 하지 않은 상태 -->
+                    <c:if test="${ dto == null }">
+                      <li><a href="login">Log in</a></li>
+                      <li><a href="register">Register</a></li>
+                    </c:if>
+                    <!-- 로그인한 상태 -->
+                    <c:if test="${ dto != null }">
+                      <li>${dto.name} 님</li>
 
-							<!-- 로그인 하지 않은 상태 -->
-							<c:if test="${ dto == null }">
-								<li><a href="login">Order</a></li>
-							</c:if>
-							<!-- 로그인한 상태 -->
-							<c:if test="${ dto != null }">
-								
-								<li><a href="userOrder/userOrderList">Order</a></li>
-							</c:if> 
-							
-							<!-- 로그인 하지 않은 상태 -->
-							<c:if test="${ dto == null }">
-								<li><a href="login">My Page</a></li>
-							</c:if>
-							<!-- 로그인한 상태 -->
-							<c:if test="${ dto != null }">
-								
-								<li><a href="myPage">My Page</a></li>
-							</c:if> 
-						</ul>
+                      <li><a href="logout">Log out</a></li>
+                    </c:if>
+
+                    <!-- 로그인 하지 않은 상태 -->
+                    <c:if test="${ dto == null }">
+                      <li><a href="login">Order</a></li>
+                    </c:if>
+                    <!-- 로그인한 상태 -->
+                    <c:if test="${ dto != null }">
+
+                      <li><a href="userOrder/userOrderList">Order</a></li>
+                    </c:if>
+
+                    <!-- 로그인 하지 않은 상태 -->
+                    <c:if test="${ dto == null }">
+                      <li><a href="login">My Page</a></li>
+                    </c:if>
+                    <!-- 로그인한 상태 -->
+                    <c:if test="${ dto != null }">
+
+                      <li><a href="myPage">My Page</a></li>
+                    </c:if>
+                  </ul>
                 </div>
                 <!-- 검색기능 -->
                 <!-- <div class="search"

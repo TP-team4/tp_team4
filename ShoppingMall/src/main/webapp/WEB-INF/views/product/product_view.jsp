@@ -130,29 +130,36 @@
 
     <body>
 
-      <main id="main">
+      <main id="adminMain2">
         <div class="container">
 
           <aside id="aisdeLeft">
             <div id="title">
-              <a href="mainPage">
+              <a href="/ShoppingMall/mainPage">
                 <span style="font-size: x-large; position: absolute; left: 0px; color: black; width: 200px;">Room &
                   Bloom</span>
               </a>
             </div>
             <div class="category" style="position:absolute; top:70px;">
               <ul style="width: 200px;">
+<<<<<<< HEAD
                 <li><a href="notice/list_admin">공지사항</a></li>
                 <li><a href="mem_mgmt/memberList">회원 관리</a></li>
                 <li><a href="product/productList">상품 관리</a></li>
                 <li><a href="order/orderListPaging">주문 현황</a></li>
+=======
+                <li><a href="/ShoppingMall/notice/list">공지사항</a></li>
+                <li><a href="/ShoppingMall/mem_mgmt/memberList">회원 관리</a></li>
+                <li><a href="/ShoppingMall/product/productList">상품 관리</a></li>
+                <li><a href="/ShoppingMall/order/orderListPaging">주문 현황</a></li>
+>>>>>>> 058f259 (userPageMapping)
               </ul>
             </div>
             <div class="notice" style="position: absolute; top: 400px;">
               <ul>
-                <li><a href="noticePage">Notice</a></li>
-                <li><a href="QnAPage">QnA</a></li>
-                <!-- <li><a href="tp_main_review.html">Review</a></li> -->
+                <li><a href="/ShoppingMall/noticePage">Notice</a></li>
+                <li><a href="/ShoppingMall/QnAPage">QnA</a></li>
+                <!-- <li><a href="/ShoppingMall/tp_main_review.html">Review</a></li> -->
               </ul>
             </div>
             <div class="info" style="position: absolute; top: 550px;">
@@ -181,7 +188,7 @@
                 <div style="margin-bottom:30px;">
                   <h2 align="center" style="color:#508FED;">상품 수정</h2>
                 </div>
-                <table class="box" width="500" align="center">
+                <table class="box" width="500px" align="center">
                   <form method="post" action="productModify">
                     <input type="hidden" name=proCode value="${product_view.proCode}">
                     <tr>
@@ -274,7 +281,7 @@
                         <a href=productList>
                           <input type="button" value="목록보기" class="btn">
                         </a>
-                        <a href="productDelete?proCode=${product_view.proCode}">
+                        <a href="/ShoppingMall/productDelete?proCode=${product_view.proCode}">
                           <input type="button" value="삭제" class="btn">
                         </a>
                       </td>
@@ -295,16 +302,11 @@
               </div>
               <div class="login" style="position: absolute; top: 160px; right: 0px;">
                 <ul id="log_ul" style="width: 200px;">
-                  <!-- 로그인 하지 않은 상태 -->
-                  <c:if test="${ dto == null }">
-                    <li><a href="login">Log in</a></li>
-                  </c:if>
-                  <!-- 로그인한 상태 -->
-                  <c:if test="${ dto != null }">
-                    <li>${dto.name} 님</li>
-
-                    <li><a href="logout">Log out</a></li>
-                  </c:if>
+                  	<!--                      로그인한 상태 -->
+                     <c:if test="${ admindto != null }">
+                        <li>${admindto.id} 님</li>
+                        <li><a href="/ShoppingMall/logout">Log out</a></li>
+                     </c:if> 
                 </ul>
               </div>
               <!-- 검색기능 -->
@@ -313,7 +315,7 @@
 						<form method="post" action="#">
 							<fieldset>
 								<input type="text" id="search" style="width: 120px;"> 
-								<a href="#"> 
+								<a href="/ShoppingMall/#"> 
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                           		<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                       			</svg>
@@ -325,7 +327,7 @@
         </div>
       </main>
       <footer id="footer" style="font-family: notosans; text-align: left;">
-        <a href="mainPage" style="color: black;">Room & Bloom</a> <br>
+        <a href="/ShoppingMall/adminMain2" style="color: black;">Room & Bloom</a> <br>
         <p style="line-height: 2em;">
           <a href="#">About us</a>
         </p>
