@@ -25,12 +25,6 @@ public class MyPageController {
 	@Autowired
 	private MyPageService myPageService;
 	
-	@RequestMapping("/login")
-	public String login() {
-		log.info("@# login");
-		
-		return "mypage/login";
-	}
 	
 	@RequestMapping("/login_yn")
 	public String login_yn(@RequestParam HashMap<String, String> param, HttpSession session, RedirectAttributes attr, Model model) {
@@ -82,6 +76,8 @@ public class MyPageController {
 		log.info("@# myPageModify");
 	    log.info("@@@###"+ param);
 	    
+	    param.put("id", param.get("id"));
+	    param.put("pwd", param.get("pwd"));
 	    myPageService.myPageModify(param);
 	    
 	    log.info("@# myPageView");
