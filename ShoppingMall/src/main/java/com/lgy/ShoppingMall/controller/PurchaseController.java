@@ -160,6 +160,7 @@ public class PurchaseController {
 //		장바구니 번호 받아오기
 //		select cartcode from cart where userid = '~' and procode = '!'
 		CheckCartDto dto = service.checkCartCode(param);
+		log.info(dto.getCartcode());
 		param.put("cartcode", dto.getCartcode());
 		log.info("@#@#@#@#@#@ checkcart ==> " + dto.getCartcode());
 		

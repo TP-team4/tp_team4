@@ -142,6 +142,7 @@ th, td {
 				</div>
 				<div class="category" style="position: absolute; top: 70px;">
 					<ul style="width: 200px;">
+						<li><a href="#">BEST</a></li>
 						<li><a href="#">의자</a></li>
 						<li><a href="#">침대</a></li>
 						<li><a href="#">테이블/식탁/책상</a></li>
@@ -171,10 +172,10 @@ th, td {
 
 			</aside>
 
-    <!-- 
+	<!-- 
     =================================================================
-    notice list  
-    조은유    |     23-07-05     |              프론트	화면 배열 , css 적용
+    notice/list_admin
+    조은유    |     23-07-09     |       프론트	 화면 배열 , css 적용 / 파일 생성
     =================================================================
     -->
 
@@ -188,6 +189,10 @@ th, td {
 						<!-- <h1 align="center">NOTICE 관리</h1> -->
 						<br>
 							
+						<div style="text-align: right; width:830px; margin:0 auto;">
+							<a href="write_view">Write</a>
+						</div>
+
 						<table align="center" style="margin-bottom: 30px;">
 							<tr height="40px;">
 								<td width="50" align="center">No</td>
@@ -200,7 +205,7 @@ th, td {
 									<td align="center">${dto.noticode}</td>
 									<td>
 										<!-- content_view : 컨트롤러단 호출 --> 
-										<a href="content_view?noticode=${dto.noticode}" style="margin-left:10px;">${dto.notititle}</a>
+										<a href="content_view_admin?noticode=${dto.noticode}" style="margin-left:10px;">${dto.notititle}</a>
 									</td>
 									<%-- <td>${dto.notiauth}</td> --%>
 									<td align="center">admin</td>
@@ -264,27 +269,29 @@ th, td {
 					<div class="login"
 						style="position: absolute; top: 160px; right: 0px;">
 						<ul id="log_ul" style="width: 200px;">
-							<li><a href="login">Log in</a></li>
-							<li><a href="register">Register</a></li>
-							<li><a href="#">Order</a></li>
-							<li><a href="myPage">My Page</a></li>
+<!-- 						관리자 로그인 한 상태 -->
+								<li>${admindto.id}님</li>
+								<li><a href="logout">Log out</a></li>
+								<li><a href="http://localhost:8181/An_ShoppingMall/product/productList">상품관리</a></li>
+								<li><a href="http://localhost:8181/An_ShoppingMall/order/orderListPaging">주문관리</a></li>
+								<li><a href="http://localhost:8181/An_ShoppingMall/mem_mgmt/memberList">회원관리</a></li>
 						</ul>
 					</div>
-<!-- 					검색기능 -->
-<!-- 					<div class="search" -->
-<!-- 						style="position: absolute; top: 600px; right: 10px;"> -->
-<!-- 						<form method="post" action="#"> -->
-<!-- 							<fieldset> -->
-<!-- 								<input type="text" id="search" style="width: 150px;"> <a href="#">  -->
-<!-- 								<svg -->
-<!-- 										xmlns="http://www.w3.org/2000/svg" width="16" height="16" -->
-<!-- 										fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"> -->
-<!--                           		<path -->
-<!-- 											d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" /> -->
-<!--                      		   </svg> -->
-<!-- 								</a> -->
-<!-- 							</fieldset> -->
-<!-- 						</form> -->
+					<!-- 검색기능 -->
+					<div class="search"
+						style="position: absolute; top: 600px; right: 10px;">
+						<form method="post" action="#">
+							<fieldset>
+								<input type="text" id="search" style="width: 150px;"> <a href="#"> 
+								<svg
+										xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+										fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                          		<path
+											d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                     		   </svg>
+								</a>
+							</fieldset>
+						</form>
 					</div>
 			</aside>
 
@@ -317,7 +324,7 @@ th, td {
 		console.log("click~!!!");
 		console.log("@# href ===>"+$(this).attr("href"));
 		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-		actionForm.attr("action", "list");
+		actionForm.attr("action", "list_admin");
 		actionForm.submit();
 	});
 </script>

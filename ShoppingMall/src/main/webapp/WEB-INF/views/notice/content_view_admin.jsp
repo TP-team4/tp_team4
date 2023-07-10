@@ -137,6 +137,7 @@ th, td {
 				</div>
 				<div class="category" style="position: absolute; top: 70px;">
 					<ul style="width: 200px;">
+						<li><a href="#">BEST</a></li>
 						<li><a href="#">의자</a></li>
 						<li><a href="#">침대</a></li>
 						<li><a href="#">테이블/식탁/책상</a></li>
@@ -166,10 +167,10 @@ th, td {
 
 			</aside>
 
-			<!-- 
+	<!-- 
     =================================================================
-    notice/content_view  
-    조은유    |     23-07-07     |              프론트	화면 배열 , css 적용
+    notice/content_view_admin
+    조은유    |     23-07-09     |       프론트	 화면 배열 , css 적용 / 파일 생성
     =================================================================
     -->
 
@@ -190,7 +191,7 @@ th, td {
 									<!-- <td> -->
 									<%-- <input type="text" name="notititle" value="${content_view.notititle}">	 --%>
 									<!-- </td> -->
-									<td style="border-bottom-color: transparent;">
+									<td colspan="1" style="border-bottom-color: transparent;">
 									<input type="text" name="notititle" value="${content_view.notititle}" size="95" style="border: none; margin-top: 5px; padding: 20px;">
 									</td>
 								</tr>
@@ -220,15 +221,19 @@ th, td {
 <!-- 									</td> -->
 <!-- 								</tr> -->
 								<tr>
-									<td style="padding:20px;">
-										<div style="width: 300px; height: 200px;">
-										${content_view.noticont}										
-										</div>
+									<td colspan="2" style="padding:20px;">
+									<textarea cols="110" rows="13" name="noticont" style="border: 1px solid #ced4da;">${content_view.noticont}</textarea>
 									</td>
 								</tr>
 								<tr height="70px;">
-									<td style="border-color:transparent;">
-										<a href="list"><input type="button" value="목록보기" class="btn"></a>
+									<td colspan="2" style="border-color:transparent;">
+										<input type="submit" value="수정" class="btn"> 
+										<!-- &nbsp;&nbsp;<a href="list">목록보기</a> -->
+										<a href="list_admin"><input type="button" value="목록보기" class="btn"></a>
+										<%-- &nbsp;&nbsp;<a href="noticeDelete?noticode=${content_view.noticode}">삭제</a> --%>
+										<a href="noticeDelete?noticode=${content_view.noticode}">
+										<input type="button" value="삭제" class="btn">
+										</a>
 									</td>
 								</tr>
 							</form>
@@ -248,37 +253,30 @@ th, td {
 									- 0</a></li>
 						</ul>
 					</div>
-					<div class="login" style="position: absolute; top: 160px; right: 0px;">
+					<div class="login"
+						style="position: absolute; top: 160px; right: 0px;">
 						<ul id="log_ul" style="width: 200px;">
-							<!-- 로그인 하지 않은 상태 -->
-							<c:if test="${ dto == null }">
-								<li><a href="login">Log in</a></li>
-								<li><a href="register">Register</a></li>
-							</c:if>
-							<!-- 로그인한 상태 -->
-							<c:if test="${ dto != null }">
-								<li>${dto.name} 님</li>
-								
+<!-- 						관리자 로그인 한 상태 -->
+								<li>${admindto.id}님</li>
 								<li><a href="logout">Log out</a></li>
-							</c:if>
-							<li><a href="http://localhost:8181/An_ShoppingMall/userOrder/userOrderList">Order</a></li>
-							<li><a href="myPage">My Page</a></li>
+								<li><a href="http://localhost:8181/An_ShoppingMall/product/productList">상품관리</a></li>
+								<li><a href="http://localhost:8181/An_ShoppingMall/order/orderListPaging">주문관리</a></li>
+								<li><a href="http://localhost:8181/An_ShoppingMall/mem_mgmt/memberList">회원관리</a></li>
 						</ul>
 					</div>
-					</div>
-<!-- 					검색기능 -->
-<!-- 					<div class="search" -->
-<!-- 						style="position: absolute; top: 600px; right: 10px;"> -->
-<!-- 						<form method="post" action="#"> -->
-<!-- 							<fieldset> -->
-<!-- 								<input type="text" id="search" style="width: 120px;">  -->
-<!-- 								<a href="#">  -->
-<!-- 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"> -->
-<!--                           		<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" /> -->
-<!--                       			</svg> -->
-<!-- 								</a> -->
-<!-- 							</fieldset> -->
-<!-- 						</form> -->
+					<!-- 검색기능 -->
+					<div class="search"
+						style="position: absolute; top: 600px; right: 10px;">
+						<form method="post" action="#">
+							<fieldset>
+								<input type="text" id="search" style="width: 120px;"> 
+								<a href="#"> 
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                          		<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                      			</svg>
+								</a>
+							</fieldset>
+						</form>
 					</div>
 			</aside>
 
@@ -299,4 +297,5 @@ th, td {
 		crossorigin="anonymous"></script>
 </body>
 </html>
+
 
