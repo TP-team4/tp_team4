@@ -140,6 +140,7 @@
 				c.amount
 		from cart c join product p
 			on c.procode = p.procode
+			and ispaid = 0
 		order by c.cartcode
     </select>
 <!-- 	장바구니 추가 -->

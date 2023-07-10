@@ -903,113 +903,62 @@ border: 2px solid red;
 
     <!-- 		주문페이지 이동하면서 값 들고 이동함 -->
     <script type="text/javascript">
-      function orderPage() {
-        var procode = ${ Gu_ProductView.procode };
-        var promises = [];
+    function orderPage() {
+    	  var procode = ${ Gu_ProductView.procode };
+    	  var promises = [];
 
+    	  $("tr[id^=productRow]").each(function () {
+    	    var row = $(this);
 
-        var formData = []; // form 데이터를 담을 배열 선언
-        $("tr[id^=productRow]").each(function () {
-          var row = $(this);
+    	    var opColor = row.find("[id^=colorN]").text();
+    	    var opSize = row.find("[id^=sizeN]").text();
+    	    var amount = row.find("input[id^=quantityN]").val();
 
-          var opColor = row.find("[id^=colorN]").text();
-          var opSize = row.find("[id^=sizeN]").text();
-          var amount = row.find("input[id^=quantityN]").val();
+    	    var form = {
+    	      userid: userid,
+    	      procode: procode,
+    	      color: opColor,
+    	      psize: opSize,
+    	      amount: amount
+    	    };
+    	    var promise = $.ajax({
+    	      url: "cartAdd", // 호출할 URL
+    	      type: 'POST', // 호출 방식
+    	      data: form // 서버에 보낼 데이터
+    	    });
 
-          var form = {
-            userid: userid,
-            procode: procode,
-            color: opColor,
-            psize: opSize,
-            amount: amount
-          };
-          var promise = $.ajax({
-            url: "cartAdd", // 호출할 URL
-            type: 'POST', // 호출 방식
-            data: form // 서버에 보낼 데이터
-          });
+    	    promises.push(promise);
+    	  });
 
-          //선택된 값 들고 가기
-          var data = {
-            color: opColor,
-            psize: opSize,
-            procode: procode
-          };
-          formData.push(data);
+    	  Promise.all(promises).then(function (results) {
+    	    var procode = ${ Gu_ProductView.procode };
+    	    var result = results[0];
+    	    /* if (result == 0) {
+    	        alert("장바구니에 추가되지 않았습니다. 다시 시도해주세요.");
+    	    } else */ 
+    	    if (result == 1) {
+    	      alert("주문페이지로 이동합니다.");
 
-          promises.push(promise);
-        });
-
-        Promise.all(promises).then(function (results) {
-          var procode = ${ Gu_ProductView.procode };
-          var result = results[0];
-          /* if (result == 0) {
-              alert("장바구니에 추가되지 않았습니다. 다시 시도해주세요.");
-          } else */
-          if (result == 1) {
-            $.ajax({
-              url: 'your-url',
-              type: 'POST',
-              data: JSON.stringify(formData),
-              contentType: 'application/json',
-              success: function (response) {
-            	console.log(response);
-                // 요청 성공 시 실행할 동작
-//                 alert("주문페이지로 이동합니다.");
-                
-                
-//                  var form2 = document.createElement('form');
-//                 form2.setAttribute('method', 'POST');
-// //                 form2.setAttribute('action', 'orderPage');
-//                 form2.setAttribute('action', 'test');
-
-//                 var responseInput = document.createElement('input');
-//                 responseInput.setAttribute('type', 'hidden');
-//                 responseInput.setAttribute('name', 'responseData');
-//                 responseInput.setAttribute('value', JSON.stringify(response));
-
-//                 form2.appendChild(responseInput);
-//                 document.body.appendChild(form2);
-//                 form2.submit(); 
-                
-                
-                // 추가로 필요한 작업 수행
-                /*  location.href = "orderPage"; */
-
-                // procode 입력 필드 추가 
-
-            /*     var form2 = document.createElement('form');
-                var procodeInput = document.createElement('input');
-                procodeInput.setAttribute('type', 'hidden');
-                procodeInput.setAttribute('name', 'procode');
-                procodeInput.setAttribute('value', procode);
-                form2.appendChild(procodeInput);
-                form2.setAttribute('method', 'POST');
-                form2.setAttribute('action', 'orderPage');
-                document.body.appendChild(form2);
-                form2.submit(); */
-
-
-              },
-              error: function (xhr, status, error) {
-                alert("문제 발생");
-              }
-            });
-
-
-
-          } else if (result == 2) {
-            alert("장바구니에 동일한 상품이 있습니다.");
-            // 장바구니로 이동하시겠습니까?
-            orderCancel();
-            // } else if (result == 5) {
-            //     alert("로그인을 해주세요");
-          }
-        }).catch(function (error) {
-          alert(error);
-        });
-
-      }
+    	      // procode 입력 필드 추가 
+    	      var form2 = document.createElement('form');
+    	      var procodeInput = document.createElement('input');
+    	      procodeInput.setAttribute('type', 'hidden');
+    	      procodeInput.setAttribute('name', 'procode');
+    	      procodeInput.setAttribute('value', procode);
+    	      form2.appendChild(procodeInput);
+    	      form2.setAttribute('method', 'POST');
+    	      form2.setAttribute('action', 'orderPage');
+    	      document.body.appendChild(form2);
+    	      form2.submit(); 
+    	    } else if (result == 2) {
+    	      alert("장바구니에 동일한 상품이 있습니다.");
+    	      // 장바구니로 이동하시겠습니까?
+    	      orderCancel();
+    	    }
+    	  }).catch(function (error) {
+    	    alert(error);
+    	  });
+    	}
     </script>
 
     <script>

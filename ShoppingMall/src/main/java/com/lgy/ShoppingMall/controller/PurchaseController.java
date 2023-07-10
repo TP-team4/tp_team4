@@ -1,6 +1,5 @@
 package com.lgy.ShoppingMall.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,14 +10,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lgy.ShoppingMall.dto.CheckCartDto;
 import com.lgy.ShoppingMall.dto.Gu_CartDto;
 import com.lgy.ShoppingMall.dto.MemDto;
@@ -47,7 +43,6 @@ public class PurchaseController {
 	
 	
 //	주문페이지 이동
-//	@SuppressWarnings({ "unchecked", "unused" })
 	@RequestMapping(value="/orderPage")
 	public String orderPage(@RequestParam HashMap<String, String> param, Model model, HttpSession  session) {
 	    log.info("@# orderPage start");
@@ -61,11 +56,13 @@ public class PurchaseController {
 
 //      상세페이지에서 오는 경우
         
-    	PProductDto dto = service.productSelect(param);
+    	ArrayList<PProductDto> dto = service.productSelect(param);
         ArrayList<Gu_CartDto> list = service.selectFromCart(param);
         log.info("list 값 => " + list);
-        model.addAttribute("proimg", dto.getProimg());
+        model.addAttribute("proimg", dto); //for each 돌면서 dto.get proimg 받아와서 사진 처리
         model.addAttribute("orderPro", list);
+        
+        
 
   
 //	    PProductDto dto = service.productSelect(param);
@@ -90,53 +87,36 @@ public class PurchaseController {
 	    return "orderPage";
 	}
 	
-//	상품 골라 가져오기
-	@ResponseBody
-	@RequestMapping("/your-url")
-	public ArrayList<Gu_CartDto> processFormData(@RequestBody Gu_CartDto[] formData) {
-	    // 전송된 form 데이터를 처리하는 로직을 구현
-	    ArrayList<Gu_CartDto> cart = new ArrayList<Gu_CartDto>();
-
-	    for (Gu_CartDto data : formData) {
-	        Gu_CartDto newData = new Gu_CartDto(null, null, data.getProcode(), 0, 0, 0, data.getColor(), data.getPsize(), 0, null, null, null, null, null, 0, null, null);
-	        cart.add(newData);
-	    }
-	    
-//	    ArrayList<Gu_CartDto> caDto = new ArrayList<Gu_CartDto>();
-//	    log.info("cart => " + cart);
-//	    Gu_CartDto gu_CartDto = new Gu_CartDto();
-//	    for (Gu_CartDto Dto : cart) {
-//	    	gu_CartDto = Dto;
-//	    	caDto.add(service.caCheck(gu_CartDto));
-//		}
-	    
-	    log.info("formdata : " + formData);
-	    ArrayList<String> list = new ArrayList<String>();
-	    for (Gu_CartDto data : formData) {
-	        // 데이터를 이용하여 원하는 동작 수행
-	        String color = data.getColor();
-	        String size = data.getPsize();
-	        log.info("@#@ color ==> " + color);
-	        log.info("@#@ size ==> " + size);
-	        list.add(color);
-	        list.add(size);
-	    }
-	    log.info("@#@# list => " + list);
-
-	    return cart;
+	@RequestMapping("/test")
+	public void test(@RequestParam(value = "order[]") List<String> order, Gu_CartDto cartDto) {
+		String cartcode = "";
+		
+		for (String i : order) {
+			cartcode = i;
+			log.info("testtesttest ==> " + cartcode);
+		}
 	}
 	
-    @RequestMapping("/test")
-    public void test(@RequestParam HashMap<String, String> param, Model model, HttpSession  session) {
-        // JSON 문자열을 객체로 변환
-        log.info("@#@$@@$$ => " + param);
-        
-    }
-
-	    
-	    
-	
-	
+//	@RequestMapping("/cartDelete")
+////	public int cartDelete(@RequestParam(value = "removeCh[]") List<String> removeArray, HashMap<String, String> param, Gu_CartDto cartDto) {
+//	public int cartDelete(@RequestParam(value = "removeCh[]") List<String> removeArray, Gu_CartDto cartDto) {
+//		log.info("@# controller cartDelete start");
+//		
+//		int result = 0;
+//		String cartcode = "";
+//		
+//		for (String i : removeArray) {
+////			log.info("####@@@@@@ removeArray ==>"+removeArray);
+//			cartcode = i;
+//			cartDto.setCartcode(cartcode);
+//			log.info("####@@@@@@ cartDto ==>"+cartDto);
+//			service.cartDelete(cartDto);
+//			result = 1;
+//		}
+//		log.info("@# controller cartDelete end");
+////		log.info("####@@@@@@  result==>"+result);
+//		return result;	
+//	}	
 
 //	장바구니 체크
 	@ResponseBody
@@ -176,11 +156,12 @@ public class PurchaseController {
 	public void productOrd(@RequestParam HashMap<String, String> param) {	
 		log.info("@# productOrd start");
 		
+		log.info("@#$# 카트코드 테스트 입니다 => " + param);
 //		장바구니 번호 받아오기
 //		select cartcode from cart where userid = '~' and procode = '!'
 		CheckCartDto dto = service.checkCartCode(param);
-		log.info("@#@#@#@#@#@ checkcart ==> " + dto.getCartcode());
 		param.put("cartcode", dto.getCartcode());
+		log.info("@#@#@#@#@#@ checkcart ==> " + dto.getCartcode());
 		
 //		param 에 cartcode put
 		
@@ -191,14 +172,14 @@ public class PurchaseController {
 		param.put("payprice", param.get("totalprice")); //주문 총가격 -> 결제가격
 		param.put("paycode", param.get("code")); //결제번호
 		
-////		상품 수량 업데이트
-//		log.info("@#@#@#@#@#@#@#@@# 상품 수량 업데이트 #@#@#@#@#@#@#");
-//		
-//		
-//		log.info("2312312313 => "+ param.get("amount") + param.get("procode"));
-//		
-//		param.put("proqty", param.get("amount"));
-//		service.proqtyUpdate(param);
+//		상품 수량 업데이트
+		log.info("@#@#@#@#@#@#@#@@# 상품 수량 업데이트 #@#@#@#@#@#@#");
+		
+		
+		log.info("2312312313 => "+ param.get("amount") + param.get("procode"));
+		
+		param.put("proqty", param.get("amount"));
+		service.proqtyUpdate(param);
 		
 		
 //		결제정보저장
@@ -210,7 +191,7 @@ public class PurchaseController {
 		
 //		상품 출고에 저장
 		log.info("@#@#@#@#@#@#@#@@# 상품 출고에 저장 #@#@#@#@#@#@#");
-		param.put("amount", param.get("proqty"));
+//		param.put("proqty", param.get("amount"));
 		log.info("@# productOrd param => " + param);
 		service.productOut(param);
 		log.info("@#@#@#@#@#@#@#@@##@#@#@#@#@#@#");
@@ -273,6 +254,45 @@ public class PurchaseController {
 		return "ShoppingCart";
 //		return "cartTest";
 	}
+	
+	
+//	상품 골라 가져오기
+//	@ResponseBody
+//	@RequestMapping("/your-url")
+//	public ArrayList<Gu_CartDto> processFormData(@RequestBody Gu_CartDto[] formData) {
+//	    // 전송된 form 데이터를 처리하는 로직을 구현
+//	    ArrayList<Gu_CartDto> cart = new ArrayList<Gu_CartDto>();
+//
+//	    for (Gu_CartDto data : formData) {
+//	        Gu_CartDto newData = new Gu_CartDto(null, null, data.getProcode(), 0, 0, 0, data.getColor(), data.getPsize(), 0, null, null, null, null, null, 0, null, null);
+//	        cart.add(newData);
+//	    }
+//	    
+////	    ArrayList<Gu_CartDto> caDto = new ArrayList<Gu_CartDto>();
+////	    log.info("cart => " + cart);
+////	    Gu_CartDto gu_CartDto = new Gu_CartDto();
+////	    for (Gu_CartDto Dto : cart) {
+////	    	gu_CartDto = Dto;
+////	    	caDto.add(service.caCheck(gu_CartDto));
+////		}
+//	    
+//	    log.info("formdata : " + formData);
+//	    ArrayList<String> list = new ArrayList<String>();
+//	    for (Gu_CartDto data : formData) {
+//	        // 데이터를 이용하여 원하는 동작 수행
+//	        String color = data.getColor();
+//	        String size = data.getPsize();
+//	        log.info("@#@ color ==> " + color);
+//	        log.info("@#@ size ==> " + size);
+//	        list.add(color);
+//	        list.add(size);
+//	    }
+//	    log.info("@#@# list => " + list);
+//
+//	    return cart;
+//	}	
+	
+	
 	
 //	@RequestMapping("/cartView")
 //	public String CartView(@RequestParam HashMap<String, String> param, Model model) {

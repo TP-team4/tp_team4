@@ -129,7 +129,7 @@
                 <div style="position: absolute; left: 45%;">Order Page</div>
              
                     <form id="frm">
-                        <table style="width: 900px;" align="center" >
+                        <table style="width: 900px;" align="center" id="yourTableId">
                             <caption align="top"><hr style="width: 900px; margin-top: 60px; margin-bottom: 40px;"></caption>
                             <tr>
                                 <td colspan="8"><b style="float: left;">국내배송상품 주문내역</b>
@@ -156,11 +156,12 @@
 
 							<c:forEach items="${orderPro}" var="order">
 							    <tr>
-							        <td><img src="${proimg}" width="50px" height="60px"></td>
+<%-- 							        <td><img src="${proimg}" width="50px" height="60px"></td> --%>
+							        <td></td>
 							        <td style="text-align: left; border-left: hidden;">
 							            <div id="product">${order.proname}</div> <br>
 							            <div style="color: gray;">
-							                [옵션 : ${order.color}, ${order.psize}]
+							                [옵션 : <span id="color">${order.color}</span> , <span id="psize">${order.psize}</span>]
 							            </div>
 							        </td>
 							        <td> 

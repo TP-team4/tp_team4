@@ -2,19 +2,21 @@
         IMP.init('imp80461082'); 
     
         function requestPay() {
-        	let product = document.getElementById("product").innerHTML; // 상품이름
-			let buyer_name = document.getElementById("buyer_name").value; // 구매자
-			let postcode = document.getElementById("postcode").value; // 우편번호
-			let addr = document.getElementById("addr").value; // 기본주소
-			let etcaddr = document.getElementById("etcaddr").value; // 상세주소
-			let ph = document.getElementById("ph1").value + document.getElementById("ph2").value + document.getElementById("ph3").value; // 전화번호
-			let memo = document.getElementById("memo").value; // 배송메세지
-			let price = document.getElementById("price").innerHTML; // 상품가격
-			let code = Math.round(new Date().getTime());
-			let userid = document.getElementById("userid").value; // 세션으로 받아올 회원 아이디?
-			let procode = document.getElementById("procode").value; // 세션으로 받아올 제품 번호
-			let cartcode = document.getElementById("cartcode").value; // 세션으로 받아올 장바구니번호
-			let amount = document.getElementById("amount").innerHTML; // 상품 수량
+        	var product = document.getElementById("product").innerHTML; // 상품이름
+			var buyer_name = document.getElementById("buyer_name").value; // 구매자
+			var postcode = document.getElementById("postcode").value; // 우편번호
+			var addr = document.getElementById("addr").value; // 기본주소
+			var etcaddr = document.getElementById("etcaddr").value; // 상세주소
+			var ph = document.getElementById("ph1").value + document.getElementById("ph2").value + document.getElementById("ph3").value; // 전화번호
+			var memo = document.getElementById("memo").value; // 배송메세지
+			var price = document.getElementById("price").innerHTML; // 상품가격
+			var code = Math.round(new Date().getTime());
+			var userid = document.getElementById("userid").value; // 세션으로 받아올 회원 아이디?
+			var procode = document.getElementById("procode").value; // 세션으로 받아올 제품 번호
+			var amount = document.getElementById("amount").innerHTML; // 상품 수량
+			var color = document.getElementById("color").innerHTML; // 상품 수량
+			var psize = document.getElementById("psize").innerHTML; // 상품 수량
+
         	
         	var date = new Date();
 			var year = date.getFullYear();
@@ -37,7 +39,6 @@
             	if(data.success){
         			var msg = "결제 완료";
                     msg += '// procode : ' + procode;
-                    msg += '// cartcode : ' + cartcode;
                     msg += '// amount : ' + amount;
 
                     $.ajax({
@@ -58,7 +59,9 @@
 						        "ispaid": 1,
 						        "code": code,
 						        "procode": procode,
-						        "cartcode": cartcode,
+						        "color": color,
+						        "psize": psize,
+						     
 						        "amount": amount
 						        }
                     });

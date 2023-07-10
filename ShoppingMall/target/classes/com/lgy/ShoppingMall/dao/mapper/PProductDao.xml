@@ -41,7 +41,7 @@
     </select>
 <!--     장바구니번호 확인 -->
     <select id="checkCartCode" parameterType="hashmap" resultType="com.lgy.ShoppingMall.dto.CheckCartDto">
-       select cartcode from cart where userid = #{userid} and procode = #{procode}
+       select cartcode from cart where userid = #{userid} and procode = #{procode} and ispaid = 0 and color = #{color} and psize = #{psize}
     </select>
 <!--     상품 불러오기 -->
     <select id="selectFromCart" parameterType="hashmap" resultType="com.lgy.ShoppingMall.dto.Gu_CartDto">
