@@ -236,8 +236,18 @@ import lombok.extern.slf4j.Slf4j;
 		public String registerOk(@RequestParam HashMap<String, String> param, Model model) {
 			log.info("@# registerOk");
 			
+			String sms = param.get("sms");
+	         String emails = param.get("emails");
+	         if (sms==null) {
+	            param.put("sms", "N");
+	         }
+	         if (emails==null) {
+	            param.put("emails", "N");
+	         }
+			
 			service.write(param);
 			
+			log.info("param : " + param);
 			log.info("@registerOk@ id=>" + param.get("id"));
 			log.info("@registerOk@ pw=>" + param.get("pwd"));
 			log.info("@registerOk@ name=>" + param.get("name"));
@@ -320,7 +330,8 @@ import lombok.extern.slf4j.Slf4j;
 	         
 	         session.setAttribute("admindto", dto); // 일치하는 아이디, 비밀번호 경우 (로그인 성공)
 	           
-	           return "redirect:adminMain";
+//	           return "redirect:adminMain";
+	           return "redirect:adminMain2";
 	         
 	      }
 	      
@@ -371,11 +382,13 @@ import lombok.extern.slf4j.Slf4j;
 	      }
 	      
 	      /* 관리자 메인 페이지 */
-	      @RequestMapping(value = "adminMain")
+//	      @RequestMapping(value = "adminMain")
+	      @RequestMapping(value = "adminMain2")
 	      public String adminPage() {
 	         log.info("@# adminMain");
 	         
-	         return "adminMain";
+//	         return "adminMain";
+	         return "adminMain2";
 	         
 	      }
 

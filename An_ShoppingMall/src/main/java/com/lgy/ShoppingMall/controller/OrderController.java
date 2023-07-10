@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.lgy.ShoppingMall.dto.Criteria;
-import com.lgy.ShoppingMall.dto.PageDTO;
+import com.lgy.ShoppingMall.dto.PageDto;
 import com.lgy.ShoppingMall.dto.ProductOrdDto;
 import com.lgy.ShoppingMall.service.OrderService;
 
@@ -39,7 +39,7 @@ public class OrderController {
 		
 		log.info("@# orderListPaging ===>"+ orderListPaging);
 		model.addAttribute("orderListPaging", orderListPaging);
-		model.addAttribute("pageMaker", new PageDTO(total, cri));
+		model.addAttribute("pageMaker", new PageDto(total, cri));
 
 		return "order/orderList";
   }
@@ -68,7 +68,7 @@ public class OrderController {
  		
 		log.info("@@## param"+cri);
 		log.info("@@## param"+ordSearchList);
-		model.addAttribute("pageMaker", new PageDTO(total, cri));
+		model.addAttribute("pageMaker", new PageDto(total, cri));
 		model.addAttribute("orderListPaging", ordSearchList);
 		
 		return "order/orderList";

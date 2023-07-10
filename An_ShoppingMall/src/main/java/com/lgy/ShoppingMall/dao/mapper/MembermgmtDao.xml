@@ -29,7 +29,7 @@
 	</sql>
 
     <!-- 회원 목록을 가져오는 쿼리 -->
-    <select resultType="com.lgy.ShoppingMall.dto.MemberDto" id="memberList">
+    <select resultType="com.lgy.ShoppingMall.dto.Member2Dto" id="memberList">
 		<![CDATA[
 			SELECT id, pwd, email, hp, name, count
 			FROM (
@@ -50,7 +50,7 @@
     </select>
 
 	<!-- 회원 상세 정보 조회 쿼리 -->
-	<select resultType="com.lgy.ShoppingMall.dto.MemberDto" id="membermgmtView" parameterType="hashmap">
+	<select resultType="com.lgy.ShoppingMall.dto.Member2Dto" id="membermgmtView" parameterType="hashmap">
 		 select id, pwd, email, hp, name, pcode, loadaddr, lotaddr, extraaddr, etcaddr
 		 	from member where id = #{id}
 	</select>
@@ -71,7 +71,7 @@
 	</update>
 	
 	<!-- 회원 검색 -->
-	<select id="searchList" resultType="com.lgy.ShoppingMall.dto.MemberDto">
+	<select id="searchList" resultType="com.lgy.ShoppingMall.dto.Member2Dto">
 <!-- 	<![CDATA[ -->
 <!-- 			SELECT id, pwd, email, hp, name, count -->
 <!-- 			FROM ( -->

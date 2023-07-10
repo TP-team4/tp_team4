@@ -82,7 +82,6 @@
         </div>
         <div class="category" style="position: absolute; top: 70px;">
           <ul style="width: 200px;">
-              <li><a href="#">BEST</a></li>
               <li><a href="#">의자</a></li>
               <li><a href="#">침대</a></li>
               <li><a href="#">테이블/식탁/책상</a></li>

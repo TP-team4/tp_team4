@@ -5,11 +5,11 @@
  
  <mapper namespace="com.lgy.ShoppingMall.dao.MyPageDao">
  
-  <select id="loginYn" parameterType="hashmap" resultType="com.lgy.ShoppingMall.dto.MemberDto">   
+  <select id="loginYn" parameterType="hashmap" resultType="com.lgy.ShoppingMall.dto.Member2Dto">   
       select id , pwd from MEMBER WHERE id=#{id}                   
    </select>
  
-   <select resultType="com.lgy.ShoppingMall.dto.MemberDto" id="myPageView" parameterType="hashmap">
+   <select resultType="com.lgy.ShoppingMall.dto.Member2Dto" id="myPageView" parameterType="hashmap">
 		 select id, pwd, email, hp, name, pcode, loadaddr, lotaddr, extraaddr, etcaddr, sms, emails
 		 	from member where id = #{id}
     </select>
@@ -31,7 +31,7 @@
     </update>
     
     <!-- 비밀번호 확인하기  -->
-	<select id="memberPassword" parameterType="hashmap"	resultType="com.lgy.ShoppingMall.dto.MemberDto">
+	<select id="memberPassword" parameterType="hashmap"	resultType="com.lgy.ShoppingMall.dto.Member2Dto">
 <!-- 		SELECT * FROM MEMBER WHERE id=#{id} -->
 		 select pwd from MEMBER WHERE id=#{id} 
 	</select>

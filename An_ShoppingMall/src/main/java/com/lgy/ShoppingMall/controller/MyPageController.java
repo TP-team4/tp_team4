@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.lgy.ShoppingMall.dto.MemberDto;
+import com.lgy.ShoppingMall.dto.Member2Dto;
 import com.lgy.ShoppingMall.service.MyPageService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +36,7 @@ public class MyPageController {
 	    log.info("@# login_yn start");
 	    log.info("@@@###"+param.get("id"));
 	    log.info("@@@###"+param.get("pwd"));
-	    MemberDto dto = myPageService.loginYn(param);
+	    Member2Dto dto = myPageService.loginYn(param);
 
 	    log.info("@# loginyn 전달된 데이터들 "+dto);
         
@@ -61,7 +61,7 @@ public class MyPageController {
 			param.put("id", id);
 		}
 		log.info("@#@#"+param);
-		MemberDto dto = myPageService.myPageView(param);
+		Member2Dto dto = myPageService.myPageView(param);
 		model.addAttribute("myPage_view", dto);
 		return "mypage/myPage_view";
 	}
@@ -84,7 +84,7 @@ public class MyPageController {
 	    myPageService.myPageModify(param);
 	    
 	    log.info("@# myPageView");
-	    MemberDto dto = myPageService.myPageView(param);
+	    Member2Dto dto = myPageService.myPageView(param);
 	    log.info("@#@#dto"+dto);
 		model.addAttribute("myPage_view", dto);
 //		return "mypage/myPage_view";
@@ -127,7 +127,7 @@ public class MyPageController {
 	public String memberDelete(@RequestParam HashMap<String, String> param, RedirectAttributes attr){
 			
 		log.info("@memberDelete###param"+param);
-		MemberDto dto = myPageService.memberPassword(param);
+		Member2Dto dto = myPageService.memberPassword(param);
 
 		String pwd = dto.getPwd();
 		log.info("@###dto"+dto);

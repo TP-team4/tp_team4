@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.lgy.ShoppingMall.dto.Criteria;
 import com.lgy.ShoppingMall.dto.NoticeDto;
-import com.lgy.ShoppingMall.dto.PageDTO;
+import com.lgy.ShoppingMall.dto.PageDto;
 import com.lgy.ShoppingMall.service.NoticeService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -42,7 +42,7 @@ public class noticeController {
         
         log.info("@# list ===>"+ list);
         model.addAttribute("list", list);
-        model.addAttribute("pageMaker", new PageDTO(total, cri));
+        model.addAttribute("pageMaker", new PageDto(total, cri));
 
         return "notice/list";
     }

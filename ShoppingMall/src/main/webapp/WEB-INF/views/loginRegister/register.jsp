@@ -518,7 +518,9 @@ function mySubmit() {
      var name = $("#name").val();
      var phone = $("#hp").val();
      var email = $("#email").val();
-            
+     var sms = $("#check_3").val();
+     var emails = $("#check_4").val();
+     
      var idregex = /^[a-z][a-z\d]{4,16}$/;
      var pwregex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/
      var re_pwregex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/
@@ -585,7 +587,7 @@ function mySubmit() {
          alert('서비스 이용약관 동의에 체크해 주세요');
          return false;
      }
-	     
+     
      true;
 }   
 
@@ -630,19 +632,25 @@ $(".checkbox_group").on("click", ".normal", function() {
 
 /* sms 선택동의 */
 $("#check_3").change(function(){
+	console.log("sms 선택 동의 값 변경");
     if(this.checked){
       $(this).prop('value', 'Y');
+      console.log($(this).attr('value'));
     }else{
       $(this).prop('value', 'N');
+      console.log($(this).attr('value'));
     }
 });
 
 /* emails 선택동의 */
 $("#check_4").change(function(){
+	console.log("emails 선택 동의 값 변경");
     if(this.checked){
       $(this).prop('value', 'Y');
+      console.log($(this).attr('value'));
     }else{
       $(this).prop('value', 'N');
+      console.log($(this).attr('value'));
     }
 });
 

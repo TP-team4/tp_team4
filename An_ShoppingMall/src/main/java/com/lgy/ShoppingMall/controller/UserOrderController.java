@@ -3,6 +3,8 @@ package com.lgy.ShoppingMall.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.lgy.ShoppingMall.dto.Criteria;
-import com.lgy.ShoppingMall.dto.PageDTO;
+import com.lgy.ShoppingMall.dto.PageDto;
 import com.lgy.ShoppingMall.dto.ProductOrdDto;
 import com.lgy.ShoppingMall.service.UserOrderService;
 
@@ -24,11 +26,15 @@ public class UserOrderController {
 	private UserOrderService userOrderService;
 	
 	@RequestMapping("/userOrderList")
-	public String userOrderList(@RequestParam HashMap<String, String> param, Model model, Criteria cri) {
+	public String userOrderList(@RequestParam HashMap<String, String> param, Model model, Criteria cri, HttpSession  session) {
 		log.info("@# UserOrderController.userOrderList() start");
 		log.info("@# cri===>"+cri);
 		
-		param.put("userid", "yeju");
+		param.put("userid", "tteesstt"); // 세션에서 가져오기
+//		MemDto getid = (MemDto) session.getAttribute("dto");
+//	    log.info("@# 마이페이지 세션 getid "+ getid);
+//	    log.info("세션에서 받은 id : " + getid.getId());
+//	    param.put("userid", getid.getId());
 		
 		ArrayList<ProductOrdDto> userOrderList = userOrderService.userOrderList(param, cri);
 		log.info("@@###userOrderList"+userOrderList);
@@ -41,7 +47,7 @@ public class UserOrderController {
  		
  		model.addAttribute("userOrderList", userOrderList);
  		log.info("@#@#@#userOrderList"+userOrderList);
- 		model.addAttribute("pageMaker", new PageDTO(total, cri));
+ 		model.addAttribute("pageMaker", new PageDto(total, cri));
  		
  		log.info("@# UserOrderController.userOrderList() end");
  		

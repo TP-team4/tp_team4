@@ -5,18 +5,29 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter
 @Setter
+@Getter
 @AllArgsConstructor
 @ToString
 public class Criteria {
-	private int pageNum;//페이지 번호
-	private int amount;//페이지당 글 갯수
+
+	private int pageNum; //페이지 번호
+	private int amount; //페이지당 글 갯수
+	
+	private String type;
+	private String keyword;
 	
 	public Criteria() {
-//		초기페이지는 1이고, 10개씩 출력
-		this(1, 10);
-//		2:11~, 3:21~, 4:31~
-//		this(5, 10);
+		this(1,10);
+	}
+	
+	public Criteria(int pageNum, int amount) {
+		this.pageNum = pageNum;
+		this.amount = amount;
+	}
+	
+	public String[] getTypeArr() {
+//		type 이 없으면 빈 스트링 객체, 있으면 분리
+		return type == null ? new String[] {} : type.split("");
 	}
 }

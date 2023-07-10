@@ -24,7 +24,7 @@
 <!-- 	    FROM PRODUCT p, PRODUCT_ORD o,PRODUCT_OUT po -->
 <!-- 	    where o.ordercode = po.ordercode and p.procode = po.procode and o.userid = #{userid} -->
 	    
-	    SELECT rownum rn, p.proThumb, p.proName, p.proPrice, o.ordercode, o.totalprice, po.amount, po.status, po.pocode, o.orderdate,
+	    SELECT rownum rn, p.proimg, p.proName, p.proPrice, o.ordercode, o.totalprice, po.amount, po.status, po.pocode, o.orderdate,
 	       COUNT(*) OVER () AS count
 		FROM PRODUCT p
 		INNER JOIN PRODUCT_OUT po ON p.procode = po.procode
