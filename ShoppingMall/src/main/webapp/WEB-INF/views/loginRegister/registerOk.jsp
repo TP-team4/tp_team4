@@ -252,11 +252,38 @@ a:hover{
           </div>
           <div class="login" style="position: absolute; top: 160px; right: 0px;">
               <ul id="log_ul" style="width: 200px;">
-                  <li><a href="login">Login</a></li>
-                  <li><a href="register">Register</a></li>
-                  <li><a href="#">Order</a></li>
-                  <li><a href="myPage">My Page</a></li>
-              </ul>
+							<!-- 로그인 하지 않은 상태 -->
+							<c:if test="${ dto == null }">
+								<li><a href="login">Log in</a></li>
+								<li><a href="register">Register</a></li>
+							</c:if>
+							<!-- 로그인한 상태 -->
+							<c:if test="${ dto != null }">
+								<li>${dto.name} 님</li>
+								
+								<li><a href="logout">Log out</a></li>
+							</c:if>
+
+							<!-- 로그인 하지 않은 상태 -->
+							<c:if test="${ dto == null }">
+								<li><a href="login">Order</a></li>
+							</c:if>
+							<!-- 로그인한 상태 -->
+							<c:if test="${ dto != null }">
+								
+								<li><a href="userOrder/userOrderList">Order</a></li>
+							</c:if> 
+							
+							<!-- 로그인 하지 않은 상태 -->
+							<c:if test="${ dto == null }">
+								<li><a href="login">My Page</a></li>
+							</c:if>
+							<!-- 로그인한 상태 -->
+							<c:if test="${ dto != null }">
+								
+								<li><a href="myPage">My Page</a></li>
+							</c:if> 
+						</ul>
           </div>
           <!-- 검색기능 -->
         <div class="search" style="position: absolute; top: 600px; right: 10px;">

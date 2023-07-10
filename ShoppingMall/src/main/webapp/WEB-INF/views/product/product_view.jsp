@@ -142,7 +142,7 @@
             </div>
             <div class="category" style="position:absolute; top:70px;">
               <ul style="width: 200px;">
-                <li><a href="notice/list">공지사항</a></li>
+                <li><a href="notice/list_admin">공지사항</a></li>
                 <li><a href="mem_mgmt/memberList">회원 관리</a></li>
                 <li><a href="product/productList">상품 관리</a></li>
                 <li><a href="order/orderListPaging">주문 현황</a></li>

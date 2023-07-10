@@ -244,8 +244,8 @@ a:hover {
       </div>
       <div class="notice" style="position: absolute; top: 400px;">
           <ul>
-              <li><a href="noticePage">Notice</a></li>
-              <li><a href="QnAPage">QnA</a></li>
+              <li><a href="notice/list">Notice</a></li>
+              <li><a href="Gu_Qna_list">QnA</a></li>
               <!-- <li><a href="tp_main_review.html">Review</a></li> -->
           </ul>
       </div>

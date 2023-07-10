@@ -146,7 +146,7 @@
             </div>
             <div class="category" style="position: absolute; top: 70px;">
               <ul style="width: 200px;">
-                <li><a href="notice/list">공지사항</a></li>
+                <li><a href="notice/list_admin">공지사항</a></li>
                 <li><a href="mem_mgmt/memberList">회원 관리</a></li>
                 <li><a href="product/productList">상품 관리</a></li>
                 <li><a href="order/orderListPaging">주문 현황</a></li>
@@ -210,17 +210,34 @@
     -->
               <div class="login" style="position: absolute; top: 160px; right: 0px;">
                 <ul id="log_ul" style="width: 200px;">
-                  	<!-- 로그인 하지 않은 상태 -->
-					<c:if test="${ dto == null }">
-						<li><a href="login">Log in</a></li>
-					</c:if>
-					<!-- 로그인한 상태 -->
-					<c:if test="${ dto != null }">
-						<li>${dto.name} 님</li>
-						
-						<li><a href="logout">Log out</a></li>
-					</c:if>
-                </ul>
+                
+<!-- <!-- 							로그인 하지 않은 상태 -->
+<%-- 							<c:if test="${ admindto == null }"> --%>
+<!-- 								<li><a href="login">Log in</a></li> -->
+<!-- 								<li><a href="register">Register</a></li> -->
+<%-- 							</c:if> --%>
+							
+<!-- 							로그인한 상태 -->
+							<c:if test="${ admindto != null }">
+								<li>${admindto.id} 님</li>
+								<li><a href="logout">Log out</a></li>
+							</c:if>
+											
+<!-- 							로그인한 상태 -->
+<%-- 							<c:if test="${ admindto != null }"> --%>
+<!-- 								<li><a href="product/productList">상품관리</a></li> -->
+<%-- 							</c:if>  --%>
+<!-- 							로그인한 상태 -->
+<%-- 							<c:if test="${ admindto != null }"> --%>
+<!-- 								<li><a href="order/orderListPaging">주문관리</a></li> -->
+<%-- 							</c:if>  --%>
+<!-- 							로그인한 상태 -->
+<%-- 							<c:if test="${ admindto != null }"> --%>
+<!-- 								<li><a href="mem_mgmt/memberList">회원관리</a></li> -->
+<%-- 							</c:if>  --%>
+							
+				
+						</ul>
               </div>
               <!-- 검색기능 -->
               <!-- 			        <div class="search" style="position: absolute; top: 600px; right: 10px;"> -->

@@ -1,6 +1,6 @@
-<!-- <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> -->
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,11 +13,15 @@
 	rel="stylesheet"
 	integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
 	crossorigin="anonymous">
+	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <style>
 aside, footer {
 	margin: 3px;
 	text-align: center;
+	/* border: 1px solid black; */
 }
 
 footer {
@@ -47,9 +51,9 @@ footer {
 }
 
 #article {
+	height: 800px;
 	flex-grow: 1;
 	padding: auto;
-	margin-bottom:150px;
 }
 
 #aisdeLeft {
@@ -99,12 +103,6 @@ a:hover {
 	color: black;
 }
 
-#search {
-	border-top: none;
-	border-left: none;
-	border-right: none;
-}
-
 .btn{
 	border: 1px solid rgb(207, 207, 207);
 	border-radius: 0px;
@@ -123,51 +121,64 @@ th, td {
  	border: 1px solid rgb(207, 207, 207); 
 	border-collapse: collapse;
 }
+
 </style>
 </head>
+
 <body>
+
+	<!-- 
+    =================================================================
+    메인 화면
+    박정훈    |   23-06-17      |        전체 레이아웃 위치 세팅 및 스타일 적용 
+    ================================================================= 
+    -->
 
 	<main id="main">
 		<div class="container">
+			<!-- 
+    =================================================================
+    좌측 사이드바 레이아웃 세팅
+    작성자   |   수정자   |    작성 or 수정일    |     작업 내용
+    조은유   |   박동명   |     23-06-16      |    사이드바 레이아웃 조정
+    										 	카테고리 페이지 연결 
+    ================================================================= 
+    -->
+				 <!-- 좌측 사이드바 -->
 
-			<aside id="aisdeLeft">
-				<div id="title">
-					<a href="mainPage"> <span style="font-size: x-large; position: absolute; left: 0px; color: black; width: 200px;">Room & Bloom</span>
-					</a>
-				</div>
-				<div class="category" style="position: absolute; top: 70px;">
-					<ul style="width: 200px;">
-						<li><a href="#">BEST</a></li>
-						<li><a href="#">의자</a></li>
-						<li><a href="#">침대</a></li>
-						<li><a href="#">테이블/식탁/책상</a></li>
-						<li><a href="#">소파</a></li>
-						<li><a href="#">서랍/수납장</a></li>
-						<li><a href="#">거실장/TV장</a></li>
-						<li><a href="#">선반</a></li>
-						<li><a href="#">진열장/책장</a></li>
-						<li><a href="#">행거/옷장</a></li>
-						<li><a href="#">화장대</a></li>
-					</ul>
-				</div>
-				<div class="notice" style="position: absolute; top: 400px;">
-					<ul>
-						<li><a href="http://localhost:8181/An_ShoppingMall/notice/list">Notice</a></li>
-						<li><a href="QnAPage">QnA</a></li>
-						<!-- <li><a href="tp_main_review.html">Review</a></li> -->
-					</ul>
-				</div>
-				<div class="info" style="position: absolute; top: 550px;">
-					<ul>
-						<li>02-336-4363</li>
-						<li>Mon-Fri 10:00-19:00 <br> Weekend,Holiday off
-						</li>
-					</ul>
-				</div>
+          <aside id="aisdeLeft">
+            <div id="title">
+              <a href="mainPage"> <span
+                  style="font-size: x-large; position: absolute; left: 0px; color: black; width: 200px;">Room
+                  & Bloom</span>
+              </a>
+            </div>
+            <div class="category" style="position: absolute; top: 70px;">
+              <ul style="width: 200px;">
+                <li><a href="notice/list_admin">공지사항</a></li>
+                <li><a href="mem_mgmt/memberList">회원 관리</a></li>
+                <li><a href="product/productList">상품 관리</a></li>
+                <li><a href="order/orderListPaging">주문 현황</a></li>
+              </ul>
+            </div>
+            <div class="notice" style="position: absolute; top: 400px;">
+              <ul>
+                <li><a href="notice/list_admin">Notice</a></li>
+                <li><a href="Gu_Qna_list">QnA</a></li>
+                <!-- <li><a href="tp_main_review.html">Review</a></li> -->
+              </ul>
+            </div>
+            <div class="info" style="position: absolute; top: 550px;">
+              <ul>
+                <li>02-336-4363</li>
+                <li>Mon-Fri 10:00-19:00 <br> Weekend,Holiday off
+                </li>
+              </ul>
+            </div>
 
-			</aside>
+          </aside>
 
-	<!-- 
+<!-- 
     =================================================================
     notice/content_view_admin
     조은유    |     23-07-09     |       프론트	 화면 배열 , css 적용 / 파일 생성
@@ -242,42 +253,48 @@ th, td {
 				</article>
 			</section>
 
-
-			<!-- 우측 사이드바 -->
+			<!-- 
+    =================================================================
+    우측 사이드바 레이아웃 세팅
+    조은유   |   23-06-16      |                      사이드바 레이아웃 조정 
+    ================================================================= 
+    -->
+			<!-- 우측사이드바 -->
 			<aside id="aisdeRight">
 				<div class="rightbar">
 					<div class="cart"
 						style="position: absolute; top: 80px; right: 0px;">
-						<ul>
-							<li><a href="#" style="color: black; width: 200px;">Cart
-									- 0</a></li>
-						</ul>
+						
 					</div>
+	<!-- 
+    =================================================================
+    로그인시 회원 이름 보이게 수정
+      조은유    |   23-06-29       |                          
+    =================================================================
+    -->
 					<div class="login"
 						style="position: absolute; top: 160px; right: 0px;">
 						<ul id="log_ul" style="width: 200px;">
-<!-- 						관리자 로그인 한 상태 -->
-								<li>${admindto.id}님</li>
-								<li><a href="logout">Log out</a></li>
-								<li><a href="http://localhost:8181/An_ShoppingMall/product/productList">상품관리</a></li>
-								<li><a href="http://localhost:8181/An_ShoppingMall/order/orderListPaging">주문관리</a></li>
-								<li><a href="http://localhost:8181/An_ShoppingMall/mem_mgmt/memberList">회원관리</a></li>
+							<!--  로그인한 상태 -->
+							   <c:if test="${ admindto != null }">
+							      <li>${admindto.id} 님</li>
+							      <li><a href="logout">Log out</a></li>
+							   </c:if> 
 						</ul>
 					</div>
-					<!-- 검색기능 -->
-					<div class="search"
-						style="position: absolute; top: 600px; right: 10px;">
-						<form method="post" action="#">
-							<fieldset>
-								<input type="text" id="search" style="width: 120px;"> 
-								<a href="#"> 
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                          		<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                      			</svg>
-								</a>
-							</fieldset>
-						</form>
-					</div>
+					 <!-- 검색기능 -->
+			        <div class="search" style="position: absolute; top: 600px; right: 10px;">
+<!-- 			          <form method="post" action="#"> -->
+<!-- 			              <fieldset> -->
+<!-- 			                  <input type="text" id="search"> -->
+<!-- 	                  <a href="#"> -->
+<!--                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"> -->
+<!--                           <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/> -->
+<!--                       </svg> -->
+<!--                   </a> -->
+<!--               </fieldset>     -->
+<!--             </form> -->
+          </div>
 			</aside>
 
 		</div>
@@ -297,5 +314,3 @@ th, td {
 		crossorigin="anonymous"></script>
 </body>
 </html>
-
-
