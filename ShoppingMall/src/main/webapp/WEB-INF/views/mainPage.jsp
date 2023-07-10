@@ -146,7 +146,7 @@ a:hover {
 				</div>
 				<div class="category" style="position: absolute; top: 70px;">
 					<ul style="width: 200px;">
-						<li><a href="#">BEST</a></li>
+<!-- 						<li><a href="#">BEST</a></li> -->
 						<li><a href="ProductList?catecode=1">의자</a></li>
 						<li><a href="ProductList?catecode=2">침대</a></li>
 						<li><a href="ProductList?catecode=3">테이블/식탁/책상</a></li>
@@ -184,12 +184,12 @@ a:hover {
     -->
 			<!-- 본문 -->
 			<section id="section" style="width: 600px;">
-				<article>
+				<article style="margin-left: 40px">
 					<div id="article" style="height: auto;">
 
-						<!-- 상품 이미지 들어갈 공간 -->
-
-						<div></div>
+						<div>
+							<img alt="" src="resources/main.png" width="100%">
+						</div>
 
 					</div>
 				</article>
@@ -203,13 +203,17 @@ a:hover {
     -->
 			<!-- 우측사이드바 -->
 			<aside id="aisdeRight">
-				<div class="rightbar">
-					<div class="cart"
-						style="position: absolute; top: 80px; right: 0px;">
-						<ul>
-							<li><a href="#" style="width: 200px;">Cart - 0</a></li>
-						</ul>
-					</div>
+               <div class="rightbar">
+                   <div class="cart" style="position: absolute; top: 80px; right: 0px;">
+                       <ul>
+                           <c:if test="${ dto == null }">
+            		 			<li><a href="login" style="color: black;">Cart - 0</a></li>
+              				</c:if>
+              				<c:if test="${ dto != null }">
+              					<li><a href="Gu_cart" style="width: 200px; color: black;">Cart - 0</a></li>
+              				</c:if>
+                       </ul>
+                   </div>
 	<!-- 
     =================================================================
     로그인시 회원 이름 보이게 수정
@@ -235,23 +239,23 @@ a:hover {
 						</ul>
 					</div>
 					 <!-- 검색기능 -->
-			        <div class="search" style="position: absolute; top: 600px; right: 10px;">
-			          <form method="post" action="#">
-			              <fieldset>
-			                  <input type="text" id="search">
-	                  <a href="#">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                      </svg>
-                  </a>
-              </fieldset>    
-            </form>
+<!-- 			        <div class="search" style="position: absolute; top: 600px; right: 10px;"> -->
+<!-- 			          <form method="post" action="#"> -->
+<!-- 			              <fieldset> -->
+<!-- 			                  <input type="text" id="search"> -->
+<!-- 	                  <a href="#"> -->
+<!--                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"> -->
+<!--                           <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/> -->
+<!--                       </svg> -->
+<!--                   </a> -->
+<!--               </fieldset>     -->
+<!--             </form> -->
           </div>
 			</aside>
 
 		</div>
 	</main>
-	<footer id="footer" style="font-family: notosans; text-align: left;">
+	<footer id="footer" style="font-family: notosans; text-align: left; margin-top: 30px">
 		<a href="mainPage" style="color: black;">Room & Bloom</a> <br>
 		<p style="line-height: 2em;">
 			<a href="#">About us</a>

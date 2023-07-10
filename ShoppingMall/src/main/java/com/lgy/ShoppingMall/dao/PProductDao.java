@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.lgy.ShoppingMall.dto.CheckCartDto;
+import com.lgy.ShoppingMall.dto.Gu_CartDto;
 import com.lgy.ShoppingMall.dto.MemberDto;
 import com.lgy.ShoppingMall.dto.OrderDto;
 import com.lgy.ShoppingMall.dto.PProductDto;
@@ -32,4 +33,12 @@ public interface PProductDao {
 	public MemberDto memberAddr(HashMap<String, String> param);
 	//장바구니 번호 가져오기
 	public CheckCartDto checkCartCode(HashMap<String, String> param);
+	//상품 불러오기
+	public ArrayList<Gu_CartDto> selectFromCart(HashMap<String, String> param);
+	//상품 수량 업데이트
+	public void proqtyUpdate(HashMap<String, String> param);
+	//장바구니 업데이트
+	public void cartUpdate(HashMap<String, String> param);
+	
+	public Gu_CartDto caCheck(Gu_CartDto dto);
 }

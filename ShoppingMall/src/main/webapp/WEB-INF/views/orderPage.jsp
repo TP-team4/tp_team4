@@ -82,7 +82,7 @@
         </div>
         <div class="category" style="position: absolute; top: 70px;">
           <ul style="width: 200px;">
-              <li><a href="#">BEST</a></li>
+<!--               <li><a href="#">BEST</a></li> -->
               <li><a href="ProductList?catecode=1">의자</a></li>
               <li><a href="ProductList?catecode=2">침대</a></li>
               <li><a href="ProductList?catecode=3">테이블/식탁/책상</a></li>
@@ -137,7 +137,7 @@
                                 </td>
                             </tr>
                             <tr style="text-align: center;">
-                                <td style="width: 30px; height: 5px; padding: 0px;"><input type="checkbox" style="margin-top: 10px;"></td>
+                               
                                 <td style="width: 80px;">Image</td>
                                 <td>Item</td>
                                 <td style="width: 120px;">Price</td>
@@ -146,27 +146,54 @@
                                 <td style="width: 120px;">Charge</td>
                                 <td>Total</td>
                             </tr>
+                            
+                            
+                            
+                            
+                            
                             <!-- 상품 추가될 시 증가하게 해야됨 -->
-                            <tr>
-                                <td></td>
-                                <td style="border-left: hidden;"><img src="${order.proimg}"></td>
-                                <td style="text-align: left; border-left: hidden;"><div id="product">${order.proname}</div></td>
-                                <td> 
-                                    <div style="float: left;">&#8361;</div> 
-                                    <div id="price">${order.proprice}</div>
-                                </td>
-                                <td>
-                                    <div>${order.proqty}</div>
-                                </td>
-                                <td>기본배송</td>
-                                <td>[조건]</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td colspan="8"><span style="float: left;">[기본배송]</span></td>
-                            </tr>
+                            <c:set var="totalPurchaseAmount" value="0" />
+
+							<c:forEach items="${orderPro}" var="order">
+							    <tr>
+							        <td><img src="${proimg}" width="50px" height="60px"></td>
+							        <td style="text-align: left; border-left: hidden;">
+							            <div id="product">${order.proname}</div> <br>
+							            <div style="color: gray;">
+							                [옵션 : ${order.color}, ${order.psize}]
+							            </div>
+							        </td>
+							        <td> 
+							            <div style="float: left;">&#8361;</div> 
+							            <div>${order.proprice}</div>
+							        </td>
+							        <td>
+							            <div id="amount">${order.amount}</div>
+							        </td>
+							        <td>기본배송</td>
+							        <td>[조건]</td>
+							        <td>
+							            <c:set var="total" value="${order.proprice * order.amount}" />
+							            ${total}
+							        </td>
+							    </tr>
+							    
+							    <c:set var="totalPurchaseAmount" value="${totalPurchaseAmount + (order.proprice * order.amount)}" />
+							</c:forEach>
+							
+							<tr>
+							    <td colspan="8">
+							        <span style="float: left;">[기본배송]</span>
+							        <div style="float: right;">
+							            상품구매금액 ${totalPurchaseAmount} + 배송비 2,500 = 합계 : &#8361; 
+							            <div id="price" style="float: right;">${totalPurchaseAmount + 2500}</div> 
+							        </div>
+							    </td>
+							</tr>
+                            
+                            
                         </table>
-              
+              				
         
                         <table style="width: 900px;" align="center">
                             <caption align="top"><hr style="width: 900px; margin-top: 60px; margin-bottom: 40px;"></caption>
@@ -206,6 +233,8 @@
                                         <input type="hidden" id="userid" value="${userid}">
                                         <input type="hidden" id="procode" value="${procode}">
                                         <input type="hidden" id="cartcode" value="${cartcode}">
+                                        
+                                        
                                 </tr>
                                 <tr>
                                     <td>휴대전화 *</td>
@@ -236,6 +265,7 @@
                         <!-- 신규배송지 -->
                         <div id="newAddr"> 
                             <table style="width: 900px;" align="center">
+                            	<tr>
                                     <td>받으시는 분</td>
                                     <td>
                                         <input id="buyer_name" type="text" style="width: 150px; float: left;">
@@ -348,37 +378,48 @@
     조은유   |   23-06-16      |                      사이드바 레이아웃 조정 
     ================================================================= 
     -->
-      <!-- 우측사이드바 -->
-      <aside id="aisdeRight">
-        <div class="rightbar">
-          <div class="cart" style="position: absolute; top: 80px; right: 0px;">
-              <ul>
-                  <li><a href="#" style="width: 200px;">Cart - 0</a></li>
-              </ul>
-          </div>
-          <div class="login" style="position: absolute; top: 160px; right: 0px;">
-              <ul id="log_ul" style="width: 200px;">
-                  <li><a href="loginPage">Log in</a></li>
-                  <li><a href="registerPage">Register</a></li>
-                  <li><a href="#">Order</a></li>
-                  <li><a href="#">My Page</a></li>
-              </ul>
-          </div>
-          <!-- 검색기능 -->
-        <div class="search" style="position: absolute; top: 600px; right: 10px; width: 250px;">
-<!--           <form method="post" action="#"> -->
-          <form method="post" action="search">
-              <fieldset>
-                  <input type="text">
-                  <a href="#">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                      </svg>
-                  </a>
-              </fieldset>    
-            </form>
-          </div>
-      </aside>
+       <!-- 우측 사이드바 -->
+         <aside id="aisdeRight">
+               <div class="rightbar">
+                   <div class="cart" style="position: absolute; top: 80px; right: 0px;">
+                       <ul>
+                           <c:if test="${ dto == null }">
+            		 			<li><a href="login" style="color: black;">Cart - 0</a></li>
+              				</c:if>
+              				<c:if test="${ dto != null }">
+              					<li><a href="Gu_cart" style="width: 200px; color: black;">Cart - 0</a></li>
+              				</c:if>
+                       </ul>
+                   </div>
+               <div class="login"
+                  style="position: absolute; top: 160px; right: 0px;">
+                  <ul id="log_ul" style="width: 200px;">
+                     <!-- 로그인한 상태 -->
+                           <c:if test="${ dto != null }">
+                              <li>${dto.name} 님</li>
+                              
+                              <li><a href="logout">Log out</a></li>
+                              <li><a href="#">Order</a></li>
+                              <li><a href="myPage">My Page</a></li>
+                           </c:if>
+                  </ul>
+               </div>
+               <!-- 검색기능 -->
+<!--                <div class="search" -->
+<!--                   style="position: absolute; top: 600px; right: 10px;"> -->
+<!--                   <form method="post" action="#"> -->
+<!--                      <fieldset> -->
+<!--                         <input type="text" id="search"> <a href="#"> <svg -->
+<!--                               xmlns="http://www.w3.org/2000/svg" width="16" height="16" -->
+<!--                               fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"> -->
+<!--                           <path -->
+<!--                                  d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" /> -->
+<!--                       </svg> -->
+<!--                         </a> -->
+<!--                      </fieldset> -->
+<!--                   </form> -->
+               </div>
+         </aside>
 
     </div>
   </main>

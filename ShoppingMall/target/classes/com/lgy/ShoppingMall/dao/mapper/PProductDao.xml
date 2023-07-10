@@ -43,7 +43,33 @@
     <select id="checkCartCode" parameterType="hashmap" resultType="com.lgy.ShoppingMall.dto.CheckCartDto">
        select cartcode from cart where userid = #{userid} and procode = #{procode}
     </select>
-    
+<!--     상품 불러오기 -->
+    <select id="selectFromCart" parameterType="hashmap" resultType="com.lgy.ShoppingMall.dto.Gu_CartDto">
+<!--     <select id="cartList" parameterMap="cart" resultMap="cart"> -->
+		select c.cartcode,
+				p.prothumb,
+				p.proname,
+				c.color,
+				c.psize,
+				p.proprice,
+				p.prosale,
+				c.amount
+		from cart c join product p
+			on c.procode = p.procode
+            and c.procode = #{procode}
+            and ispaid = 0
+    </select>
+<!--    상품수량 업데이트 -->
+    <update id="proqtyUpdate" parameterType="hashmap">
+		update product set proqty = (proqty - CAST(#{proqty} AS int)) where procode = #{procode}
+	</update>
+<!--     장바구니 상태 업데이트 -->
+     <update id="cartUpdate" parameterType="hashmap">
+		update cart set ispaid = (#{ispaid}) where cartcode = #{cartcode}
+	</update>
+	 <select id="caCheck" resultType="com.lgy.ShoppingMall.dto.CheckCartDto">
+       select cartcode from cart where userid = #{userid} and procode = #{procode} and color = #{color} and psize = #{psize}
+    </select>
     <!--     주문상세 --> 
 <!--      <select id="orderView" resultType="com.lgy.ShoppingMall.dto.OrderDto"> -->
 

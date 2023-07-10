@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -118,7 +119,7 @@
         </div>
         <div class="category" style="position: absolute; top: 70px;">
           <ul style="width: 200px;">
-              <li><a href="#">BEST</a></li>
+<!--               <li><a href="#">BEST</a></li> -->
               <li><a href="ProductList?catecode=1">의자</a></li>
               <li><a href="ProductList?catecode=2">침대</a></li>
               <li><a href="ProductList?catecode=3">테이블/식탁/책상</a></li>
@@ -189,37 +190,48 @@
     조은유   |   23-06-16      |                      사이드바 레이아웃 조정 
     ================================================================= 
     -->
-      <!-- 우측사이드바 -->
-      <aside id="aisdeRight">
-        <div class="rightbar">
-          <div class="cart" style="position: absolute; top: 80px; right: 0px;">
-              <ul>
-                  <li><a href="#" style="width: 200px;">Cart - 0</a></li>
-              </ul>
-          </div>
-          <div class="login" style="position: absolute; top: 160px; right: 0px;">
-              <ul id="log_ul" style="width: 200px;">
-                  <li><a href="loginPage">Log in</a></li>
-                  <li><a href="registerPage">Register</a></li>
-                  <li><a href="#">Order</a></li>
-                  <li><a href="#">My Page</a></li>
-              </ul>
-          </div>
-          <!-- 검색기능 -->
-        <div class="search" style="position: absolute; top: 600px; right: 10px; width: 250px;">
-<!--           <form method="post" action="#"> -->
-          <form method="post" action="search">
-              <fieldset>
-                  <input type="text">
-                  <a href="#">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                      </svg>
-                  </a>
-              </fieldset>    
-            </form>
-          </div>
-      </aside>
+      <!-- 우측 사이드바 -->
+         <aside id="aisdeRight">
+               <div class="rightbar">
+                   <div class="cart" style="position: absolute; top: 80px; right: 0px;">
+                       <ul>
+                           <c:if test="${ dto == null }">
+            		 			<li><a href="login" style="color: black;">Cart - 0</a></li>
+              				</c:if>
+              				<c:if test="${ dto != null }">
+              					<li><a href="Gu_cart" style="width: 200px; color: black;">Cart - 0</a></li>
+              				</c:if>
+                       </ul>
+                   </div>
+               <div class="login"
+                  style="position: absolute; top: 160px; right: 0px;">
+                  <ul id="log_ul" style="width: 200px;">
+                     <!-- 로그인한 상태 -->
+                           <c:if test="${ dto != null }">
+                              <li>${dto.name} 님</li>
+                              
+                              <li><a href="logout">Log out</a></li>
+                              <li><a href="#">Order</a></li>
+                              <li><a href="myPage">My Page</a></li>
+                           </c:if>
+                  </ul>
+               </div>
+               <!-- 검색기능 -->
+<!--                <div class="search" -->
+<!--                   style="position: absolute; top: 600px; right: 10px;"> -->
+<!--                   <form method="post" action="#"> -->
+<!--                      <fieldset> -->
+<!--                         <input type="text" id="search"> <a href="#"> <svg -->
+<!--                               xmlns="http://www.w3.org/2000/svg" width="16" height="16" -->
+<!--                               fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"> -->
+<!--                           <path -->
+<!--                                  d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" /> -->
+<!--                       </svg> -->
+<!--                         </a> -->
+<!--                      </fieldset> -->
+<!--                   </form> -->
+               </div>
+         </aside>
 
     </div>
   </main>

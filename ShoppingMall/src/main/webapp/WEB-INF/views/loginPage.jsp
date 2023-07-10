@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,49 +15,6 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
   <style>
     
-
-      /* @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-      .b-example-divider {
-        height: 3rem;
-        background-color: rgba(0, 0, 0, .1);
-        border: solid rgba(0, 0, 0, .15);
-        border-width: 1px 0;
-        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-      }
-
-      .b-example-vr {
-        flex-shrink: 0;
-        width: 1.5rem;
-        height: 100vh;
-      }
-
-      .bi {
-        vertical-align: -.125em;
-        fill: currentColor;
-      }
-
-      .nav-scroller {
-        position: relative;
-        z-index: 2;
-        height: 2.75rem;
-        overflow-y: hidden;
-      }
-
-      .nav-scroller .nav {
-        display: flex;
-        flex-wrap: nowrap;
-        padding-bottom: 1rem;
-        margin-top: -1px;
-        overflow-x: auto;
-        text-align: center;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
-      }
- */
 
 
 
@@ -166,18 +124,18 @@ input{
         </div>
         <div class="category" style="position: absolute; top: 70px;">
           <ul style="width: 200px;">
-              <li><a href="#">BEST</a></li>
-              <li><a href="#">의자</a></li>
-              <li><a href="#">침대</a></li>
-              <li><a href="#">테이블/식탁/책상</a></li>
-              <li><a href="#">소파</a></li>
-              <li><a href="#">서랍/수납장</a></li>
-              <li><a href="#">거실장/TV장</a></li>
-              <li><a href="#">선반</a></li>
-              <li><a href="#">진열장/책장</a></li>
-              <li><a href="#">행거/옷장</a></li>
-              <li><a href="#">화장대</a></li>
-          </ul>
+<!-- 						<li><a href="#">BEST</a></li> -->
+			<li><a href="ProductList?catecode=1">의자</a></li>
+			<li><a href="ProductList?catecode=2">침대</a></li>
+			<li><a href="ProductList?catecode=3">테이블/식탁/책상</a></li>
+			<li><a href="ProductList?catecode=4">소파</a></li>
+			<li><a href="ProductList?catecode=5">서랍/수납장</a></li>
+			<li><a href="ProductList?catecode=6">거실장/TV장</a></li>
+			<li><a href="ProductList?catecode=7">선반</a></li>
+			<li><a href="ProductList?catecode=8">진열장/책장</a></li>
+			<li><a href="ProductList?catecode=9">행거/옷장</a></li>
+			<li><a href="ProductList?catecode=0">화장대</a></li>
+		</ul>
       </div>
       <div class="notice" style="position: absolute; top: 400px;">
           <ul>
@@ -235,12 +193,17 @@ input{
 
       <!-- 우측 사이드바 -->
       <aside id="aisdeRight">
-        <div class="rightbar">
-          <div class="cart" style="position: absolute; top: 80px; right: 0px;">
-              <ul>
-                  <li><a href="#" style="color: black; width: 200px;">Cart - 0</a></li>
-              </ul>
-          </div>
+               <div class="rightbar">
+                   <div class="cart" style="position: absolute; top: 80px; right: 0px;">
+                       <ul>
+                           <c:if test="${ dto == null }">
+            		 			<li><a href="login">Cart - 0</a></li>
+              				</c:if>
+              				<c:if test="${ dto != null }">
+              					<li><a href="#" style="width: 200px; color: black;">Cart - 0</a></li>
+              				</c:if>
+                       </ul>
+                   </div>
           <div class="login" style="position: absolute; top: 160px; right: 0px;">
               <ul id="log_ul" style="width: 200px;">
                   <li><a href="#">Log in</a></li>
@@ -250,17 +213,17 @@ input{
               </ul>
           </div>
           <!-- 검색기능 -->
-        <div class="search" style="position: absolute; top: 600px; right: 10px;">
-          <form method="post" action="#">
-              <fieldset>
-                  <input type="text">
-                  <a href="#">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                      </svg>
-                  </a>
-              </fieldset>    
-            </form>
+<!--         <div class="search" style="position: absolute; top: 600px; right: 10px;"> -->
+<!--           <form method="post" action="#"> -->
+<!--               <fieldset> -->
+<!--                   <input type="text"> -->
+<!--                   <a href="#"> -->
+<!--                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"> -->
+<!--                           <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/> -->
+<!--                       </svg> -->
+<!--                   </a> -->
+<!--               </fieldset>     -->
+<!--             </form> -->
           </div>
       </aside>
 
