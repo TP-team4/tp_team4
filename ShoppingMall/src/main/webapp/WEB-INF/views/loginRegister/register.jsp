@@ -304,7 +304,7 @@ a:hover {
 									<tr height="50px">
 										<td class="menu">암호</td>
 										<td style="color: gray; font-size: small; text-align: right;">
-											(영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 8~16자)</td>
+											(영문 대소문자/숫자/특수문자 3가지 이상 조합, 8~16자)</td>
 									</tr>
 									<tr height="50px">
 										<td colspan="2"><input type="password" size="20"
@@ -334,11 +334,14 @@ a:hover {
 									</tr>
 									<tr height="50px">
 										<td colspan="2">
-										<input type="text" size="20" name="hp" id="hp" onkeyup="phoneNumber(this)"></td>
+										<input type="text" size="20" name="hp" id="hp" onkeyup="phoneNumber(this)">
+										</td>
 									</tr>
 									<tr>
 										<td colspan="2" style="text-align: left;">
 											<!-- hp ajax 중복체크 --> 
+											<span class="hp_ok">
+										사용 가능한 전화번호입니다.</span>
 											<span class="hp_already">전화번호가
 												이미 존재합니다.</span>
 										</td>
@@ -433,17 +436,14 @@ a:hover {
 
 			<!-- 우측 사이드바 -->
 			<aside id="aisdeRight">
-               <div class="rightbar">
-                   <div class="cart" style="position: absolute; top: 80px; right: 0px;">
-                       <ul>
-                           <c:if test="${ dto == null }">
-            		 			<li><a href="login" style="color: black;">Cart - 0</a></li>
-              				</c:if>
-              				<c:if test="${ dto != null }">
-              					<li><a href="#" style="width: 200px; color: black;">Cart - 0</a></li>
-              				</c:if>
-                       </ul>
-                   </div>
+				<div class="rightbar">
+					<div class="cart"
+						style="position: absolute; top: 80px; right: 0px;">
+						<ul>
+							<li><a href="#" style="color: black; width: 200px;">Cart
+									- 0</a></li>
+						</ul>
+					</div>
 					<div class="login"
 						style="position: absolute; top: 160px; right: 0px;">
 						<ul id="log_ul" style="width: 200px;">
@@ -453,7 +453,7 @@ a:hover {
 							<li><a href="#">My Page</a></li>
 						</ul>
 					</div>
-<!-- 					검색기능 -->
+					<!-- 검색기능 -->
 <!-- 					<div class="search" -->
 <!-- 						style="position: absolute; top: 600px; right: 10px;"> -->
 <!-- 						<form method="post" action="#"> -->
@@ -501,73 +501,94 @@ a:hover {
    김효진          23-07-03           회원가입   선택동의(sms,email)체크 여부에 따라 데이터 값을 전송 처리
    김효진                             회원가입   전화번호 하이픈 처리 & 전화번호 중복처리 및 팝업창 수정 완료
    김효진          23-07-05           회원가입   비밀번호 유효성 검사 조건 변경
+   김효진          23-07-07           회원가입   아이디, 비밀번호, 전화번호, 이메일 유효성 검사 오류 수정 완료
 =========================================================================================*/
 /* submit 클릭시 팝업창 */
+var checkEmail = false;
+var checkHp = false;
+var checkId = false;
+var checkPw = false;
 function mySubmit() {
-//       alert("test start 팝업창");
-//    console.log("f");
-// event.preventDefault(); // 제출 동작을 막음
-      var id = $("#id").val();
-      var pw = $("#pwd").val();
-      var re_pw = $("#re_pwd").val();
-      var name = $("#name").val();
-      var phone = $("#hp").val();
-      var email = $("#email").val();
-      
-      var idregex = /^[a-z][a-z\d]{4,16}$/;
-//       var pwregex = /^[A-Za-z\d]{8,16}$/;
-      var pwregex = ^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$;
-      var re_pwregex = /^[A-Za-z\d]{10,12}$/;
-      var nameregex = /[가-힣]{1,}/;
-      var phoneregex = /^01\d\d{3,4}\d{4}$/;
-        // 하이픈을 제거한 전화번호
-      var phoneNumberWithoutHyphen = phone.replace(/-/g, '');
-      var emailregex = /.+@[a-z]+(\.[a-z]+){1,2}$/;
+//             alert("test start 팝업창");
+//          console.log("f");
+      // event.preventDefault(); // 제출 동작을 막음
+     var id = $("#id").val();
+     var pw = $("#pwd").val();
+     var re_pw = $("#re_pwd").val();
+     var name = $("#name").val();
+     var phone = $("#hp").val();
+     var email = $("#email").val();
+            
+     var idregex = /^[a-z][a-z\d]{4,16}$/;
+     var pwregex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/
+     var re_pwregex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/
+     var nameregex = /[가-힣]{1,}/;
+     var phoneregex = /^01\d\d{3,4}\d{4}$/;
+     // 하이픈을 제거한 전화번호
+     var phoneNumberWithoutHyphen = phone.replace(/-/g, '');
+     var emailregex = /.+@[a-z]+(\.[a-z]+){1,2}$/;
 
-      idregex = idregex.test(id);
-      if (!idregex) {
-        alert("아이디 양식을 다시 확인해주세요.");
-        return false;
+     idregex = idregex.test(id);
+     if (!idregex) {
+         alert("아이디 양식을 다시 확인해주세요.");
+         return false;
+         }
+     pwregex = pwregex.test(pw);
+     if (!pwregex) {
+         alert("비밀번호 양식을 다시 확인해주세요.");
+         return false;
+     }
+     re_pwregex = re_pwregex.test(re_pw);
+     if (!re_pwregex) {
+         alert("비밀번호 확인을 진행해 주세요.");
+         return false;
+     }
+     nameregex = nameregex.test(name);
+     if (!nameregex) {
+         alert("이름 양식을 다시 확인해주세요.");
+         return false;
+     }
+     phoneregex = phoneregex.test(phoneNumberWithoutHyphen);
+     if (!phoneregex) {
+         alert("핸드폰 번호 양식을 다시 확인해주세요."+phoneNumberWithoutHyphen);
+         return false;
       }
+     emailregex = emailregex.test(email);
+     if (!emailregex) {
+         alert("이메일 양식을 다시 확인해주세요.");
+         return false;
+     }
 
-      pwregex = pwregex.test(pw);
-      if (!pwregex) {
-        alert("비밀번호 양식을 다시 확인해주세요.");
-        return false;
-      }
-      re_pwregex = re_pwregex.test(re_pw);
-      if (!re_pwregex) {
-        alert("비밀번호 양식을 다시 확인해주세요.");
-        return false;
-      }
-      nameregex = nameregex.test(name);
-      if (!nameregex) {
-        alert("이름 양식을 다시 확인해주세요.");
-        return false;
-      }
-      phoneregex = phoneregex.test(phoneNumberWithoutHyphen);
-      if (!phoneregex) {
-        alert("핸드폰 번호 양식을 다시 확인해주세요."+phoneNumberWithoutHyphen);
-        return false;
-      }
-      emailregex = emailregex.test(email);
-      if (!emailregex) {
-        alert("이메일 양식을 다시 확인해주세요.");
-        return false;
-      }
-      
-      if($("input:checkbox[id='check_1']").is(":checked") != true){
-          alert('개인정보 처리방침 약관동의에 체크해 주세요');
-          return false;
-      }
-      if($("input:checkbox[id='check_2']").is(":checked") != true){
-          alert('서비스 이용약관 동의에 체크해 주세요');
-          return false;
-      }
-   true;
+     if(checkEmail == false){
+     	alert('이메일 중복입니다');
+    	 return checkEmail;
+     }
+     if(checkHp == false){
+     	alert('전화번호 중복입니다');
+    	 return checkHp;
+     }
+     console.log("checkPw  if==>"+checkPw);
+     if(checkId == false){
+     	alert('아이디 중복입니다');
+    	 return checkId;
+     }
+     if(checkPw == false){
+     	alert('비밀번호가 일치하지 않습니다');
+    	 return checkPw;
+     }
+     
+     if($("input:checkbox[id='check_1']").is(":checked") != true){
+         alert('개인정보 처리방침 약관동의에 체크해 주세요');
+	         return false;
+	     }
+     if($("input:checkbox[id='check_2']").is(":checked") != true){
+         alert('서비스 이용약관 동의에 체크해 주세요');
+         return false;
+     }
+	     
+     true;
 }   
-</script>
-<script>
+
 /* 비밀번호 확인(pwd=re_pwd) */
 $(function(){
     $("#alert-success").hide(); 
@@ -580,17 +601,17 @@ $(function(){
                 $("#alert-success").show();
                 $("#alert-danger").hide();
                 $("#submit").removeAttr("disabled");
+                checkPw = true;
             }else{
                 $("#alert-success").hide();
                 $("#alert-danger").show();
                 $("#submit").attr("disabled", "disabled");
+                checkPw = false;
             }    
         }
     });
 });
-</script>
 
-<script>
 /* 개인정보동의 체크박스 */
 $(".checkbox_group").on("click", "#check_all", function () {
    var isChecked = $(this).is(":checked");//
@@ -624,9 +645,7 @@ $("#check_4").change(function(){
       $(this).prop('value', 'N');
     }
 });
-</script>
 
-<script>
 /* 이메일 중복검사 */
 $('#email').on("propertychange change keyup paste input", function(){
   
@@ -639,9 +658,13 @@ $('#email').on("propertychange change keyup paste input", function(){
                if(data == 0){ //cnt!=1 -> 사용 가능한 이메일
                    $('.email_ok').css("display","inline-block"); 
                    $('.email_already').css("display", "none");
+                   checkEmail=true;
+                   console.log("checkEmail data==0"+checkEmail);
                } else { // cnt=1 -> 이미 존재하는 이메일
                    $('.email_already').css("display","inline-block");
                    $('.email_ok').css("display", "none");
+                   checkEmail=false;
+                   console.log("checkEmail data!=0"+checkEmail);
                }
            },
            error:function(){
@@ -649,9 +672,7 @@ $('#email').on("propertychange change keyup paste input", function(){
            }
        });
 });
-</script>
 
-<script>
 /* 전화번호 하이픈 */
 function phoneNumber(input) {
      // 입력된 번호에서 "-"를 제거
@@ -674,35 +695,36 @@ function phoneNumber(input) {
 /* 전화번호 중복검사 */
 $('#hp').on("propertychange change keyup paste input", function(){
    var hpNumber = $('#hp').val().replace(/-/g, '');
-$.ajax({
- url:'hpCheck',
- type:'post',
- dataType : "json",
- data:{"hp" : hpNumber},
-//  data:{"hp" : $('#hp').val()},
- success:function(data){ //컨트롤러에서 넘어온 cnt값을 받음
-     if(data == 0){ ///cnt!=1 -> 사용 가능한 전화번호
-         $('.hp_ok').css("display","inline-block"); 
-         $('.hp_already').css("display", "none");
-     } else { //cnt=1 -> 사용 가능한 전화번호
-         $('.hp_already').css("display","inline-block");
-         $('.hp_ok').css("display", "none");
-     }
- },
- error:function(){
-     alert("에러입니다");
- }
+	$.ajax({
+	 url:'hpCheck',
+	 type:'post',
+	 dataType : "json",
+// 	 data:{"hp" : hpNumber},
+	 data:{"hp" : $('#hp').val()},
+	 success:function(data){ //컨트롤러에서 넘어온 cnt값을 받음
+	     if(data == 0){ ///cnt!=1 -> 사용 가능한 전화번호
+	         $('.hp_ok').css("display","inline-block"); 
+	         $('.hp_already').css("display", "none");
+	         checkHp = true;
+	     } else { //cnt=1 -> 사용 가능한 전화번호
+	         $('.hp_already').css("display","inline-block");
+	         $('.hp_ok').css("display", "none");
+	         checkHp = false;
+	     }
+	 },
+	 error:function(){
+	     alert("에러입니다");
+	 }
+	});
 });
-});
-</script>
-<!-- =============================================================================================    -->
+/*=============================================================================================*/
 
-   <!-- =========================================================================================
+   /*=========================================================================================
            작성자   |    개발 및 수정 일자    |    수정 내용
            조은유          23-06-27            
-   ===========================================================================================-->
+   ===========================================================================================*/
 
-<script>
+
 /* 아이디 중복검사 */
 $('#id').on("propertychange change keyup paste input", function(){
   
@@ -716,11 +738,11 @@ $('#id').on("propertychange change keyup paste input", function(){
                if(data == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디 
                    $('.id_ok').css("display","inline-block"); 
                    $('.id_already').css("display", "none");
+                   checkId = true;
                } else { // cnt가 1일 경우 -> 이미 존재하는 아이디
                    $('.id_already').css("display","inline-block");
                    $('.id_ok').css("display", "none");
-//                    alert("아이디를 다시 입력해주세요");
-//                    $('#id').val('');
+                   checkId = false;
                }
            },
            error:function(){
@@ -728,6 +750,5 @@ $('#id').on("propertychange change keyup paste input", function(){
            }
        });
 });
+/*=============================================================================================*/
 </script>
-<!-- =============================================================================================    -->
-
