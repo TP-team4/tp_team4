@@ -137,16 +137,16 @@ th, td {
 				</div>
 				<div class="category" style="position: absolute; top: 70px;">
 					<ul style="width: 200px;">
-						<li><a href="#">의자</a></li>
-						<li><a href="#">침대</a></li>
-						<li><a href="#">테이블/식탁/책상</a></li>
-						<li><a href="#">소파</a></li>
-						<li><a href="#">서랍/수납장</a></li>
-						<li><a href="#">거실장/TV장</a></li>
-						<li><a href="#">선반</a></li>
-						<li><a href="#">진열장/책장</a></li>
-						<li><a href="#">행거/옷장</a></li>
-						<li><a href="#">화장대</a></li>
+						<li><a href="1">의자</a></li>
+						<li><a href="2">침대</a></li>
+						<li><a href="3">테이블/식탁/책상</a></li>
+						<li><a href="4">소파</a></li>
+						<li><a href="5">서랍/수납장</a></li>
+						<li><a href="6">거실장/TV장</a></li>
+						<li><a href="7">선반</a></li>
+						<li><a href="8">진열장/책장</a></li>
+						<li><a href="9">행거/옷장</a></li>
+						<li><a href="0">화장대</a></li>
 					</ul>
 				</div>
 				<div class="notice" style="position: absolute; top: 400px;">
