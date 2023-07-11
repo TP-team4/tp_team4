@@ -230,7 +230,7 @@
                             data-cartNum="${cart.cartcode}" checked="checked">
                           <%-- <input type="checkbox" id="check_${status.index + 1}" class="chBox"> --%>
                         </td>
-                        <td>${cart.prothumb}</td><!-- image -->
+                        <td><img src="${cart.proimg}" width=60px height=80px></td><!-- image -->
                         <td style="text-align: left; border-left: hidden;">
                           <div id="product">${cart.proname}</div>
                           <div id="option">[옵션:

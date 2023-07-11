@@ -131,7 +131,7 @@
     <select id="cartList" resultType="com.lgy.ShoppingMall.dto.Gu_CartDto">
 <!--     <select id="cartList" parameterMap="cart" resultMap="cart"> -->
 		select c.cartcode,
-				p.prothumb,
+				p.proimg,
 				p.proname,
 				c.color,
 				c.psize,
