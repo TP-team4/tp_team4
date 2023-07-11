@@ -125,22 +125,9 @@
           line-height: 10px;
         }
 
-<<<<<<< HEAD
-			<aside id="aisdeLeft">
-				<div id="title">
-					<a href="mainPage"> 
-					<span style="font-size: x-large; position: absolute; left: 0px; color: black; width: 200px;">
-						Room & Bloom
-					</span>
-					</a>
-				</div>
-				<div class="category" style="position:absolute; top:70px;">
-					<ul style="width: 200px;">
-                <li><a href="notice/list_admin">공지사항</a></li>
-                <li><a href="mem_mgmt/memberList">회원 관리</a></li>
-                <li><a href="product/productList">상품 관리</a></li>
-                <li><a href="order/orderListPaging">주문 현황</a></li>
-=======
+
+			
+
         .btn:hover {
           background-color: #467DCF;
           color: white;
@@ -184,7 +171,7 @@
                 <li><a href="/ShoppingMall/mem_mgmt/memberList">회원 관리</a></li>
                 <li><a href="/ShoppingMall/product/productList">상품 관리</a></li>
                 <li><a href="/ShoppingMall/order/orderListPaging">주문 현황</a></li>
->>>>>>> 058f259 (userPageMapping)
+
               </ul>
             </div>
             <div class="notice" style="position: absolute; top: 400px;">
