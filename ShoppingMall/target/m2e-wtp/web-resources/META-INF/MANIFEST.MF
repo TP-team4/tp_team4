@@ -1,10 +1,5 @@
 Manifest-Version: 1.0
-<<<<<<< HEAD
-Built-By: ￬ﾡﾰ￬ﾝﾀ￬ﾜﾠ
-Build-Jdk: 11.0.19
-=======
-Built-By: parkjeonghoon
+Built-By: GGG
 Build-Jdk: 1.8.0_361
->>>>>>> 058f259 (userPageMapping)
 Created-By: Maven Integration for Eclipse
 

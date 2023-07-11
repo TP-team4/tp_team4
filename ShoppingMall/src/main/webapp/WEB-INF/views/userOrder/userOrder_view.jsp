@@ -226,7 +226,7 @@
                       <table>
                         <tr height="140">
                           <td width="100">
-                            <img src="${userOrder.proThumb}" alt="상품 이미지" width="100" height="100" />
+                            <img src="${userOrder.proimg}" alt="상품 이미지" width="100" height="100" />
                           </td>
                           <td>
                             <span>${userOrder.proName}</span>

@@ -198,17 +198,10 @@ td{
 
          <aside id="aisdeLeft">
             <div id="title">
-<<<<<<< HEAD
-               <a href="mainPage"> <span
-=======
-              <a href="/ShoppingMall/mainPage"> <span
->>>>>>> 058f259 (userPageMapping)
-                  style="font-size: x-large; position: absolute; left: 0px; color: black; width: 200px;">Room
-                     & Bloom</span>
+              <a href="/ShoppingMall/mainPage"> <span style="font-size: x-large; position: absolute; left: 0px; color: black; width: 200px;">Room & Bloom</span>
                </a>
             </div>
             <div class="category" style="position: absolute; top: 70px;">
-<<<<<<< HEAD
                <ul style="width: 200px;">
                   <li><a href="ProductList?catecode=1">의자</a></li>
                   <li><a href="ProductList?catecode=2">침대</a></li>
@@ -228,7 +221,6 @@ td{
                   <li><a href="QnAPage">QnA</a></li>
                   <!-- <li><a href="tp_main_review.html">Review</a></li> -->
                </ul>
-=======
               <ul style="width: 200px;">
                 <li><a href="/ShoppingMall/#">BEST</a></li>
                 <li><a href="/ShoppingMall/ProductList?catecode=1">의자</a></li>
@@ -249,7 +241,6 @@ td{
                 <li><a href="/ShoppingMall/QnAPage">QnA</a></li>
                 <!-- <li><a href="/ShoppingMall/tp_main_review.html">Review</a></li> -->
               </ul>
->>>>>>> 058f259 (userPageMapping)
             </div>
             <div class="info" style="position: absolute; top: 550px;">
                <ul>
@@ -272,7 +263,6 @@ td{
             <article>
                <div id="article" style="height: auto;">
 
-<<<<<<< HEAD
                   <div style="text-align: center; margin-bottom: 10px;">Profile </div>
                   <div style="text-align: center; font-size: small; color: grey; margin-bottom: 30px;">회원정보</div>
                   
@@ -363,7 +353,6 @@ td{
             </tr>
          </table>
       </form>
-=======
                 <div style="text-align: center; margin:20px">회원정보수정</div>
                 <form action=myPageModify method="post" name="modifyForm">
                   <table border="1" align="center">

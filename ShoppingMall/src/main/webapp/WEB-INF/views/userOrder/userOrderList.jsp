@@ -249,7 +249,7 @@
                               </c:choose>
                             </td>
                             <td>
-                              <img src="${dto.proThumb}" alt="상품 이미지" width="100" height="100" />
+                              <img src="${dto.proimg}" alt="상품 이미지" width="100" height="100" />
                             </td>
                             <td>${dto.proName}</td>
                             <td>\

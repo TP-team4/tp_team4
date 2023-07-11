@@ -30,6 +30,7 @@ public class ProductOrdDto {
 	private String count;
 	
 	private String proimg; //상품썸네일
+	private String proThumb; //상품썸네일
 	private String proName; //상품이름
 	private int proPrice; //상품가격
 	

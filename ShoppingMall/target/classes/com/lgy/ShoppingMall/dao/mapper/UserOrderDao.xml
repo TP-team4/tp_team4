@@ -33,7 +33,7 @@
 	</select>
 	
 	<select id="userOrderView" resultType="com.lgy.ShoppingMall.dto.ProductOrdDto"  parameterType="hashmap">
-		select p.proThumb, p.proName, p.proPrice, po.amount,po.pocode, o.ordercode, o.name, o.hp, o.postcode, o.addr, o.memo, o.totalprice, o.orderdate, o.etcaddr
+		select p.proimg, p.proName, p.proPrice, po.amount,po.pocode, o.ordercode, o.name, o.hp, o.postcode, o.addr, o.memo, o.totalprice, o.orderdate, o.etcaddr
 	    FROM PRODUCT p, PRODUCT_ORD o,PRODUCT_OUT po
 	    WHERE o.ordercode = po.ordercode and p.procode = po.procode and po.pocode = #{pocode}
 	</select>

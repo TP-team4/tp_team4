@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.lgy.ShoppingMall.dto.Criteria;
+import com.lgy.ShoppingMall.dto.MemDto;
 import com.lgy.ShoppingMall.dto.pageDto;
 import com.lgy.ShoppingMall.dto.ProductOrdDto;
 import com.lgy.ShoppingMall.service.UserOrderService;
@@ -31,12 +32,10 @@ public class UserOrderController {
 		log.info("@# cri===>"+cri);
 		
 		
-		
-		param.put("userid", session.getId()); // 세션에서 가져오기
-//		MemDto getid = (MemDto) session.getAttribute("dto");
-//	    log.info("@# 마이페이지 세션 getid "+ getid);
-//	    log.info("세션에서 받은 id : " + getid.getId());
-//	    param.put("userid", getid.getId());
+		MemDto getid = (MemDto) session.getAttribute("dto");
+	    log.info("@# 세션 : "+ getid);
+	    log.info("세션에서 받은 id : " + getid.getId());
+		param.put("userid", getid.getId());
 		
 		ArrayList<ProductOrdDto> userOrderList = userOrderService.userOrderList(param, cri);
 		log.info("@@###userOrderList"+userOrderList);
