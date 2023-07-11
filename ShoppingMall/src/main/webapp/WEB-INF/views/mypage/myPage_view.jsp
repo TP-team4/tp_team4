@@ -215,26 +215,7 @@ td{
                   <li><a href="ProductList?catecode=0">화장대</a></li>
                </ul>
             </div>
-            <div class="notice" style="position: absolute; top: 400px;">
-               <ul>
-                  <li><a href="noticePage">Notice</a></li>
-                  <li><a href="QnAPage">QnA</a></li>
-                  <!-- <li><a href="tp_main_review.html">Review</a></li> -->
-               </ul>
-              <ul style="width: 200px;">
-                <li><a href="/ShoppingMall/#">BEST</a></li>
-                <li><a href="/ShoppingMall/ProductList?catecode=1">의자</a></li>
-                <li><a href="/ShoppingMall/ProductList?catecode=2">침대</a></li>
-                <li><a href="/ShoppingMall/ProductList?catecode=3">테이블/식탁/책상</a></li>
-                <li><a href="/ShoppingMall/ProductList?catecode=4">소파</a></li>
-                <li><a href="/ShoppingMall/ProductList?catecode=5">서랍/수납장</a></li>
-                <li><a href="/ShoppingMall/ProductList?catecode=6">거실장/TV장</a></li>
-                <li><a href="/ShoppingMall/ProductList?catecode=7">선반</a></li>
-                <li><a href="/ShoppingMall/ProductList?catecode=8">진열장/책장</a></li>
-                <li><a href="/ShoppingMall/ProductList?catecode=9">행거/옷장</a></li>
-                <li><a href="/ShoppingMall/ProductList?catecode=0">화장대</a></li>
-              </ul>
-            </div>
+            
             <div class="notice" style="position: absolute; top: 400px;">
               <ul>
                 <li><a href="/ShoppingMall/noticePage">Notice</a></li>
@@ -353,88 +334,7 @@ td{
             </tr>
          </table>
       </form>
-                <div style="text-align: center; margin:20px">회원정보수정</div>
-                <form action=myPageModify method="post" name="modifyForm">
-                  <table border="1" align="center">
-                    <tr>
-                      <td id="tdList">아이디</td>
-                      <td><input type="text" id="id" name="id" value="${myPage_view.id}" readonly></td>
-                    </tr>
-                    <tr>
-                      <td id="tdList">새 비밀번호</td>
-                      <td><input type="password" id="pwd" name="pwd" placeholder="비밀번호 입력">
-                        (영문 대소문자/숫자/특수문자 중 3가지 이상 조합, 8~16자)
-                      </td>
-                    </tr>
-                    <tr>
-                      <td id="tdList">새 비밀번호 확인</td>
-                      <td>
-                        <input type="password" id="pwd2" placeholder="비밀번호 재입력">
-                        <span id="alert-success">비밀번호가 일치합니다.</span>
-                        <span id="alert-danger">비밀번호가 일치하지 않습니다.</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td id="tdList">이름</td>
-                      <td>${myPage_view.name}</td>
-                    </tr>
-                    <tr>
-                      <td id="tdList">주소</td>
-                      <td>
-                        <input type="text" name="pcode" id="zip-code" placeholder="우편번호" value="${myPage_view.pcode}"
-                          readonly class="addressBox">
-                        <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기 "
-                          style="background-color: transparent"><br>
-                        <input type="text" name="loadaddr" id="address-1" value="${myPage_view.loadaddr}"
-                          placeholder="도로명주소" style="width: 300px" class="addressBox">&nbsp;도로명주소<br>
-                        <input type="text" name="etcaddr" id="address-2" value="${myPage_view.etcaddr}"
-                          placeholder="상세주소" style="width: 300px">&nbsp;상세수조 (선택입력가능)
-                      </td>
-                    </tr>
-                    <tr>
-                      <td id="tdList">전화번호</td>
-                      <td>
-                        <input type="text" name="hp" oninput="hypenTel(this)" placeholder="전화번호 입력" maxlength="13"
-                          value="${myPage_view.hp}" />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td id="tdList">SMS 수신여부</td>
-                      <td>
-                        <input type="radio" name="sms" id="sms" value="Y" onclick="fnRadioName();" /><label
-                          for="Y">수신함</label>
-                        <input type="radio" name="sms" id="sms" value="N" onclick="fnRadioName();" /><label
-                          for="N">수신안함</label>
-                        <!-- 						<input type="radio" name="sms" value="${myPage_view.sms}">수신안함<br> -->
-                        <p>쇼핑몰에서 제공하는 유익한 이벤트 소식을 SMS로 받으실 수 있습니다.</p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td id="tdList">이메일</td>
-                      <td><input type="text" name="email" value="${myPage_view.email}"></td>
-                    </tr>
-                    <tr>
-                      <td id="tdList">이메일 수신여부</td>
-                      <td>
-                        <input type="radio" name="emails" value="Y">수신함
-                        <input type="radio" name="emails" value="N">수신안함<br>
-                        <p>쇼핑몰에서 제공하는 유익한 이벤트 소식을 이메일로 받으실 수 있습니다.</p>
-                      </td>
-                    </tr>
-                    <tr height="80">
-                      <td colspan="2" align="center" style="border-color: transparent;">
-                        <input type="button" onclick="myPageModify()" value="회원정보수정" id="modifyButton">
-                        <input type="reset" value="취소">
-                        <!-- 					<button type="button" onclick="removeMember();" align="right" > 회원탈퇴 </button> -->
-                        <a href="/ShoppingMall/memberDeleteView?id=${myPage_view.id}"><input type="button" value="회원탈퇴"
-                            id="deleteButton"></a>
-                      </td>
-                    </tr>
-                  </table>
->>>>>>> 058f259 (userPageMapping)
-
-               </div>
-            </article>
+                           </article>
          </section>
 
    <!-- 
@@ -446,13 +346,16 @@ td{
          <!-- 우측사이드바 -->
          <aside id="aisdeRight">
             <div class="rightbar">
-<<<<<<< HEAD
-               <div class="cart"
-                  style="position: absolute; top: 80px; right: 0px;">
-<!--                   <ul> -->
-<!--                      <li><a href="#" style="width: 200px;">Cart - 0</a></li> -->
-<!--                   </ul> -->
-               </div>
+               <div class="cart" style="position: absolute; top: 80px; right: 0px;">
+                     <ul>
+                           <c:if test="${ dto == null }">
+                            <li><a href="/ShoppingMall/login" style="color: black;">Cart</a></li>
+                          </c:if>
+                          <c:if test="${ dto != null }">
+                             <li><a href="/ShoppingMall/Gu_cart" style="width: 200px; color: black;">Cart</a></li>
+                          </c:if>
+                       </ul>
+                </div>
    <!-- 
     =================================================================
     로그인시 회원 이름 보이게 수정
@@ -496,7 +399,7 @@ td{
                   </ul>
                </div>
                 <!-- 검색기능 -->
-                 <div class="search" style="position: absolute; top: 600px; right: 10px;">
+<!--                  <div class="search" style="position: absolute; top: 600px; right: 10px;"> -->
 <!--                    <form method="post" action="#"> -->
 <!--                        <fieldset> -->
 <!--                            <input type="text" id="search"> -->
@@ -510,42 +413,7 @@ td{
           </div>
          </aside>
 
-=======
-              <div class="cart" style="position: absolute; top: 80px; right: 0px;">
-                <ul>
-                  <c:if test="${ dto == null }">
-                    <li><a href="/ShoppingMall/login" style="color: black;">Cart - 0</a></li>
-                  </c:if>
-                  <c:if test="${ dto != null }">
-                    <li><a href="/ShoppingMall/Gu_cart" style="width: 200px; color: black;">Cart - 0</a></li>
-                  </c:if>
-                </ul>
-              </div>
-              <div class="login" style="position: absolute; top: 160px; right: 0px;">
-                <ul id="log_ul" style="width: 200px;">
-                  <!-- 로그인한 상태 -->
-                  <c:if test="${ dto != null }">
-                    <li>${dto.name} 님</li>
-                    <li><a href="/ShoppingMall/mainPage">Log out</a></li>
-                    <li><a href="/ShoppingMall/#">Order</a></li>
-                    <li><a href="/ShoppingMall/myPage">My Page</a></li>
-                  </c:if>
-                </ul>
-              </div>
-              <!-- 검색기능 -->
-              <!-- <div class="search"
-                  style="position: absolute; top: 600px; right: 10px;">
-                  <form method="post" action="#">
-                     <fieldset>
-                        <input type="text" id="search"> <a href="/ShoppingMall/#"> <svg
-                              xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                              fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                          <path
-                                 d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                      </svg>
-                        </a>
-                     </fieldset>
-                  </form> -->
+              
             </div>
           </aside>
         </div>
@@ -558,7 +426,6 @@ td{
       </footer>
       <div style="position: fixed; bottom: 5px; left: 50%; right: 50%;">
         <a href="#" style="font-size: xx-large;">^</a>
->>>>>>> 058f259 (userPageMapping)
       </div>
    </main>
    <footer id="footer" style="font-family: notosans; text-align: left;">
