@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lgy.ShoppingMall.dao.SDao">
+<!-- ================================================================
+	230623 구나현 장바구니, 상품상세페이지 세부기능장바구니, 상품상세조회 구나현
+===================================================================== -->
+<!-- 	장바구니 목록 -->
+    <select id="cartList" resultType="com.lgy.ShoppingMall.dto.Gu_CartDto">
+<!--     <select id="cartList" parameterMap="cart" resultMap="cart"> -->
+		select c.cartcode,
+				p.proimg,
+				p.proname,
+				c.color,
+				c.psize,
+				p.proprice,
+				p.prosale,
+				c.amount
+		from cart c join product p
+			on c.procode = p.procode
+			and ispaid = 0
+		order by c.cartcode
+    </select>
+<!-- 	장바구니 추가 -->
+	<insert id="cartAdd" parameterType="hashmap">
+<!-- 		<selectKey keyProperty="cartcode" resultType="string" order="BEFORE"> -->
+<!-- 	    	select to_char(sysdate, 'yyyymmdd') || lpad(cart_seq.nextval, 4, '0') as cartcode from dual -->
+<!-- 	  	</selectKey> -->
+		<selectKey keyProperty="cartcode" resultType="string" order="BEFORE">
+			select to_char(sysdate, 'yyyymmdd') || lpad(cart_seq.nextval, 4, '0') || '/' || #{userid} || '/' || #{procode} || '/' || #{color} || '/' || #{psize} as cartcode from dual
+		</selectKey>
+<!-- 		insert into cart (cartcode, userid, procode, amount, ischecked, ispaid) -->
+<!-- 		values (#{cartcode}, #{userid}, #{procode}, #{amount}, #{ischecked}, #{ispaid}) -->
+		insert into cart (cartcode, userid, procode, amount, color, psize)
+		values (#{cartcode}, #{userid}, #{procode}, #{amount}, #{color}, #{psize})
+	</insert>
+<!-- 	장바구니 삭제 -->
+<!-- 	<delete id="cartDelete" parameterType="hashmap"> -->
+	<delete id="cartDelete">
+<!-- 		delete from cart where cartcode=#{cartcode} and userid=#{userid} -->
+		delete from cart where cartcode=#{cartcode}
+	</delete>
+<!-- 	장바구니 수량 수정 -->
+	<update id="cartModifyAmount" parameterType="hashmap">
+		update cart set amount=#{amount} where cartcode=#{cartcode}
+	</update>
+<!-- 	장바구니 확인 -->
+	<select id="cartCheck" parameterType="hashmap" resultType="com.lgy.ShoppingMall.dto.Gu_CartDto">
+		select userid, procode, amount, color, psize from cart where userid=#{userid} and procode=#{procode} and ispaid = 0
+    </select>
+
+<!-- 상품상세조회 -->
+	<select id="ProductView" parameterType="hashmap" resultType="com.lgy.ShoppingMall.dto.CoProductDto">
+		select procode, catecode, proname, proprice, prosale, proinfo, proimg from product where procode = #{procode}
+	</select>
+	<select id="productColor" parameterType="hashmap" resultType="com.lgy.ShoppingMall.dto.CoProductDto">
+		select color1, color2, color3 from product_op_color where procode = #{procode} 
+	</select>
+	<select id="productSize" parameterType="hashmap" resultType="com.lgy.ShoppingMall.dto.CoProductDto">
+		select size1, size2, size3 from product_op_size where procode = #{procode}
+	</select>
+	
+<!-- 	페이징 -->
+<!--     게시글 총 갯수 조회 -->
+    <select id="getTotalCount" resultType="int">
+	    select count(*) from mvc_board
+    </select>
+<!-- 	리뷰게시판 리스트 페이징     -->
+     <select id="revListPaging" resultType="com.lgy.ShoppingMall.dto.PRevDto">
+		<![CDATA[
+			select revcode, revtitle, revdate, revhit
+			  from( select rownum rn, revcode, revtitle, revdate, revhit
+							from mvc_board
+			        		where rownum <= (#{pageNum} * #{amount})
+			        		order by bid desc
+			)
+			where rn > (#{pageNum} - 1) * #{amount}
+			order by revcode desc
+		]]>
+    </select>
+</mapper>

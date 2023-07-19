@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lgy.ShoppingMall.dao.QnaDao">
+
+   <sql id="criteria">
+      <trim prefix="(" suffix=") AND" prefixOverrides="OR">
+         <foreach item="type" collection="typeArr">
+            <trim prefix="OR">
+               <choose>
+                  <when test="type == 'I'.toString()">
+                     id like '%' || '${keyword}' || '%'
+                  </when>
+                  <when test="type == 'T'.toString()">
+                     qnatitle like '%' || '${keyword}' || '%'
+                  </when>
+               </choose>
+            </trim>
+         </foreach>
+      </trim>
+   </sql>
+	
+<!-- 	로그인여부 체크 -->
+	<select id="QnaLogincheck" parameterType="hashmap" resultType="com.lgy.ShoppingMall.dto.PQnaDto">
+		select id from member where id = #{id}
+	</select>
+	
+<!-- 	페이징 -->
+<!-- 	게시글 총 갯수 조회 -->
+    <select id="getTotalCount" resultType="int">
+       select count(*) from product_qna
+    </select>
+<!-- 	Qna게시판 리스트 페이징     -->
+	<select id="QnaListPaging" resultType="com.lgy.ShoppingMall.dto.PQnaDto">
+		<![CDATA[
+			select qnacode, qnatitle, qnadate, id, count
+            from( 
+               select  qnacode, qnatitle, qnadate, id,
+                  (select count(*) from product_qna) as count,
+                      ROWNUM rn
+                   from product_qna
+                       where 
+       ]]> 
+             <include refid="criteria"></include>
+      <![CDATA[
+            rownum <= (#{pageNum} * #{amount})
+            order by qnacode desc
+         )
+          WHERE rn > (#{pageNum} - 1) * #{amount}
+          order by qnacode desc
+       ]]> 
+    </select>
+<!--     검색 -->
+	<select id="QnaSearchList" resultType="com.lgy.ShoppingMall.dto.PQnaDto">
+		<![CDATA[
+          select qnacode, qnatitle, qnadate, id,
+            (select count(*) from product_qna where 
+		]]> 
+            <include refid="criteria"></include>
+       <![CDATA[   
+          	1=1 ) AS count
+          	from ( 
+          	SELECT qnacode, qnatitle, qnadate, id, ROWNUM rn
+          	from product_qna
+          	where 
+       	]]> 
+        	<include refid="criteria"></include>
+    	<![CDATA[  
+			1=1  AND ROWNUM <= (#{pageNum} * #{amount})
+			order by qnacode desc
+			)
+			WHERE rn > (#{pageNum}-1) * #{amount}
+			order by qnacode desc
+		]]>
+    </select>
+    
+<!--     문의작성 -->
+    <insert id="PQnaWrite" parameterType="hashmap">
+		insert into product_qna(qnacode, qnatitle, qnacont, qnadate, id) 
+		values (product_qna_seq.nextval, #{qnatitle}, #{qnacont}, SYSDATE, #{id})
+	</insert>
+	
+<!--     문의내용 조회 -->
+    <select id="PQnaContentView" parameterType="hashmap" resultType="com.lgy.ShoppingMall.dto.PQnaDto">
+    	select qnacode, qnatitle, qnacont, qnadate, id from product_qna where qnacode=#{qnacode}
+    </select>
+    
+<!--     문의수정 -->
+	<update id="PQnaModify" parameterType="hashmap">
+		update product_qna set qnatitle=#{qnatitle} , qnacont=#{qnacont} where qnacode=#{qnacode} and id=#{id}
+	</update>
+	
+<!-- 	문의삭제 -->
+    <delete id="PQnaDelete" parameterType="hashmap">
+    	delete from product_qna where qnacode=#{qnacode} and id=#{id}
+    </delete>
+    
+<!--   	문의에 단 댓글 조회 -->
+    <select id="PQnaCmtList" parameterType="hashmap" resultType="com.lgy.ShoppingMall.dto.PQnaReDto">
+    	select recode, recont, redate from product_qna_re where qnacode=#{qnacode} order by recode
+    </select>
+
+<!--     관리자만 가능하게 하기 관리자페이지에 따로 만들어야 됨 -->
+<!--     문의댓글 작성 -->
+    <insert id="PQnaCmtWrite" parameterType="hashmap">
+	    insert into product_qna_re(recode, qnacode, recont, redate)
+		values(qna_re_seq.nextval, #{qnacode}, #{recont}, sysdate)
+    </insert>
+    
+<!-- 	문의 댓글 수정 -->
+	<update id="PQnaCmtModify" parameterType="hashmap">
+		update product_qna_re set recont=#{recont} where recode=#{recode}
+	</update>
+	
+<!-- 	문의 댓글 삭제 -->
+	<delete id="PQnaCmtDelete" parameterType="hashmap">
+    	delete from product_qna_re where recode=#{recode}
+    </delete>
+</mapper>
