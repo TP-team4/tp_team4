@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lgy.ShoppingMall.dao.RevDao">
+
+	<sql id="criteria">
+		<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+	    	<foreach item="type" collection="typeArr">
+	        	<trim prefix="OR">
+	            	<choose>
+	               		<when test="type == 'I'.toString()">
+	                  		id like '%' || '${keyword}' || '%'
+	               		</when>
+	               		<when test="type == 'T'.toString()">
+	                  		revtitle like '%' || '${keyword}' || '%'
+	               		</when>
+	               		<when test="type == 'P'.toString()">
+	                  		proname like '%' || '${keyword}' || '%'
+	               		</when>
+	            	</choose>
+	        	</trim>
+	    	</foreach>
+		</trim>
+	</sql>
+
+<!-- 	로그인여부 체크 -->
+<!-- 	<select id="logincheck" parameterType="hashmap" resultType="com.lgy.ShoppingMall.dto.PRevDto"> -->
+	<select id="logincheck" parameterType="hashmap" resultType="com.lgy.ShoppingMall.dto.PRevDto">
+		select id from member where id = #{id}
+	</select>
+	
+<!-- 	my페이지-> 리뷰작성할 수 있는 상품 구매 목록 -->
+	<select id="userRevWriteList" parameterType="com.lgy.ShoppingMall.dto.PRevDto" resultType="com.lgy.ShoppingMall.dto.PRevDto">
+		select p.proimg,
+           	   p.proname,
+		       c.cartcode,
+		       po.status,
+		       c.userid,
+		       pr.revcode,
+		       m.id,
+		       p.procode
+		  from product_out po join product p on po.procode = p.procode
+		  					  join cart c on po.cartcode = c.cartcode
+		  					  join member m on m.id = c.userid
+		  					  left join product_rev pr on pr.cartcode = c.cartcode
+		where m.id = #{id}
+		  and (pr.revcode is null)
+		order by c.cartcode desc
+    </select>
+	
+<!--     리뷰작성 -->
+    <insert id="revWrite" parameterType="hashmap">
+		insert into product_rev(revcode
+							  , procode
+							  , id
+							  , cartcode
+							  , revtitle
+							  , revcont
+							  , revdate
+							  , revhit) 
+						values (product_rev_seq.nextval
+							  , #{procode}
+							  , #{id}
+							  , #{cartcode}
+							  , #{revtitle}
+							  , #{revcont}
+							  , SYSDATE
+							  , 0)
+    </insert>
+    
+<!-- 	페이징 -->
+<!--     게시글 총 갯수 조회 -->
+    <select id="getTotalCount" resultType="int">
+       select count(*) from product_rev
+    </select>
+<!-- 	리뷰게시판 리스트 페이징     -->
+	<select id="revListPaging" resultType="com.lgy.ShoppingMall.dto.PRevDto">
+		<![CDATA[
+			select r.revcode, p.proimg, p.proname, r.revtitle, r.revdate, r.revhit, r.id, r.count
+			from( 
+				select procode, revcode, revtitle, revdate, revhit, id,
+				(select count(*) from product_rev) as count, ROWNUM rn 
+				from product_rev 
+				where 
+		]]> 
+			<include refid="criteria"></include>
+		<![CDATA[
+				rownum <= (#{pageNum} * #{amount})
+				order by revcode desc) r
+			join product p on r.procode = p.procode
+			WHERE rn > (#{pageNum} - 1) * #{amount}
+			order by r.revcode desc
+		]]> 
+    </select>
+<!--     검색 -->
+	<select id="searchList" resultType="com.lgy.ShoppingMall.dto.PRevDto">
+		<![CDATA[
+			select revcode, proimg, proname, revtitle, revdate, revhit, id,
+			(select count(*) from product_rev where 
+		]]> 
+			<include refid="criteria"></include>
+		<![CDATA[   
+			1=1 ) AS count
+			from ( 
+			select r.revcode as revcode, p.proimg as proimg, p.proname as proname, r.revtitle as revtitle, r.revdate as revdate, 
+					r.revhit as revhit, r.id as id, p.procode as procode, ROWNUM rn
+			from product_rev r join product p 
+								on r.procode = p.procode
+			where 
+		]]> 
+			<include refid="criteria"></include>
+		<![CDATA[  
+			1=1  AND ROWNUM <= (#{pageNum} * #{amount})
+			)
+			WHERE rn > (#{pageNum}-1) * #{amount}
+			order by revcode desc
+		]]>
+<!-- 		<![CDATA[ -->
+<!-- 			select revcode, revtitle, revdate, revhit, id, -->
+<!-- 			(select count(*) from product_rev where  -->
+<!-- 		]]>  -->
+<!-- 			<include refid="criteria"></include> -->
+<!-- 		<![CDATA[    -->
+<!-- 			1=1 ) AS count -->
+<!-- 			from (  -->
+<!-- 			SELECT revcode, revtitle, revdate, revhit, id, ROWNUM rn -->
+<!-- 			from product_rev -->
+<!-- 			where  -->
+<!-- 		]]>  -->
+<!-- 			<include refid="criteria"></include> -->
+<!-- 		<![CDATA[   -->
+<!-- 			1=1  AND ROWNUM <= (#{pageNum} * #{amount}) -->
+<!-- 			) -->
+<!-- 			WHERE rn > (#{pageNum}-1) * #{amount} -->
+<!-- 		]]> -->
+    </select>
+    
+<!--     리뷰 조회수 증가 -->
+    <update id="revUpHit" parameterType="hashmap">
+    	<![CDATA[
+    		update product_rev set revhit = revhit+1 where revcode=#{revcode}
+    	]]>
+    </update>
+    
+<!--     리뷰내용 조회 -->
+    <select id="revContentView" parameterType="hashmap" resultType="com.lgy.ShoppingMall.dto.PRevDto">
+		select r.revcode, 
+    		   r.revtitle, 
+    		   r.revcont, 
+    		   r.id, 
+    		   r.revhit, 
+    		   r.revdate, 
+    		   r.cartcode, 
+    		   p.proprice, 
+    		   p.proname,
+    		   p.proimg
+		from product_rev r join product p on r.procode = p.procode
+		where r.revcode = #{revcode}
+    </select>
+    
+<!--     리뷰수정 -->
+	<update id="revModify" parameterType="hashmap">
+		update product_rev set revtitle=#{revtitle} , revcont=#{revcont} where revcode=#{revcode} and id=#{id}
+	</update>
+	
+<!-- 	리뷰삭제 -->
+    <delete id="revDelete" parameterType="hashmap">
+    	delete from product_rev where revcode=#{revcode} and id=#{id}
+    </delete>
+    
+    
+<!--     ========== -->
+<!--     리뷰에 단 댓글 조회 -->
+    <select id="revCmtList" parameterType="hashmap" resultType="com.lgy.ShoppingMall.dto.PRevCmtDto">
+    	select cmtcode, cmtcont, cmtdate from rev_comments where revcode=#{revcode} order by cmtcode
+    </select>
+    
+    
+    
+<!--     관리자만 가능하게 하기 관리자페이지에 따로 만들어야 됨 -->
+<!--     리뷰댓글 작성 -->
+    <insert id="revCmtWrite" parameterType="hashmap">
+	    insert into rev_comments(revcode, cmtcode, cmtcont)
+		values(#{revcode}, rev_comments_seq.nextval, #{cmtcont})
+    </insert>
+    
+<!-- 	리뷰 댓글 수정 -->
+	<update id="revCmtModify" parameterType="hashmap">
+		update rev_comments set cmtcont=#{cmtcont} where cmtcode=#{cmtcode}
+	</update>
+	
+<!-- 	리뷰 댓글 삭제 -->
+	<delete id="revCmtDelete" parameterType="hashmap">
+    	delete from rev_comments where cmtcode=#{cmtcode}
+    </delete>
+
+
+</mapper>
